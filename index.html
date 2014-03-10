@@ -14,6 +14,8 @@
 			var sphere, plane;
 			var start = Date.now();
 
+			var ASCIIFY = false;
+
 			init();
 			animate();
 
@@ -30,13 +32,12 @@
 
 				scene = new THREE.Scene();
 
-				var light = new THREE.PointLight( 0xff0000 );
-				light.position.set( 500, 500, 500 );
-				scene.add( light );
+				var pointLight = new THREE.PointLight( 0xffffff );
+				pointLight.position.set( 500, 500, 500 );
+				scene.add( pointLight );
 
-				var light = new THREE.PointLight( 0x0000ff );
-				light.position.set( - 500, - 500, - 500 );
-				scene.add( light );
+				var ambientLight = new THREE.AmbientLight( 0x404040 );
+				scene.add( ambientLight );
 
 				initSceneObjects();
 
@@ -44,33 +45,47 @@
 				renderer.setSize( width, height );
 
 				// ASCII Effect
-
 				effect = new THREE.AsciiEffect( renderer );
 				effect.setSize( width, height );
-
-				// Swap the comment on the following two lines to toggle the ascii effect
-				// container.appendChild( effect.domElement );
-				container.appendChild(renderer.domElement);
+				if(ASCIIFY) {
+					container.appendChild( effect.domElement );
+				} else {
+					container.appendChild(renderer.domElement);
+				}
 
 				window.addEventListener( 'resize', onWindowResize, false );
       }
 
 			function initSceneObjects() {
 				// Sphere
-				sphere = new THREE.Mesh( new THREE.SphereGeometry( 200, 20, 10 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } ) );
+				sphere = new THREE.Mesh( new THREE.SphereGeometry( 100, 20, 10 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } ) );
 				scene.add( sphere );
 
-				// Plane
-				plane = new THREE.Mesh( new THREE.PlaneGeometry( 1000, 400 ), new THREE.MeshBasicMaterial( { color: 0xE0E0E0 } ) );
-				plane.position.y = - 200;
-				plane.rotation.x = - Math.PI / 2;
-				scene.add( plane );
+				// Floor
+				var floorWidth = window.innerWidth * 2;
+				var floorHeight = window.innerHeight * 2;
+				var textureSize = 256;
+
+				var material
+				if (ASCIIFY) {
+					material = new THREE.MeshBasicMaterial( { color: 0xE0E0E0 } );
+				} else {
+					texture = THREE.ImageUtils.loadTexture('grass.jpg');
+					texture.wrapS = THREE.RepeatWrapping;
+					texture.wrapT = THREE.RepeatWrapping;
+					texture.repeat.set( floorWidth / textureSize, floorHeight / textureSize );
+					material = new THREE.MeshBasicMaterial({map: texture});
+				}
+				floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorHeight ), material );
+				floor.position.y = - 200;
+				floor.rotation.x = - Math.PI / 2;
+				scene.add( floor );
 
 				// Wall
 				wall = new THREE.Mesh( new THREE.PlaneGeometry( 3000, 3000 ), new THREE.MeshBasicMaterial( { color: 0xA0A0A0} ));
 				wall.position.y = - 200;
 				wall.position.z = - 200;
-				// scene.add( wall );
+				scene.add( wall );
 			}
 
 			function onWindowResize() {
@@ -78,7 +93,9 @@
 				camera.updateProjectionMatrix();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				effect.setSize( window.innerWidth, window.innerHeight );
+				if(ASCIIFY) {
+					effect.setSize( window.innerWidth, window.innerHeight );
+				}
 			}
 
 			function animate() {
@@ -90,19 +107,25 @@
 			function render() {
 				var timer = Date.now() - start;
 
-				var rotationSpeed = 0.04;
-				var translationSpeed = 10;
+				var rotationSpeed = 0.1;
+				var translationSpeed = 15;
 
 				if (Key.isDown(Key.A)) {
         	sphere.position.x -= translationSpeed;
 					sphere.rotation.z += rotationSpeed;
-        } else if (Key.isDown(Key.D)) {
+        }
+
+				if (Key.isDown(Key.D)) {
 					sphere.position.x += translationSpeed;
 					sphere.rotation.z -= rotationSpeed;
-				} else if (Key.isDown(Key.W)) {
+				}
+
+				if (Key.isDown(Key.W)) {
 					sphere.position.z -= translationSpeed;
 					sphere.rotation.x -= rotationSpeed;
-				} else if (Key.isDown(Key.S)) {
+				}
+
+				if (Key.isDown(Key.S)) {
 					sphere.position.z += translationSpeed;
 					sphere.rotation.x += rotationSpeed;
 				}
