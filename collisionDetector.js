@@ -4,20 +4,20 @@ function detectEnemyCollisions() {
   var originPoint = mainCube.position.clone();
   var pushDistance = 5;
 
-  this.horizontalVertices = [
-    new THREE.Vector3(0, 0, 1),
-    new THREE.Vector3(1, 0, 1),
-    new THREE.Vector3(1, 0, 0),
-    new THREE.Vector3(1, 0, -1),
-    new THREE.Vector3(0, 0, -1),
-    new THREE.Vector3(-1, 0, -1),
-    new THREE.Vector3(-1, 0, 0),
-    new THREE.Vector3(-1, 0, 1)
+  var horizontalVertices = [
+    new THREE.Vector3(0, 0, 100),
+    new THREE.Vector3(100, 0, 100),
+    new THREE.Vector3(100, 0, 0),
+    new THREE.Vector3(100, 0, -100),
+    new THREE.Vector3(0, 0, -100),
+    new THREE.Vector3(-100, 0, -100),
+    new THREE.Vector3(-100, 0, 0),
+    new THREE.Vector3(-100, 0, 100)
   ];
 
-  for (var vertexIndex = 0; vertexIndex < mainCube.geometry.vertices.length; vertexIndex++)
+  for (var vertexIndex = 0; vertexIndex < horizontalVertices.length; vertexIndex++)
   {
-    var localVertex = mainCube.geometry.vertices[vertexIndex].clone();
+    var localVertex = horizontalVertices[vertexIndex].clone();
     var globalVertex = localVertex.applyMatrix4( mainCube.matrix );
     var directionVector = globalVertex.sub( mainCube.position );
     var normalized = directionVector.clone().normalize();
