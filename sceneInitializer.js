@@ -1,14 +1,14 @@
 function initSceneObjects() {
-  // Sphere
-  sphere = new THREE.Mesh( new THREE.SphereGeometry( 100, 20, 10 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } ) );
-  sphere.position.z = -300;
-  scene.add( sphere );
+  // mainCube
+  mainCube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } ) );
+  mainCube.position.z = -300;
+  scene.add( mainCube );
 
   MakeEnemies();
 
   // Floor
-  var floorWidth = 2500;
-  var floorHeight = 1600;
+  var floorWidth = 4000;
+  var floorHeight = 4000;
   var textureSize = 256;
 
   var material
@@ -35,13 +35,13 @@ function initSceneObjects() {
 
 function MakeEnemies() {
   var numEnemies = 10;
-  var spacing = 250;
+  var spacing = 50;
   for(var i = 0; i < numEnemies; i++) {
     var geometry = new THREE.CubeGeometry( 200, 200, 200 );
     var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
     var cube = new THREE.Mesh( geometry, material );
     cube.position.x = i * spacing - numEnemies * spacing / 2;
     scene.add( cube );
-    collidableMeshList.push( cube );
+    enemyMeshList.push( cube );
   }
 }

@@ -15,8 +15,8 @@
 		<script>
 			var container;
 			var camera, scene, renderer, controls;
-			var sphere, plane;
-			var collidableMeshList = [];
+			var mainCube, plane;
+			var enemyMeshList = [];
 
 			var ASCIIFY = false;
 
@@ -30,7 +30,7 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 45, width / height, 1, 5000 );
+				camera = new THREE.PerspectiveCamera( 45, width / height, 1, 500000 );
 				camera.position.y = 3000;
 				camera.rotation.x = -Math.PI / 2;
 
