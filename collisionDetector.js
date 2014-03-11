@@ -1,7 +1,9 @@
-function detectCollisions() {
-  var originPoint = mainCube.position.clone();
+var floorDimensions = 2000;
 
-  /*
+function detectEnemyCollisions() {
+  var originPoint = mainCube.position.clone();
+  var pushDistance = 5;
+
   this.horizontalVertices = [
     new THREE.Vector3(0, 0, 1),
     new THREE.Vector3(1, 0, 1),
@@ -12,7 +14,6 @@ function detectCollisions() {
     new THREE.Vector3(-1, 0, 0),
     new THREE.Vector3(-1, 0, 1)
   ];
-  */
 
   for (var vertexIndex = 0; vertexIndex < mainCube.geometry.vertices.length; vertexIndex++)
   {
@@ -23,25 +24,59 @@ function detectCollisions() {
 
     var ray = new THREE.Raycaster( originPoint, normalized );
     var collisionResults = ray.intersectObjects( enemyMeshList );
-    if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+    if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
       var enemy = collisionResults[0].object;
       enemy.material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
 
       if (normalized.x > 0) {
-        enemy.position.x += 20;
+        enemy.position.x += pushDistance;
       }
 
       if (normalized.x < 0) {
-        enemy.position.x -= 20;
+        enemy.position.x -= pushDistance;
       }
 
       if (normalized.z > 0) {
-        enemy.position.z += 20;
+        enemy.position.z += pushDistance;
       }
 
       if (normalized.z < 0) {
-        enemy.position.z -= 20;
+        enemy.position.z -= pushDistance;
       }
     }
+  }
+}
+
+// super duper hacky way of keeping everyone in bounds
+function detectWallCollisions() {
+  detectBoundryCollisionsPlayer();
+  detectBoundryCollisionsEnemies();
+}
+
+function detectBoundryCollisionsPlayer() {
+  putBackInBounds(mainCube);
+}
+
+function detectBoundryCollisionsEnemies() {
+  for (var i = 0; i < enemyMeshList.length; i++) {
+    putBackInBounds(enemyMeshList[i]);
+  }
+}
+
+function putBackInBounds(misbehavor) {
+  if (misbehavor.position.x > floorDimensions) {
+    misbehavor.position.x = floorDimensions;
+  }
+
+  if (misbehavor.position.x < -floorDimensions) {
+    misbehavor.position.x = -floorDimensions;
+  }
+
+  if (misbehavor.position.z > floorDimensions) {
+    misbehavor.position.z = floorDimensions;
+  }
+
+  if (misbehavor.position.z < -floorDimensions) {
+    misbehavor.position.z = -floorDimensions;
   }
 }

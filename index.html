@@ -11,6 +11,7 @@
 		<script src="movement.js"></script>
 		<script src="sceneInitializer.js"></script>
 		<script src="collisionDetector.js"></script>
+		<script src="liveReload.js"></script>
 
 		<script>
 			var container;
@@ -88,7 +89,8 @@
 
 				controls.update();
 
-				detectCollisions();
+				detectEnemyCollisions();
+				detectWallCollisions();
 			}
 
 		</script>
