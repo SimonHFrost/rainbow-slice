@@ -13,8 +13,9 @@
 			var container;
 			var camera, scene, renderer, controls;
 			var sphere, plane;
+			var collidableMeshList = [];
 
-			var ASCIIFY = true;
+			var ASCIIFY = false;
 
 			init();
 			animate();
@@ -61,13 +62,10 @@
 			function initSceneObjects() {
 				// Sphere
 				sphere = new THREE.Mesh( new THREE.SphereGeometry( 100, 20, 10 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } ) );
+				sphere.position.z = -300;
 				scene.add( sphere );
 
-				// Cube
-				var geometry = new THREE.CubeGeometry( 200, 200, 200 );
-				var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
-				var cube = new THREE.Mesh( geometry, material );
-				scene.add( cube );
+				MakeEnemies();
 
 				// Floor
 				var floorWidth = 1600;
@@ -94,6 +92,19 @@
 				floor.position.y = - 100;
 				floor.rotation.x = - Math.PI / 2;
 				scene.add( floor );
+			}
+
+			function MakeEnemies() {
+				var numEnemies = 10;
+				var spacing = 250;
+				for(var i = 0; i < numEnemies; i++) {
+					var geometry = new THREE.CubeGeometry( 200, 200, 200 );
+					var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
+					var cube = new THREE.Mesh( geometry, material );
+					cube.position.x = i * spacing - numEnemies * spacing / 2;
+					scene.add( cube );
+					collidableMeshList.push( cube );
+				}
 			}
 
 			function onWindowResize() {
@@ -137,6 +148,20 @@
 				}
 
 				controls.update();
+
+				var originPoint = sphere.position.clone();
+				for (var vertexIndex = 0; vertexIndex < sphere.geometry.vertices.length; vertexIndex++)
+				{
+					var localVertex = sphere.geometry.vertices[vertexIndex].clone();
+					var globalVertex = localVertex.applyMatrix4( sphere.matrix );
+					var directionVector = globalVertex.sub( sphere.position );
+
+					var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+					var collisionResults = ray.intersectObjects( collidableMeshList );
+					if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+						collisionResults[0].object.material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
+					}
+				}
 			}
 
 		</script>
