@@ -1,18 +1,17 @@
 function initSceneObjects() {
   // Player
-  mainCube = new THREE.Mesh( new THREE.CubeGeometry( 200, 200, 200 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x0000FF } ) );
+  var cubeSize = 400;
+  mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x0000FF } ) );
   scene.add( mainCube );
 
   // Enemies
   MakeEnemies();
 
   // Floor
-  var floorWidth = 4000;
-  var floorHeight = 4000;
-  var textureSize = 256;
-
+  var floorWidth = FLOOR_DIMENSIONS * 2;
+  var floorDepth = FLOOR_DIMENSIONS * 2;
   var material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x00CC33 } );
-  floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorHeight ), material );
+  floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorDepth ), material );
   floor.position.y = - 100;
   floor.rotation.x = - Math.PI / 2;
   scene.add( floor );

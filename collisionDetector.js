@@ -1,18 +1,18 @@
-var floorDimensions = 2000;
-
 function detectEnemyCollisions() {
   var originPoint = mainCube.position.clone();
   var pushDistance = 5;
 
+  var mainCubeSize = mainCube.geometry.depth / 2;
+
   var horizontalVertices = [
-    new THREE.Vector3(0, 0, 100),
-    new THREE.Vector3(100, 0, 100),
-    new THREE.Vector3(100, 0, 0),
-    new THREE.Vector3(100, 0, -100),
-    new THREE.Vector3(0, 0, -100),
-    new THREE.Vector3(-100, 0, -100),
-    new THREE.Vector3(-100, 0, 0),
-    new THREE.Vector3(-100, 0, 100)
+    new THREE.Vector3(0, 0, mainCubeSize),
+    new THREE.Vector3(mainCubeSize, 0, mainCubeSize),
+    new THREE.Vector3(mainCubeSize, 0, 0),
+    new THREE.Vector3(mainCubeSize, 0, -mainCubeSize),
+    new THREE.Vector3(0, 0, -mainCubeSize),
+    new THREE.Vector3(-mainCubeSize, 0, -mainCubeSize),
+    new THREE.Vector3(-mainCubeSize, 0, 0),
+    new THREE.Vector3(-mainCubeSize, 0, mainCubeSize)
   ];
 
   for (var vertexIndex = 0; vertexIndex < horizontalVertices.length; vertexIndex++)
@@ -64,19 +64,19 @@ function detectBoundryCollisionsEnemies() {
 }
 
 function putBackInBounds(misbehavor) {
-  if (misbehavor.position.x > floorDimensions) {
-    misbehavor.position.x = floorDimensions;
+  if (misbehavor.position.x > FLOOR_DIMENSIONS) {
+    misbehavor.position.x = FLOOR_DIMENSIONS;
   }
 
-  if (misbehavor.position.x < -floorDimensions) {
-    misbehavor.position.x = -floorDimensions;
+  if (misbehavor.position.x < -FLOOR_DIMENSIONS) {
+    misbehavor.position.x = -FLOOR_DIMENSIONS;
   }
 
-  if (misbehavor.position.z > floorDimensions) {
-    misbehavor.position.z = floorDimensions;
+  if (misbehavor.position.z > FLOOR_DIMENSIONS) {
+    misbehavor.position.z = FLOOR_DIMENSIONS;
   }
 
-  if (misbehavor.position.z < -floorDimensions) {
-    misbehavor.position.z = -floorDimensions;
+  if (misbehavor.position.z < -FLOOR_DIMENSIONS) {
+    misbehavor.position.z = -FLOOR_DIMENSIONS;
   }
 }
