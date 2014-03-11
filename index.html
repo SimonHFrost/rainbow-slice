@@ -6,15 +6,15 @@
 	<body>
     <script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
     <script src="https://rawgithub.com/mrdoob/three.js/master/examples/js/effects/AsciiEffect.js"></script>
+		<script src="https://rawgithub.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
     <script src="keyboard.js"></script>
 
 		<script>
-			var container, stats;
-			var camera, scene, renderer;
+			var container;
+			var camera, scene, renderer, controls;
 			var sphere, plane;
-			var start = Date.now();
 
-			var ASCIIFY = false;
+			var ASCIIFY = true;
 
 			init();
 			animate();
@@ -28,7 +28,7 @@
 
 				camera = new THREE.PerspectiveCamera( 45, width / height, 1, 2500 );
 				camera.position.y = 2000;
-				camera.rotation.x = -1.57; // -90 degrees in rads
+				camera.rotation.x = -Math.PI / 2;
 
 				scene = new THREE.Scene();
 
@@ -36,12 +36,12 @@
 				pointLight.position.set( 500, 500, 500 );
 				scene.add( pointLight );
 
-				var ambientLight = new THREE.AmbientLight( 0x404040 );
+				var ambientLight = new THREE.AmbientLight( 0x707070 );
 				scene.add( ambientLight );
 
 				initSceneObjects();
 
-				renderer = new THREE.CanvasRenderer();
+				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( width, height );
 
 				// ASCII Effect
@@ -53,6 +53,8 @@
 					container.appendChild( renderer.domElement );
 				}
 
+				controls = new THREE.OrbitControls(camera, renderer.domElement);
+
 				window.addEventListener( 'resize', onWindowResize, false );
       }
 
@@ -61,31 +63,37 @@
 				sphere = new THREE.Mesh( new THREE.SphereGeometry( 100, 20, 10 ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading } ) );
 				scene.add( sphere );
 
+				// Cube
+				var geometry = new THREE.CubeGeometry( 200, 200, 200 );
+				var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
+				var cube = new THREE.Mesh( geometry, material );
+				scene.add( cube );
+
 				// Floor
-				var floorWidth = window.innerWidth * 2;
-				var floorHeight = window.innerHeight * 2;
+				var floorWidth = 1600;
+				var floorHeight = 900;
 				var textureSize = 256;
 
 				var material
 				if (ASCIIFY) {
-					material = new THREE.MeshBasicMaterial( { color: 0xE0E0E0 } );
+					material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x00CC33 } );
 				} else {
+					// previous texture implementation is broken, use this for now
+					material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x00CC33 } );
+
+					/*
 					texture = THREE.ImageUtils.loadTexture('grass.jpg');
 					texture.wrapS = THREE.RepeatWrapping;
 					texture.wrapT = THREE.RepeatWrapping;
 					texture.repeat.set( floorWidth / textureSize, floorHeight / textureSize );
 					material = new THREE.MeshBasicMaterial({map: texture});
+					*/
 				}
+
 				floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorHeight ), material );
-				floor.position.y = - 200;
+				floor.position.y = - 100;
 				floor.rotation.x = - Math.PI / 2;
 				scene.add( floor );
-
-				// Wall
-				wall = new THREE.Mesh( new THREE.PlaneGeometry( 3000, 3000 ), new THREE.MeshBasicMaterial( { color: 0xA0A0A0} ));
-				wall.position.y = - 200;
-				wall.position.z = - 200;
-				scene.add( wall );
 			}
 
 			function onWindowResize() {
@@ -100,34 +108,26 @@
 
 			function animate() {
 				requestAnimationFrame( animate );
-
 				render();
 			}
 
 			function render() {
-				var timer = Date.now() - start;
-
-				var rotationSpeed = 0.1;
 				var translationSpeed = 15;
 
 				if (Key.isDown(Key.A)) {
         	sphere.position.x -= translationSpeed;
-					sphere.rotation.z += rotationSpeed;
         }
 
 				if (Key.isDown(Key.D)) {
 					sphere.position.x += translationSpeed;
-					sphere.rotation.z -= rotationSpeed;
 				}
 
 				if (Key.isDown(Key.W)) {
 					sphere.position.z -= translationSpeed;
-					sphere.rotation.x -= rotationSpeed;
 				}
 
 				if (Key.isDown(Key.S)) {
 					sphere.position.z += translationSpeed;
-					sphere.rotation.x += rotationSpeed;
 				}
 
 				if (ASCIIFY) {
@@ -135,6 +135,8 @@
 				} else {
 					renderer.render( scene, camera );
 				}
+
+				controls.update();
 			}
 
 		</script>
