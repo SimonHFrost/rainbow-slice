@@ -29,8 +29,8 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 45, width / height, 1, 2500 );
-				camera.position.y = 2000;
+				camera = new THREE.PerspectiveCamera( 45, width / height, 1, 5000 );
+				camera.position.y = 3000;
 				camera.rotation.x = -Math.PI / 2;
 
 				scene = new THREE.Scene();
@@ -87,19 +87,7 @@
 
 				controls.update();
 
-				var originPoint = sphere.position.clone();
-				for (var vertexIndex = 0; vertexIndex < sphere.geometry.vertices.length; vertexIndex++)
-				{
-					var localVertex = sphere.geometry.vertices[vertexIndex].clone();
-					var globalVertex = localVertex.applyMatrix4( sphere.matrix );
-					var directionVector = globalVertex.sub( sphere.position );
-
-					var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-					var collisionResults = ray.intersectObjects( collidableMeshList );
-					if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-						collisionResults[0].object.material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
-					}
-				}
+				detectCollisions();
 			}
 
 		</script>

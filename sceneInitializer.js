@@ -7,8 +7,8 @@ function initSceneObjects() {
   MakeEnemies();
 
   // Floor
-  var floorWidth = 1600;
-  var floorHeight = 900;
+  var floorWidth = 2500;
+  var floorHeight = 1600;
   var textureSize = 256;
 
   var material
