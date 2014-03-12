@@ -3,7 +3,6 @@ var camera, scene, renderer, controls;
 var mainCube, plane, clock;
 var enemyMeshList = [];
 
-var ASCIIFY = false;
 var FLOOR_DIMENSIONS = 2000;
 
 function init() {
@@ -34,14 +33,7 @@ function init() {
   renderer = new THREE.WebGLRenderer();
   renderer.setSize( width, height );
 
-  // ASCII Effect
-  effect = new THREE.AsciiEffect( renderer );
-  effect.setSize( width, height );
-  if(ASCIIFY) {
-    container.appendChild( effect.domElement );
-  } else {
-    container.appendChild( renderer.domElement );
-  }
+  container.appendChild( renderer.domElement );
 
   controls = new THREE.OrbitControls(camera, renderer.domElement);
 
@@ -53,9 +45,6 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
 
   renderer.setSize( window.innerWidth, window.innerHeight );
-  if(ASCIIFY) {
-    effect.setSize( window.innerWidth, window.innerHeight );
-  }
 }
 
 function animate() {
@@ -66,11 +55,7 @@ function animate() {
 function render() {
   updateMovement();
 
-  if (ASCIIFY) {
-    effect.render( scene, camera );
-  } else {
-    renderer.render( scene, camera );
-  }
+  renderer.render( scene, camera );
 
   controls.update();
 
