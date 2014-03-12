@@ -1,12 +1,4 @@
 function initSceneObjects() {
-  // Player
-  var cubeSize = 400;
-  mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x0000FF } ) );
-  scene.add( mainCube );
-
-  // Enemies
-  MakeEnemies();
-
   // Floor
   var floorWidth = FLOOR_DIMENSIONS * 2;
   var floorDepth = FLOOR_DIMENSIONS * 2;
@@ -15,12 +7,23 @@ function initSceneObjects() {
   floor.position.y = - 100;
   floor.rotation.x = - Math.PI / 2;
   scene.add( floor );
+
+  // Player
+  var cubeSize = 400;
+  mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x0000FF } ) );
+  scene.add( mainCube );
+
+  // Enemies
+  makeEnemies();
+
+  // Skybox
+  makeSkyBox();
 }
 
-function MakeEnemies() {
+function makeEnemies() {
   var size = 200;
   var numEnemiesX = 20;
-  var numEnemiesZ = 20
+  var numEnemiesZ = 20;
   var xOffSet = -2000;
   var zOffSet = -2000;
   var spacing = size + 200;
@@ -38,4 +41,31 @@ function MakeEnemies() {
       enemyMeshList.push( cube );
     }
   }
+}
+
+function makeSkyBox() {
+	/*
+
+  var imagePrefix = "images/dawnmountain-";
+	var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+	var imageSuffix = ".png";
+	var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
+
+	var materialArray = [];
+	for (var i = 0; i < 6; i++)
+		materialArray.push( new THREE.MeshBasicMaterial({
+			map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+			side: THREE.BackSide
+		}));
+	var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+
+  */
+
+  // disable skybox textures in local dev due to cors limitations
+
+  var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
+  var skyMaterial = new THREE.MeshBasicMaterial( {color: 0x5555FF, side: THREE.BackSide} );
+  var skyBox = new THREE.Mesh ( skyGeometry, skyMaterial );
+  scene.add( skyBox );
 }

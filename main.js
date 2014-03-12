@@ -7,14 +7,14 @@ var ASCIIFY = false;
 var FLOOR_DIMENSIONS = 2000;
 
 function init() {
-  var width = window.innerWidth || 2 - 20;
-  var height = window.innerHeight || 2 - 20;
+  var width = window.innerWidth || 2;
+  var height = window.innerHeight || 2;
 
   container = document.createElement( 'div' );
   document.body.appendChild( container );
 
   camera = new THREE.PerspectiveCamera( 45, width / height, 1, 500000 );
-  camera.position.y = 5000;
+  camera.position.y = 7000;
   camera.rotation.x = -Math.PI / 2;
 
   scene = new THREE.Scene();
