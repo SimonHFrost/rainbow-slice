@@ -1,8 +1,9 @@
+var FLOOR_DIMENSIONS = 6000;
 var health = 1000;
 
 function detectEnemyCollisions() {
   var originPoint = mainCube.position.clone();
-  var pushDistance = 10;
+  var pushDistance = 20;
 
   var mainCubeSize = mainCube.geometry.depth / 2;
 

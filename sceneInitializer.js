@@ -1,5 +1,19 @@
+var FLOOR_DIMENSIONS = 6000;
+
+function initCameraAndLights() {
+  camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500000 );
+  camera.position.y = 15000;
+  camera.rotation.x = -Math.PI / 2;
+
+  var pointLight = new THREE.PointLight( 0xffffff );
+  pointLight.position.set( 500, 500, 500 );
+  scene.add( pointLight );
+
+  var ambientLight = new THREE.AmbientLight( 0x707070 );
+  scene.add( ambientLight );
+}
+
 function initSceneObjects() {
-  // Floor
   var floorWidth = FLOOR_DIMENSIONS * 2;
   var floorDepth = FLOOR_DIMENSIONS * 2;
   var material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x00CC33 } );
@@ -8,15 +22,12 @@ function initSceneObjects() {
   floor.rotation.x = - Math.PI / 2;
   scene.add( floor );
 
-  // Player
   var cubeSize = 400;
   mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x0000FF } ) );
   scene.add( mainCube );
 
-  // Enemies
   makeEnemies();
 
-  // Skybox
   makeSkyBox();
 }
 
