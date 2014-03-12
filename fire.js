@@ -1,7 +1,11 @@
 var allBullets = [];
+var lastFired = -1;
 
 function fire() {
-  if(clock.getElapsedTime() % 1 <= 0.02) {
+  var currentSecond = Math.floor(clock.getElapsedTime());
+  if(lastFired !== currentSecond) { // fire once a second
+      lastFired = Math.floor(clock.getElapsedTime());
+
       var bulletSize = 50;
       bullet = new THREE.Mesh( new THREE.CubeGeometry( bulletSize, bulletSize, bulletSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 'gray' } ) );
 

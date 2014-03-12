@@ -47,6 +47,38 @@ function detectEnemyCollisions() {
   }
 }
 
+function detectBulletCollisions() {
+  var bulletSize = 25;
+  var pushDistance = 5;
+
+  var horizontalVertices = [
+    new THREE.Vector3(0, 0, bulletSize),
+    new THREE.Vector3(bulletSize, 0, bulletSize),
+    new THREE.Vector3(bulletSize, 0, 0),
+    new THREE.Vector3(bulletSize, 0, -bulletSize),
+    new THREE.Vector3(0, 0, -bulletSize),
+    new THREE.Vector3(-bulletSize, 0, -bulletSize),
+    new THREE.Vector3(-bulletSize, 0, 0),
+    new THREE.Vector3(-bulletSize, 0, bulletSize)
+  ];
+
+  var originPoint = mainCube.position.clone();
+
+  for (var vertexIndex = 0; vertexIndex < horizontalVertices.length; vertexIndex++) {
+    var localVertex = horizontalVertices[vertexIndex].clone();
+    var globalVertex = localVertex.applyMatrix4( mainCube.matrix );
+    var directionVector = globalVertex.sub( mainCube.position );
+    var normalized = directionVector.clone().normalize();
+
+    var ray = new THREE.Raycaster( originPoint, normalized );
+    var collisionResults = ray.intersectObjects( allBullets );
+    if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+      var bullet = collisionResults[0].object;
+      scene.remove(bullet);
+    }
+  }
+}
+
 // super duper hacky way of keeping everyone in bounds
 function detectWallCollisions() {
   detectBoundryCollisionsPlayer();
