@@ -74,6 +74,7 @@ function render() {
 
   controls.update();
 
+  facePlayer();
   fire();
   updateBulletPosition();
 
