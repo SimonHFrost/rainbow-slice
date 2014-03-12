@@ -1,12 +1,15 @@
 var container;
 var camera, scene, renderer, controls;
-var mainCube, plane;
+var mainCube, plane, clock;
 var enemyMeshList = [];
 
 var ASCIIFY = false;
 var FLOOR_DIMENSIONS = 2000;
 
 function init() {
+  clock = new THREE.Clock();
+  clock.start();
+
   var width = window.innerWidth || 2;
   var height = window.innerHeight || 2;
 
@@ -70,6 +73,9 @@ function render() {
   }
 
   controls.update();
+
+  fire();
+  updateBulletPosition();
 
   detectEnemyCollisions();
   detectWallCollisions();

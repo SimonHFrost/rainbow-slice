@@ -22,14 +22,16 @@ function initSceneObjects() {
 
 function makeEnemies() {
   var size = 200;
-  var numEnemiesX = 20;
-  var numEnemiesZ = 20;
-  var xOffSet = -2000;
-  var zOffSet = -2000;
-  var spacing = size + 200;
+  var numEnemiesX = 3;
+  var numEnemiesZ = 3;
+  var xOffSet = -1000;
+  var zOffSet = -1000;
+  var spacing = size + 800;
+
   for(var x = 0; x < numEnemiesX; x++) {
     for(var z = 0; z < numEnemiesZ; z++) {
-      if (x == 5 && z == 5){
+      if (x == 1 && z == 1){
+        // player position
         continue;
       }
       var geometry = new THREE.CubeGeometry( size, size, size );
@@ -62,7 +64,7 @@ function makeSkyBox() {
 
   */
 
-  // disable skybox textures in local dev due to cors limitations
+  // disable skybox textures in local dev due to CORS limitations
 
   var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
   var skyMaterial = new THREE.MeshBasicMaterial( {color: 0x5555FF, side: THREE.BackSide} );
