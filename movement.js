@@ -1,5 +1,5 @@
 function updateMovement() {
-  var translationSpeed = 15;
+  var translationSpeed = 20;
 
   if (Key.isDown(Key.A)) {
     mainCube.position.x -= translationSpeed;

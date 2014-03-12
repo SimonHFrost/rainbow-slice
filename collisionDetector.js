@@ -1,6 +1,8 @@
+var health = 1000;
+
 function detectEnemyCollisions() {
   var originPoint = mainCube.position.clone();
-  var pushDistance = 5;
+  var pushDistance = 10;
 
   var mainCubeSize = mainCube.geometry.depth / 2;
 
@@ -27,6 +29,7 @@ function detectEnemyCollisions() {
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
       var enemy = collisionResults[0].object;
       enemy.material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
+      enemy.dead = true;
 
       if (normalized.x > 0) {
         enemy.position.x += pushDistance;
@@ -49,8 +52,6 @@ function detectEnemyCollisions() {
 
 function detectBulletCollisions() {
   var bulletSize = 25;
-  var pushDistance = 5;
-
   var horizontalVertices = [
     new THREE.Vector3(0, 0, bulletSize),
     new THREE.Vector3(bulletSize, 0, bulletSize),
@@ -64,6 +65,7 @@ function detectBulletCollisions() {
 
   var originPoint = mainCube.position.clone();
 
+  var hit = false;
   for (var vertexIndex = 0; vertexIndex < horizontalVertices.length; vertexIndex++) {
     var localVertex = horizontalVertices[vertexIndex].clone();
     var globalVertex = localVertex.applyMatrix4( mainCube.matrix );
@@ -74,7 +76,23 @@ function detectBulletCollisions() {
     var collisionResults = ray.intersectObjects( allBullets );
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
       var bullet = collisionResults[0].object;
+      hit = true;
+
       scene.remove(bullet);
+    }
+  }
+
+  if (hit) {
+    if(health <= 0) {
+      return;
+    }
+
+    health--;
+    elem = document.getElementById('scoreNumber');
+    elem.innerHTML = 'Health: ' + health;
+
+    if (health === 0) {
+      // alert('if this were for realsies, you would be dead');
     }
   }
 }

@@ -22,15 +22,15 @@ function initSceneObjects() {
 
 function makeEnemies() {
   var size = 200;
-  var numEnemiesX = 3;
-  var numEnemiesZ = 3;
-  var xOffSet = -1000;
-  var zOffSet = -1000;
+  var numEnemiesPerSide = 11;
+  var xOffSet = -5000;
+  var zOffSet = -5000;
   var spacing = size + 800;
 
-  for(var x = 0; x < numEnemiesX; x++) {
-    for(var z = 0; z < numEnemiesZ; z++) {
-      if (x == 1 && z == 1){
+  for(var x = 0; x < numEnemiesPerSide; x++) {
+    for(var z = 0; z < numEnemiesPerSide; z++) {
+      var playerPosition = Math.floor(numEnemiesPerSide / 2);
+      if (x == playerPosition && z == playerPosition){
         // player position
         continue;
       }
@@ -67,7 +67,7 @@ function makeSkyBox() {
   // disable skybox textures in local dev due to CORS limitations
 
   var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-  var skyMaterial = new THREE.MeshBasicMaterial( {color: 0x5555FF, side: THREE.BackSide} );
+  var skyMaterial = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.BackSide} );
   var skyBox = new THREE.Mesh ( skyGeometry, skyMaterial );
   scene.add( skyBox );
 }

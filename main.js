@@ -3,20 +3,20 @@ var camera, scene, renderer, controls;
 var mainCube, plane, clock;
 var enemyMeshList = [];
 
-var FLOOR_DIMENSIONS = 2000;
+var FLOOR_DIMENSIONS = 6000;
 
 function init() {
   clock = new THREE.Clock();
   clock.start();
 
-  var width = window.innerWidth || 2;
-  var height = window.innerHeight || 2;
+  var width = window.innerWidth;
+  var height = window.innerHeight;
 
   container = document.createElement( 'div' );
   document.body.appendChild( container );
 
   camera = new THREE.PerspectiveCamera( 45, width / height, 1, 500000 );
-  camera.position.y = 7000;
+  camera.position.y = 15000;
   camera.rotation.x = -Math.PI / 2;
 
   scene = new THREE.Scene();
@@ -44,7 +44,7 @@ function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
-  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setSize( window.innerWidth, window.innerHeight - 100 );
 }
 
 function animate() {
