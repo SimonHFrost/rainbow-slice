@@ -1,52 +1,54 @@
-// Globals
-var camera, scene, renderer, controls;
-var mainCube, clock;
-var enemyMeshList = [];
+var main = {
+  // Globals
+  camera : '',
+  scene : '',
+  renderer : '',
+  controls : '',
 
-function init() {
-  clock = new THREE.Clock();
-  clock.start();
+  mainCube : '',
+  clock : '',
+  enemyMeshList : [],
 
-  scene = new THREE.Scene();
-  initCameraAndLights();
-  initSceneObjects();
+  init : function() {
+    clock = new THREE.Clock();
+    clock.start();
 
-  renderer = new THREE.WebGLRenderer();
-  renderer.setSize( window.innerWidth, window.innerHeight );
+    scene = new THREE.Scene();
+    sceneInitializer.initCameraAndLights();
+    sceneInitializer.initSceneObjects();
 
-  var container = document.createElement( 'div' );
-  document.body.appendChild( container );
-  container.appendChild( renderer.domElement );
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
 
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+    var container = document.createElement( 'div' );
+    document.body.appendChild( container );
+    container.appendChild( renderer.domElement );
 
-  window.addEventListener( 'resize', onWindowResize, false );
-}
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+    window.addEventListener( 'resize', this.onWindowResize, false );
+  },
 
-  renderer.setSize( window.innerWidth, window.innerHeight);
-}
+  onWindowResize : function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 
-function animate() {
-  requestAnimationFrame( animate );
-  render();
-}
+    renderer.setSize( window.innerWidth, window.innerHeight);
+  },
 
-function render() {
-  updateMovement();
+  render : function() {
+    movement.updateMovement();
 
-  renderer.render( scene, camera );
+    renderer.render( scene, camera );
 
-  controls.update();
+    controls.update();
 
-  facePlayer();
-  fire();
-  updateBulletPosition();
+    fire.facePlayer();
+    fire.fire();
+    fire.updateBulletPosition();
 
-  detectEnemyCollisions();
-  detectWallCollisions();
-  detectBulletCollisions();
-}
+    collisionDetector.detectEnemyCollisions();
+    collisionDetector.detectWallCollisions();
+    collisionDetector.detectBulletCollisions();
+  }
+};

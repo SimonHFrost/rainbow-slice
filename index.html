@@ -9,17 +9,22 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.3.0/two.min.js"></script>
 		<script src="https://rawgithub.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
-		<script src="keyboard.js"></script>
+		<script src="lib/keyboard.js"></script>
+		<script src="lib/liveReload.js"></script>
 		<script src="movement.js"></script>
 		<script src="sceneInitializer.js"></script>
 		<script src="collisionDetector.js"></script>
 		<script src="fire.js"></script>
-		<script src="liveReload.js"></script>
 		<script src="main.js"></script>
 		<script>
 			// start everything
-			init();
+			main.init();
 			animate();
+
+			function animate() {
+				requestAnimationFrame( animate );
+				main.render();
+			}
 		</script>
 	</body>
 </html>
