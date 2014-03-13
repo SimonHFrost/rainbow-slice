@@ -116,20 +116,20 @@ var collisionDetector = {
   },
 
   putBackInBounds : function(misbehavor) {
-    if (misbehavor.position.x > this.FLOOR_DIMENSIONS) {
-      misbehavor.position.x = this.FLOOR_DIMENSIONS;
+    if (misbehavor.position.x > this.FLOOR_DIMENSIONS/2) {
+      misbehavor.position.x = this.FLOOR_DIMENSIONS/2;
     }
 
-    if (misbehavor.position.x < -this.FLOOR_DIMENSIONS) {
-      misbehavor.position.x = -this.FLOOR_DIMENSIONS;
+    if (misbehavor.position.x < -this.FLOOR_DIMENSIONS/2) {
+      misbehavor.position.x = -this.FLOOR_DIMENSIONS/2;
     }
 
-    if (misbehavor.position.z > this.FLOOR_DIMENSIONS) {
-      misbehavor.position.z = this.FLOOR_DIMENSIONS;
+    if (misbehavor.position.z > this.FLOOR_DIMENSIONS/2) {
+      misbehavor.position.z = this.FLOOR_DIMENSIONS/2;
     }
 
-    if (misbehavor.position.z < -this.FLOOR_DIMENSIONS) {
-      misbehavor.position.z = -this.FLOOR_DIMENSIONS;
+    if (misbehavor.position.z < -this.FLOOR_DIMENSIONS/2) {
+      misbehavor.position.z = -this.FLOOR_DIMENSIONS/2;
     }
   },
 };

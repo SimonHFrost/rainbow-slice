@@ -1,5 +1,6 @@
 var sceneInitializer = {
-  FLOOR_DIMENSIONS : 6000,
+  FLOOR_DIMENSIONS : 3000,
+  ENEMY_BORDER_WIDTH : 1000,
 
   initCameraAndLights : function() {
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500000 );
@@ -32,28 +33,44 @@ var sceneInitializer = {
   },
 
   makeEnemies : function() {
+    var numEnemiesPerSide = 5;
+    var numEnemies = 10;
+
+    var x, z;
+
+    while (numEnemies--) {
+        var enemyAlreadyAtLocation = true;
+
+        while(enemyAlreadyAtLocation) {
+          x = Math.floor(Math.random() * numEnemiesPerSide);
+          z = Math.floor(Math.random() * numEnemiesPerSide);
+          enemyAlreadyAtLocation = _.some(main.enemyMeshList, function(enemy) {
+            return enemy.gridX == x && enemy.gridZ == z;
+          });
+        }
+
+        console.log('making enemy ' + numEnemies + ' at coordinates ' + x + ',' + z);
+        this.instantiateEnemy(x, z);
+    }
+  },
+
+  instantiateEnemy : function(x, z) {
     var size = 200;
-    var numEnemiesPerSide = 11;
-    var xOffSet = -5000;
-    var zOffSet = -5000;
+    var xOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
+    var zOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
     var spacing = size + 800;
 
-    for(var x = 0; x < numEnemiesPerSide; x++) {
-      for(var z = 0; z < numEnemiesPerSide; z++) {
-        var playerPosition = Math.floor(numEnemiesPerSide / 2);
-        if (x == playerPosition && z == playerPosition){
-          // player position
-          continue;
-        }
-        var geometry = new THREE.CubeGeometry( size, size, size );
-        var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
-        var cube = new THREE.Mesh( geometry, material );
-        cube.position.x = x * spacing + xOffSet;
-        cube.position.z = z * spacing + zOffSet;
-        scene.add( cube );
-        main.enemyMeshList.push( cube );
-      }
-    }
+    var geometry = new THREE.CubeGeometry( size, size, size );
+    var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
+    var cube = new THREE.Mesh( geometry, material );
+    cube.position.x = x * spacing + xOffSet;
+    cube.position.z = z * spacing + zOffSet;
+    scene.add( cube );
+
+    cube.gridX = x;
+    cube.gridZ = z;
+
+    main.enemyMeshList.push( cube );
   },
 
   makeSkyBox : function() {

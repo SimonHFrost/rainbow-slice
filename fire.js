@@ -14,8 +14,9 @@ var fire = {
           return el.dead !== true;
         });
         if(nonDeadEnemies.length === 0) {
-          alert('You monster. You killed everyone!');
-          location.reload();
+          elem = document.getElementById('scoreNumber');
+          elem.innerHTML = 'You won with ' + collisionDetector.health + ' health left!';
+
           return;
         }
         var enemyToFire = nonDeadEnemies[Math.floor((Math.random() * nonDeadEnemies.length))];
