@@ -39,17 +39,21 @@ var sceneInitializer = {
     var x, z;
 
     while (numEnemies--) {
-        var enemyAlreadyAtLocation = true;
+        var somethingAlreadyAtLocation = true;
 
-        while(enemyAlreadyAtLocation) {
+        while(somethingAlreadyAtLocation) {
           x = Math.floor(Math.random() * numEnemiesPerSide);
           z = Math.floor(Math.random() * numEnemiesPerSide);
-          enemyAlreadyAtLocation = _.some(main.enemyMeshList, function(enemy) {
+
+          somethingAlreadyAtLocation = _.some(main.enemyMeshList, function(enemy) {
             return enemy.gridX == x && enemy.gridZ == z;
           });
+
+          if (x === 3 && z === 3) {
+            somethingAlreadyAtLocation = true;
+          }
         }
 
-        console.log('making enemy ' + numEnemies + ' at coordinates ' + x + ',' + z);
         this.instantiateEnemy(x, z);
     }
   },
