@@ -111,26 +111,6 @@ var sceneInitializer = {
   },
 
   makeSkyBox : function() {
-    /*
-
-    var imagePrefix = "images/dawnmountain-";
-    var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-    var imageSuffix = ".png";
-    var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-
-    var materialArray = [];
-    for (var i = 0; i < 6; i++)
-        materialArray.push( new THREE.MeshBasicMaterial({
-        map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-        side: THREE.BackSide
-    }));
-    var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-    var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-
-    */
-
-    // disable skybox textures in local dev due to CORS limitations
-
     var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
     var skyMaterial = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.BackSide} );
     var skyBox = new THREE.Mesh ( skyGeometry, skyMaterial );

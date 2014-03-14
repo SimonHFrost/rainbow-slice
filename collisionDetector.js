@@ -52,49 +52,22 @@ var collisionDetector = {
     }
   },
 
+
   detectBulletCollisions : function() {
-    var bulletSize = 25;
-    var horizontalVertices = [
-      new THREE.Vector3(0, 0, bulletSize),
-      new THREE.Vector3(bulletSize, 0, bulletSize),
-      new THREE.Vector3(bulletSize, 0, 0),
-      new THREE.Vector3(bulletSize, 0, -bulletSize),
-      new THREE.Vector3(0, 0, -bulletSize),
-      new THREE.Vector3(-bulletSize, 0, -bulletSize),
-      new THREE.Vector3(-bulletSize, 0, 0),
-      new THREE.Vector3(-bulletSize, 0, bulletSize)
-    ];
+    var right = mainCube.position.x + 200;
+    var left = mainCube.position.x - 200;
+    var up = mainCube.position.z + 200;
+    var down = mainCube.position.z - 200;
 
-    var originPoint = mainCube.position.clone();
-
-    var hit = false;
-    for (var vertexIndex = 0; vertexIndex < horizontalVertices.length; vertexIndex++) {
-      var localVertex = horizontalVertices[vertexIndex].clone();
-      var globalVertex = localVertex.applyMatrix4( mainCube.matrix );
-      var directionVector = globalVertex.sub( mainCube.position );
-      var normalized = directionVector.clone().normalize();
-
-      var ray = new THREE.Raycaster( originPoint, normalized );
-      var collisionResults = ray.intersectObjects( fire.allBullets );
-      if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-        var bullet = collisionResults[0].object;
-        hit = true;
-
-        scene.remove(bullet);
-      }
-    }
-
-    if (hit) {
-      if(this.health <= 0) {
-        return;
-      }
-
-      this.health--;
-      elem = document.getElementById('scoreNumber');
-      elem.innerHTML = 'Health: ' + this.health;
-
-      if (this.health === 0) {
-        // alert('if this were for realsies, you would be dead');
+    for(var i = 0; i < fire.allBullets.length; i++) {
+      var bullet = fire.allBullets[i];
+      if (left < bullet.position.x && bullet.position.x < right) {
+        if (down < bullet.position.z && bullet.position.z < up) {
+          this.health--;
+          elem = document.getElementById('scoreNumber');
+          elem.innerHTML = 'Health: ' + this.health;
+          scene.remove(bullet);
+        }
       }
     }
   },
