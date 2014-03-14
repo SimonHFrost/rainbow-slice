@@ -9,7 +9,7 @@ var fire = {
         this.lastFired = clock.getElapsedTime().toFixed(this.FIRE_RATE);
 
         var bulletSize = 50;
-        bullet = new THREE.Mesh( new THREE.CubeGeometry( bulletSize, bulletSize, bulletSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 'black' } ) );
+        bullet = new THREE.Mesh( new THREE.CubeGeometry( bulletSize, bulletSize, bulletSize ), materials.BULLET );
 
         var nonDeadEnemies = main.enemyMeshList.filter(function (el) {
           return el.dead !== true;

@@ -30,7 +30,7 @@ var collisionDetector = {
       var collisionResults = ray.intersectObjects( main.enemyMeshList );
       if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
         var enemy = collisionResults[0].object;
-        enemy.material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xCC0000 } );
+        enemy.material = materials.DEAD;
         enemy.dead = true;
 
         if (normalized.x > 0) {
@@ -54,28 +54,31 @@ var collisionDetector = {
 
 
   detectBulletCollisions : function() {
+    for(var i = 0; i < fire.allBullets.length; i++) {
+      this.detectBulletMainCubeCollision(fire.allBullets[i]);
+    }
+  },
+
+  detectBulletMainCubeCollision : function(bullet) {
     var right = mainCube.position.x + 200;
     var left = mainCube.position.x - 200;
     var up = mainCube.position.z + 200;
     var down = mainCube.position.z - 200;
 
-    for(var i = 0; i < fire.allBullets.length; i++) {
-      var bullet = fire.allBullets[i];
-      if (left < bullet.position.x && bullet.position.x < right) {
-        if (down < bullet.position.z && bullet.position.z < up) {
-          if(bullet.used) {
-            continue;
-          }
-
-          if (this.health > 0) {
-            this.health--;
-          }
-
-          elem = document.getElementById('scoreNumber');
-          elem.innerHTML = 'Health: ' + this.health;
-          bullet.used = true; // hack
-          scene.remove(bullet);
+    if (left < bullet.position.x && bullet.position.x < right) {
+      if (down < bullet.position.z && bullet.position.z < up) {
+        if(bullet.used) {
+          return;
         }
+
+        if (this.health > 0) {
+          this.health--;
+        }
+
+        elem = document.getElementById('scoreNumber');
+        elem.innerHTML = 'Health: ' + this.health;
+        bullet.used = true; // hack
+        scene.remove(bullet);
       }
     }
   },

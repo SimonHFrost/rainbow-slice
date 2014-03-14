@@ -1,7 +1,6 @@
 var sceneInitializer = {
   FLOOR_DIMENSIONS : 3000,
   ENEMY_BORDER_WIDTH : 1000,
-  BASIC_MATERIAL : new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xFF00FF }),
 
   initCameraAndLights : function() {
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500000 );
@@ -27,8 +26,7 @@ var sceneInitializer = {
     var floorWidth = this.FLOOR_DIMENSIONS * 2;
     var floorDepth = this.FLOOR_DIMENSIONS * 2;
 
-    var material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0x00CC33 } );
-    floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorDepth), material );
+    floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorDepth), materials.GROUND );
     floor.position.y = - 100;
     floor.rotation.x = - Math.PI / 2;
     scene.add( floor );
@@ -40,7 +38,7 @@ var sceneInitializer = {
     var wallWidth = 400;
     var wallDepth = 200;
     var floorBoundry = this.FLOOR_DIMENSIONS + wallWidth/2;
-    var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), this.BASIC_MATERIAL);
+    var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), materials.BASIC);
 
     var eastWall = wallTemplate.clone();
     eastWall.position.x = floorBoundry;
@@ -65,7 +63,7 @@ var sceneInitializer = {
 
   makeMainCube : function() {
     var cubeSize = 400;
-    mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), this.BASIC_MATERIAL);
+    mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), materials.BASIC);
     scene.add(mainCube);
   },
 
@@ -98,7 +96,7 @@ var sceneInitializer = {
     var spacing = size + 800;
 
     var geometry = new THREE.CubeGeometry( size, size, size );
-    var material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xFFFFFF } );
+    var material = materials.ENEMY;
     var cube = new THREE.Mesh( geometry, material );
     cube.position.x = x * spacing + xOffSet;
     cube.position.z = z * spacing + zOffSet;
@@ -112,8 +110,7 @@ var sceneInitializer = {
 
   makeSkyBox : function() {
     var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-    var skyMaterial = new THREE.MeshBasicMaterial( {color: 0xCCCCFF, side: THREE.BackSide} );
-    var skyBox = new THREE.Mesh ( skyGeometry, skyMaterial );
+    var skyBox = new THREE.Mesh ( skyGeometry, materials.SKY );
     scene.add( skyBox );
   },
 
