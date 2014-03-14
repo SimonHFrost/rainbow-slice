@@ -5,14 +5,14 @@ var sceneInitializer = {
 
   initCameraAndLights : function() {
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500000 );
-    camera.position.y = 15000;
+    camera.position.y = 10000;
     camera.rotation.x = -Math.PI / 2;
 
-    var pointLight = new THREE.PointLight( 0xffffff );
-    pointLight.position.set( 500, 500, 500 );
+    var pointLight = new THREE.PointLight( 0xDDDDDD );
+    pointLight.position.set( 5000, 5000, 5000 );
     scene.add( pointLight );
 
-    var ambientLight = new THREE.AmbientLight( 0x707070 );
+    var ambientLight = new THREE.AmbientLight( 0x505050 );
     scene.add( ambientLight );
   },
 
@@ -98,7 +98,7 @@ var sceneInitializer = {
     var spacing = size + 800;
 
     var geometry = new THREE.CubeGeometry( size, size, size );
-    var material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF} );
+    var material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xFFFFFF } );
     var cube = new THREE.Mesh( geometry, material );
     cube.position.x = x * spacing + xOffSet;
     cube.position.z = z * spacing + zOffSet;
@@ -112,7 +112,7 @@ var sceneInitializer = {
 
   makeSkyBox : function() {
     var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-    var skyMaterial = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.BackSide} );
+    var skyMaterial = new THREE.MeshBasicMaterial( {color: 0xCCCCFF, side: THREE.BackSide} );
     var skyBox = new THREE.Mesh ( skyGeometry, skyMaterial );
     scene.add( skyBox );
   },

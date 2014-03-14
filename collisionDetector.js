@@ -30,7 +30,7 @@ var collisionDetector = {
       var collisionResults = ray.intersectObjects( main.enemyMeshList );
       if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
         var enemy = collisionResults[0].object;
-        enemy.material = new THREE.MeshBasicMaterial( {color: 0xCC0000} );
+        enemy.material = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xCC0000 } );
         enemy.dead = true;
 
         if (normalized.x > 0) {
@@ -63,9 +63,17 @@ var collisionDetector = {
       var bullet = fire.allBullets[i];
       if (left < bullet.position.x && bullet.position.x < right) {
         if (down < bullet.position.z && bullet.position.z < up) {
-          this.health--;
+          if(bullet.used) {
+            continue;
+          }
+
+          if (this.health > 0) {
+            this.health--;
+          }
+
           elem = document.getElementById('scoreNumber');
           elem.innerHTML = 'Health: ' + this.health;
+          bullet.used = true; // hack
           scene.remove(bullet);
         }
       }

@@ -1,14 +1,15 @@
 var fire = {
   allBullets : [],
   lastFired : -1,
+  FIRE_RATE: 10,
 
   fire : function() {
-    var currentSecond = Math.floor(clock.getElapsedTime());
+    var currentSecond = clock.getElapsedTime().toFixed(this.FIRE_RATE);
     if(this.lastFired !== currentSecond) { // fire once a second
-        this.lastFired = Math.floor(clock.getElapsedTime());
+        this.lastFired = clock.getElapsedTime().toFixed(this.FIRE_RATE);
 
         var bulletSize = 50;
-        bullet = new THREE.Mesh( new THREE.CubeGeometry( bulletSize, bulletSize, bulletSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 'white' } ) );
+        bullet = new THREE.Mesh( new THREE.CubeGeometry( bulletSize, bulletSize, bulletSize ), new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 'black' } ) );
 
         var nonDeadEnemies = main.enemyMeshList.filter(function (el) {
           return el.dead !== true;
@@ -42,7 +43,7 @@ var fire = {
   },
 
   updateBulletPosition : function() {
-    var speed = 10;
+    var speed = 25;
     for(var i = 0; i < this.allBullets.length; i++){
       this.allBullets[i].position.x += this.allBullets[i].direction.x * speed;
       this.allBullets[i].position.z += this.allBullets[i].direction.z * speed;
