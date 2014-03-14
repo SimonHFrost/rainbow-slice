@@ -76,12 +76,13 @@ var sceneInitializer = {
 
         var x;
         var z;
+
         while(somethingAlreadyAtLocation) {
           x = Math.floor(Math.random() * numEnemiesPerSide);
           z = Math.floor(Math.random() * numEnemiesPerSide);
 
           somethingAlreadyAtLocation = _.some(main.enemyMeshList, function(enemy) {
-            return enemy.gridX == x && enemy.gridZ == z;
+            return (enemy.gridX == x && enemy.gridZ == z) || (x == 2 && z == 2);
           });
         }
 

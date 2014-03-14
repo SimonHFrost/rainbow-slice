@@ -56,6 +56,7 @@ var collisionDetector = {
   detectBulletCollisions : function() {
     for(var i = 0; i < fire.allBullets.length; i++) {
       this.detectBulletMainCubeCollision(fire.allBullets[i]);
+      this.deleteIfOutOfBounds(fire.allBullets[i]);
     }
   },
 
@@ -116,4 +117,22 @@ var collisionDetector = {
       misbehavor.position.z = -this.FLOOR_DIMENSIONS/2;
     }
   },
+
+  deleteIfOutOfBounds : function(misbehavor) {
+    if (misbehavor.position.x > this.FLOOR_DIMENSIONS/2) {
+      scene.remove(misbehavor);
+    }
+
+    if (misbehavor.position.x < -this.FLOOR_DIMENSIONS/2) {
+      scene.remove(misbehavor);
+    }
+
+    if (misbehavor.position.z > this.FLOOR_DIMENSIONS/2) {
+      scene.remove(misbehavor);
+    }
+
+    if (misbehavor.position.z < -this.FLOOR_DIMENSIONS/2) {
+      scene.remove(misbehavor);
+    }
+  }
 };
