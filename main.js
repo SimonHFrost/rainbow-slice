@@ -40,9 +40,9 @@ var main = {
 
     controls.update();
 
-    fire.facePlayer();
-    fire.fire();
-    fire.updateBulletPosition();
+    shooting.facePlayer();
+    shooting.fire();
+    shooting.updateBulletPosition();
 
     boundryCollisionDetector.detectWallCollisions();
     movementCollisionDetector.detectEnemyCollisions();

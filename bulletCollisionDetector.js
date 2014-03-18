@@ -1,4 +1,7 @@
 var bulletCollisionDetector = {
+  PLAYER_WIDTH_HALF : sceneInitializer.PLAYER_WIDTH/2,
+  ENEMY_WIDTH_HALF : sceneInitializer.ENEMY_WIDTH/2,
+
   detectBulletCollisions : function() {
     for(var i = 0; i < sceneObjects.allBullets.length; i++) {
       this.detectBulletPlayerCollision(sceneObjects.allBullets[i]);
@@ -7,10 +10,10 @@ var bulletCollisionDetector = {
   },
 
   detectBulletPlayerCollision : function(bullet) {
-    var right = sceneObjects.player.position.x + 200;
-    var left = sceneObjects.player.position.x - 200;
-    var up = sceneObjects.player.position.z + 200;
-    var down = sceneObjects.player.position.z - 200;
+    var right = sceneObjects.player.position.x + this.PLAYER_WIDTH_HALF;
+    var left = sceneObjects.player.position.x - this.PLAYER_WIDTH_HALF;
+    var up = sceneObjects.player.position.z + this.PLAYER_WIDTH_HALF;
+    var down = sceneObjects.player.position.z - this.PLAYER_WIDTH_HALF;
 
     if (left < bullet.position.x && bullet.position.x < right) {
       if (down < bullet.position.z && bullet.position.z < up) {
@@ -18,12 +21,12 @@ var bulletCollisionDetector = {
           return;
         }
 
-        if (boundryCollisionDetector.health > 0) {
-          boundryCollisionDetector.health--;
+        if (story.health > 0) {
+          story.health--;
         }
 
         elem = document.getElementById('scoreNumber');
-        elem.innerHTML = 'Health: ' + boundryCollisionDetector.health;
+        elem.innerHTML = 'Health: ' + story.health;
         bullet.used = true; // hack
         scene.remove(bullet);
       }
@@ -38,10 +41,10 @@ var bulletCollisionDetector = {
         continue;
       }
 
-      var right = enemy.position.x + 100;
-      var left = enemy.position.x - 100;
-      var up = enemy.position.z + 100;
-      var down = enemy.position.z - 100;
+      var right = enemy.position.x + this.ENEMY_WIDTH_HALF;
+      var left = enemy.position.x - this.ENEMY_WIDTH_HALF;
+      var up = enemy.position.z + this.ENEMY_WIDTH_HALF;
+      var down = enemy.position.z - this.ENEMY_WIDTH_HALF;
 
       if (left < bullet.position.x && bullet.position.x < right) {
         if(down < bullet.position.z && bullet.position.z < up) {

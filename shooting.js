@@ -1,4 +1,4 @@
-var fire = {
+var shooting = {
   lastFired : -1,
   FIRE_RATE: 10,
 
