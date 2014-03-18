@@ -1,17 +1,16 @@
 var bulletCollisionDetector = {
   detectBulletCollisions : function() {
-    for(var i = 0; i < fire.allBullets.length; i++) {
-      this.detectBulletMainCubeCollision(fire.allBullets[i]);
-      this.detectBulletEnemyCollision(fire.allBullets[i]);
-      collisionDetector.deleteIfOutOfBounds(fire.allBullets[i]);
+    for(var i = 0; i < sceneObjects.allBullets.length; i++) {
+      this.detectBulletPlayerCollision(sceneObjects.allBullets[i]);
+      this.detectBulletEnemyCollision(sceneObjects.allBullets[i]);
     }
   },
 
-  detectBulletMainCubeCollision : function(bullet) {
-    var right = mainCube.position.x + 200;
-    var left = mainCube.position.x - 200;
-    var up = mainCube.position.z + 200;
-    var down = mainCube.position.z - 200;
+  detectBulletPlayerCollision : function(bullet) {
+    var right = sceneObjects.player.position.x + 200;
+    var left = sceneObjects.player.position.x - 200;
+    var up = sceneObjects.player.position.z + 200;
+    var down = sceneObjects.player.position.z - 200;
 
     if (left < bullet.position.x && bullet.position.x < right) {
       if (down < bullet.position.z && bullet.position.z < up) {
@@ -19,12 +18,12 @@ var bulletCollisionDetector = {
           return;
         }
 
-        if (collisionDetector.health > 0) {
-          collisionDetector.health--;
+        if (boundryCollisionDetector.health > 0) {
+          boundryCollisionDetector.health--;
         }
 
         elem = document.getElementById('scoreNumber');
-        elem.innerHTML = 'Health: ' + collisionDetector.health;
+        elem.innerHTML = 'Health: ' + boundryCollisionDetector.health;
         bullet.used = true; // hack
         scene.remove(bullet);
       }
@@ -32,8 +31,8 @@ var bulletCollisionDetector = {
   },
 
   detectBulletEnemyCollision : function(bullet) {
-    for(var i = 0; i < main.enemyMeshList.length; i++) {
-      var enemy = main.enemyMeshList[i];
+    for(var i = 0; i < sceneObjects.enemies.length; i++) {
+      var enemy = sceneObjects.enemies[i];
 
       if (enemy === bullet.enemyToFire) {
         continue;

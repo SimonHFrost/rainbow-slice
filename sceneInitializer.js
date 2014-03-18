@@ -17,7 +17,7 @@ var sceneInitializer = {
 
   initSceneObjects : function() {
     this.makeArena();
-    this.makeMainCube();
+    this.makePlayer();
     this.makeEnemies();
     this.makeSkyBox();
   },
@@ -61,10 +61,10 @@ var sceneInitializer = {
     scene.add(northWall);
   },
 
-  makeMainCube : function() {
+  makePlayer : function() {
     var cubeSize = 400;
-    mainCube = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), materials.BASIC);
-    scene.add(mainCube);
+    sceneObjects.player = new THREE.Mesh( new THREE.CubeGeometry( cubeSize, cubeSize, cubeSize ), materials.BASIC);
+    scene.add(sceneObjects.player);
   },
 
   makeEnemies : function() {
@@ -81,7 +81,7 @@ var sceneInitializer = {
           x = Math.floor(Math.random() * numEnemiesPerSide);
           z = Math.floor(Math.random() * numEnemiesPerSide);
 
-          somethingAlreadyAtLocation = _.some(main.enemyMeshList, function(enemy) {
+          somethingAlreadyAtLocation = _.some(sceneObjects.enemies, function(enemy) {
             return (enemy.gridX == x && enemy.gridZ == z) || (x == 2 && z == 2);
           });
         }
@@ -106,7 +106,7 @@ var sceneInitializer = {
     cube.gridX = x;
     cube.gridZ = z;
 
-    main.enemyMeshList.push( cube );
+    sceneObjects.enemies.push( cube );
   },
 
   makeSkyBox : function() {

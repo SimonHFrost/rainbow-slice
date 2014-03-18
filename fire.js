@@ -1,5 +1,4 @@
 var fire = {
-  allBullets : [],
   lastFired : -1,
   FIRE_RATE: 10,
 
@@ -11,7 +10,7 @@ var fire = {
         var bulletSize = 50;
         bullet = new THREE.Mesh( new THREE.CubeGeometry( bulletSize, bulletSize, bulletSize ), materials.BULLET );
 
-        var nonDeadEnemies = main.enemyMeshList.filter(function (el) {
+        var nonDeadEnemies = sceneObjects.enemies.filter(function (el) {
           return el.dead !== true;
         });
         if(nonDeadEnemies.length === 0) {
@@ -25,29 +24,29 @@ var fire = {
         bullet.position.z = enemyToFire.position.z;
 
         var pLocal = new THREE.Vector3( 0, 0, -1 );
-        var pWorld = pLocal.applyMatrix4( mainCube.matrixWorld );
+        var pWorld = pLocal.applyMatrix4( sceneObjects.player.matrixWorld );
         var dir = pWorld.sub( bullet.position ).normalize();
 
         bullet.direction = dir;
 
-        this.allBullets.push( bullet );
+        sceneObjects.allBullets.push( bullet );
         scene.add( bullet );
     }
   },
 
   facePlayer : function() {
-    for(var i = 0; i < main.enemyMeshList.length; i++) {
-      if (main.enemyMeshList[i].dead !== true) {
-        main.enemyMeshList[i].lookAt( mainCube.position );
+    for(var i = 0; i < sceneObjects.enemies.length; i++) {
+      if (sceneObjects.enemies[i].dead !== true) {
+        sceneObjects.enemies[i].lookAt( sceneObjects.player.position );
       }
     }
   },
 
   updateBulletPosition : function() {
     var speed = 25;
-    for(var i = 0; i < this.allBullets.length; i++){
-      this.allBullets[i].position.x += this.allBullets[i].direction.x * speed;
-      this.allBullets[i].position.z += this.allBullets[i].direction.z * speed;
+    for(var i = 0; i < sceneObjects.allBullets.length; i++){
+      sceneObjects.allBullets[i].position.x += sceneObjects.allBullets[i].direction.x * speed;
+      sceneObjects.allBullets[i].position.z += sceneObjects.allBullets[i].direction.z * speed;
     }
   }
 };

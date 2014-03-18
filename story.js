@@ -1,9 +1,9 @@
 var story = {
   triggerEnding : function() {
     elem = document.getElementById('scoreNumber');
-    elem.innerHTML = 'You won with ' + collisionDetector.health + ' health left!';
+    elem.innerHTML = 'You won with ' + boundryCollisionDetector.health + ' health left!';
 
-    _.each(fire.allBullets, function(bullet) {
+    _.each(sceneObjects.allBullets, function(bullet) {
       scene.remove(bullet);
     });
   }

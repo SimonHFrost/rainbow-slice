@@ -4,10 +4,7 @@ var main = {
   scene : '',
   renderer : '',
   controls : '',
-
-  mainCube : '',
   clock : '',
-  enemyMeshList : [],
 
   init : function() {
     clock = new THREE.Clock();
@@ -47,9 +44,8 @@ var main = {
     fire.fire();
     fire.updateBulletPosition();
 
-    collisionDetector.detectEnemyCollisions();
-    collisionDetector.detectWallCollisions();
-
+    boundryCollisionDetector.detectWallCollisions();
+    movementCollisionDetector.detectEnemyCollisions();
     bulletCollisionDetector.detectBulletCollisions();
   }
 };

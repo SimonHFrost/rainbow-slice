@@ -3,19 +3,19 @@ var movement = {
     var translationSpeed = 20;
 
     if (Key.isDown(Key.A)) {
-      mainCube.position.x -= translationSpeed;
+      sceneObjects.player.position.x -= translationSpeed;
     }
 
     if (Key.isDown(Key.D)) {
-      mainCube.position.x += translationSpeed;
+      sceneObjects.player.position.x += translationSpeed;
     }
 
     if (Key.isDown(Key.W)) {
-      mainCube.position.z -= translationSpeed;
+      sceneObjects.player.position.z -= translationSpeed;
     }
 
     if (Key.isDown(Key.S)) {
-      mainCube.position.z += translationSpeed;
+      sceneObjects.player.position.z += translationSpeed;
     }
 
     return;
