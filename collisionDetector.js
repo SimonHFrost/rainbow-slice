@@ -1,6 +1,12 @@
 var collisionDetector = {
-  FLOOR_DIMENSIONS : 6000,
+  FLOOR_DIMENSIONS : 3000,
   health : 1000,
+  directionStatus : {
+    TOP : 0,
+    RIGHT : 1,
+    BOTTOM : 2,
+    LEFT : 3,
+  },
 
   detectEnemyCollisions : function() {
     var originPoint = mainCube.position.clone();
@@ -52,46 +58,10 @@ var collisionDetector = {
     }
   },
 
-
-  detectBulletCollisions : function() {
-    for(var i = 0; i < fire.allBullets.length; i++) {
-      this.detectBulletMainCubeCollision(fire.allBullets[i]);
-      this.deleteIfOutOfBounds(fire.allBullets[i]);
-    }
-  },
-
-  detectBulletMainCubeCollision : function(bullet) {
-    var right = mainCube.position.x + 200;
-    var left = mainCube.position.x - 200;
-    var up = mainCube.position.z + 200;
-    var down = mainCube.position.z - 200;
-
-    if (left < bullet.position.x && bullet.position.x < right) {
-      if (down < bullet.position.z && bullet.position.z < up) {
-        if(bullet.used) {
-          return;
-        }
-
-        if (this.health > 0) {
-          this.health--;
-        }
-
-        elem = document.getElementById('scoreNumber');
-        elem.innerHTML = 'Health: ' + this.health;
-        bullet.used = true; // hack
-        scene.remove(bullet);
-      }
-    }
-  },
-
   // super duper hacky way of keeping everyone in bounds
   detectWallCollisions : function() {
-    this.detectBoundryCollisionsPlayer();
-    this.detectBoundryCollisionsEnemies();
-  },
-
-  detectBoundryCollisionsPlayer : function() {
     this.putBackInBounds(mainCube);
+    this.detectBoundryCollisionsEnemies();
   },
 
   detectBoundryCollisionsEnemies : function() {
@@ -101,38 +71,47 @@ var collisionDetector = {
   },
 
   putBackInBounds : function(misbehavor) {
-    if (misbehavor.position.x > this.FLOOR_DIMENSIONS/2) {
-      misbehavor.position.x = this.FLOOR_DIMENSIONS/2;
-    }
+    var status = this.getOutOfBoundsStatus(misbehavor.position);
 
-    if (misbehavor.position.x < -this.FLOOR_DIMENSIONS/2) {
-      misbehavor.position.x = -this.FLOOR_DIMENSIONS/2;
-    }
-
-    if (misbehavor.position.z > this.FLOOR_DIMENSIONS/2) {
-      misbehavor.position.z = this.FLOOR_DIMENSIONS/2;
-    }
-
-    if (misbehavor.position.z < -this.FLOOR_DIMENSIONS/2) {
-      misbehavor.position.z = -this.FLOOR_DIMENSIONS/2;
+    switch(status) {
+    case this.directionStatus.RIGHT:
+      misbehavor.position.x = this.FLOOR_DIMENSIONS;
+      break;
+    case this.directionStatus.LEFT:
+      misbehavor.position.x = -this.FLOOR_DIMENSIONS;
+      break;
+    case this.directionStatus.TOP:
+      misbehavor.position.z = this.FLOOR_DIMENSIONS;
+      break;
+    case this.directionStatus.BOTTOM:
+      misbehavor.position.z = -this.FLOOR_DIMENSIONS;
+      break;
     }
   },
 
   deleteIfOutOfBounds : function(misbehavor) {
-    if (misbehavor.position.x > this.FLOOR_DIMENSIONS/2) {
+    if (this.getOutOfBoundsStatus(misbehavor.position) !== null) {
       scene.remove(misbehavor);
+    }
+  },
+
+  getOutOfBoundsStatus : function(position) {
+    if (position.x > this.FLOOR_DIMENSIONS) {
+      return this.directionStatus.RIGHT;
     }
 
-    if (misbehavor.position.x < -this.FLOOR_DIMENSIONS/2) {
-      scene.remove(misbehavor);
+    if (position.x < -this.FLOOR_DIMENSIONS) {
+      return this.directionStatus.LEFT;
     }
 
-    if (misbehavor.position.z > this.FLOOR_DIMENSIONS/2) {
-      scene.remove(misbehavor);
+    if (position.z > this.FLOOR_DIMENSIONS) {
+      return this.directionStatus.TOP;
     }
 
-    if (misbehavor.position.z < -this.FLOOR_DIMENSIONS/2) {
-      scene.remove(misbehavor);
+    if (position.z < -this.FLOOR_DIMENSIONS) {
+      return this.directionStatus.BOTTOM;
     }
+
+    return null;
   }
 };

@@ -49,6 +49,7 @@ var main = {
 
     collisionDetector.detectEnemyCollisions();
     collisionDetector.detectWallCollisions();
-    collisionDetector.detectBulletCollisions();
+
+    bulletCollisionDetector.detectBulletCollisions();
   }
 };

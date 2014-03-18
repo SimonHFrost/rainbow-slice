@@ -19,6 +19,7 @@ var fire = {
           return;
         }
         var enemyToFire = nonDeadEnemies[Math.floor((Math.random() * nonDeadEnemies.length))];
+        bullet.enemyToFire = enemyToFire;
 
         bullet.position.x = enemyToFire.position.x;
         bullet.position.z = enemyToFire.position.z;
