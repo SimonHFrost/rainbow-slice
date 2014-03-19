@@ -29,6 +29,7 @@
 		<script src="movementCollisionDetector.js"></script>
 		<script src="boundryCollisionDetector.js"></script>
 		<script src="bulletCollisionDetector.js"></script>
+		<script src="meshLoader.js"></script>
 		<script src="materials.js"></script>
 		<script src="shooting.js"></script>
 		<script src="story.js"></script>
@@ -37,6 +38,7 @@
 			// start everything
 			main.init();
 			animate();
+			meshLoader.load();
 
 			// move this into main somehow
 			function animate() {
