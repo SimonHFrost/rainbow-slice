@@ -17,15 +17,15 @@ var main = {
     meshLoader.load();
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    var container = document.createElement( 'div' );
+    var container = document.createElement('div');
     document.body.appendChild( container );
     container.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-    window.addEventListener( 'resize', this.onWindowResize, false );
+    window.addEventListener('resize', this.onWindowResize, false);
   },
 
   onWindowResize : function() {

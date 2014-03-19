@@ -17,17 +17,19 @@
 		<script src="lib/keyboard.js"></script>
 		<script src="lib/liveReload.js"></script>
 
-		<script src="sceneObjects.js"></script>
-		<script src="sceneInitializer.js"></script>
-		<script src="movement.js"></script>
-		<script src="movementCollisionDetector.js"></script>
-		<script src="boundryCollisionDetector.js"></script>
-		<script src="bulletCollisionDetector.js"></script>
-		<script src="meshLoader.js"></script>
-		<script src="materials.js"></script>
-		<script src="shooting.js"></script>
-		<script src="story.js"></script>
-		<script src="main.js"></script>
+		<script src="setup/main.js"></script>
+		<script src="setup/materials.js"></script>
+		<script src="setup/sceneInitializer.js"></script>
+		<script src="setup/meshLoader.js"></script>
+
+		<script src="collisionDetectors/movementCollisionDetector.js"></script>
+		<script src="collisionDetectors/boundryCollisionDetector.js"></script>
+		<script src="collisionDetectors/bulletCollisionDetector.js"></script>
+
+		<script src="dynamic/story.js"></script>
+		<script src="dynamic/sceneObjects.js"></script>
+		<script src="dynamic/movement.js"></script>
+		<script src="dynamic/shooting.js"></script>
 		<script>
 			// start everything
 			main.init();
