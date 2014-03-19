@@ -1,11 +1,4 @@
 var main = {
-  // Globals
-  camera : '',
-  scene : '',
-  renderer : '',
-  controls : '',
-  clock : '',
-
   init : function() {
     clock = new THREE.Clock();
     clock.start();
@@ -26,6 +19,7 @@ var main = {
     container.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
+    sound.init();
 
     window.addEventListener('resize', this.onWindowResize, false);
   },

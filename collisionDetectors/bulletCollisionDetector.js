@@ -22,13 +22,16 @@ var bulletCollisionDetector = {
         }
 
         if (story.health > 0) {
+          sound.playHit(bullet);
           story.health--;
         }
 
-        elem = document.getElementById('scoreNumber');
-        elem.innerHTML = 'Health: ' + story.health;
-        bullet.used = true; // hack
-        scene.remove(bullet);
+        if (!story.playedWin) {
+          elem = document.getElementById('scoreNumber');
+          elem.innerHTML = 'Health: ' + story.health;
+          bullet.used = true; // hack
+          scene.remove(bullet);
+        }
       }
     }
   },

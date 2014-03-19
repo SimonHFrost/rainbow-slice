@@ -29,6 +29,7 @@ var movementCollisionDetector = {
         var enemy = collisionResults[0].object;
         enemy.material = materials.DEAD;
         enemy.dead = true;
+        sound.playEnemyHit(enemy);
 
         if (normalized.x > 0) {
           enemy.position.x += pushDistance;
