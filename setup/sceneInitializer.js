@@ -6,7 +6,7 @@ var sceneInitializer = {
   ENEMY_WIDTH : 200,
 
   initCameraAndLights : function() {
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 20000 );
+    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 200000 );
     camera.rotation.x = -Math.PI / 2;
     camera.position.y = 12500;
 
