@@ -14,6 +14,8 @@ var main = {
     sceneInitializer.initCameraAndLights();
     sceneInitializer.initSceneObjects();
 
+    meshLoader.load();
+
     renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -36,6 +38,7 @@ var main = {
   render : function() {
     movement.updateMovement();
 
+    renderer.clear();
     renderer.render( scene, camera );
 
     controls.update();

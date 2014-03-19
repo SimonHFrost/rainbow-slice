@@ -1,12 +1,24 @@
 var meshLoader = {
+  FLOOR : 0,
+
   load : function() {
+    var me = this;
     var loader = new THREE.JSONLoader();
 
-    loader.load('./model.js', function (geometry, materials) {
-        var skinnedMesh = new THREE.SkinnedMesh(geometry, new THREE.MeshBasicMaterial(materials));
-        skinnedMesh.position.y = 1000;
-        skinnedMesh.scale.set(1000, 1000, 1000);
-        scene.add(skinnedMesh);
+    loader.load('./parrot.js', function (geometry, importedMaterials) {
+        //var skinnedMesh = new THREE.SkinnedMesh(geometry, new THREE.MeshLambertMaterial(importedMaterials), false);
+        var skinnedMesh = new THREE.SkinnedMesh(geometry, materials.BASIC, false);
+
+        skinnedMesh.rotation.y = Math.PI;
+        skinnedMesh.scale.set(10, 10, 10);
+
+				me.morphColorsToFaceColors( geometry );
+				me.addMorph( geometry, 500, 1000, 500 - Math.random() * 500, this.FLOOR + 350, 40 );
+
+        // using player as a hitbox
+        sceneObjects.player.visible = false;
+        sceneObjects.player.add(skinnedMesh);
+        // scene.add(skinnedMesh);
     });
   },
 
