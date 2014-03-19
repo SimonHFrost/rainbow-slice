@@ -11,6 +11,7 @@ var meshLoader = {
 
         playerModel.rotation.y = Math.PI;
         playerModel.scale.set(10, 10, 10);
+        playerModel.castShadow = true;
 
         // using player as a hitbox
         sceneObjects.player.visible = false;

@@ -18,6 +18,8 @@ var main = {
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMapEnabled = true;
+    renderer.shadowMapSoft = true;
 
     var container = document.createElement('div');
     document.body.appendChild( container );

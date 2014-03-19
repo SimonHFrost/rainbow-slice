@@ -10,8 +10,12 @@ var sceneInitializer = {
     camera.rotation.x = -Math.PI / 2;
     camera.position.y = 12500;
 
-    var pointLight = new THREE.PointLight( 0xDDDDDD );
+    var pointLight = new THREE.SpotLight( 0xDDDDDD );
     pointLight.position.set( 5000, 5000, 5000 );
+    pointLight.castShadow = true;
+
+    pointLight.shadowCameraNear = 50;
+    pointLight.shadowCameraFar = 250000;
     scene.add( pointLight );
 
     var ambientLight = new THREE.AmbientLight( 0x505050 );
@@ -19,22 +23,22 @@ var sceneInitializer = {
   },
 
   initSceneObjects : function() {
-    this.makeArena();
+    this.makeFloor();
+    this.makeWalls();
     this.makePlayer();
     this.makeEnemies();
     this.makeSkyBox();
   },
 
-  makeArena : function() {
+  makeFloor : function() {
     var floorWidth = this.FLOOR_DIMENSIONS * 2;
     var floorDepth = this.FLOOR_DIMENSIONS * 2;
 
     floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorDepth), materials.GROUND );
     floor.position.y = - 100;
     floor.rotation.x = - Math.PI / 2;
+    floor.receiveShadow = true;
     scene.add( floor );
-
-    this.makeWalls();
   },
 
   makeWalls : function() {
@@ -45,22 +49,27 @@ var sceneInitializer = {
 
     var eastWall = wallTemplate.clone();
     eastWall.position.x = floorBoundry;
+    eastWall.castShadow = true;
     scene.add(eastWall);
 
     var westWall = wallTemplate.clone();
     westWall.position.x = -floorBoundry;
+    westWall.castShadow = true;
     scene.add(westWall);
 
     var southWall = wallTemplate.clone();
     southWall.position.z = -floorBoundry;
     southWall.position.x = 0;
     southWall.rotation.y = Math.PI / 2;
+    southWall.castShadow = true;
     scene.add(southWall);
 
     var northWall = wallTemplate.clone();
     northWall.position.z = floorBoundry;
     northWall.position.x = 0;
     northWall.rotation.y = Math.PI / 2;
+    northWall.castShadow = true;
+
     scene.add(northWall);
   },
 
@@ -104,6 +113,7 @@ var sceneInitializer = {
     var cube = new THREE.Mesh( geometry, material );
     cube.position.x = x * spacing + xOffSet;
     cube.position.z = z * spacing + zOffSet;
+    cube.castShadow = true;
     scene.add( cube );
 
     cube.gridX = x;
