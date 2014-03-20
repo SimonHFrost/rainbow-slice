@@ -15,7 +15,7 @@ var meshLoader = {
 
         // using player as a hitbox
         sceneObjects.player.visible = false;
-        sceneObjects.player.add(playerModel);
+        // sceneObjects.player.add(playerModel);
         sceneObjects.playerModel = playerModel;
         // scene.add(playerModel);
     });

@@ -43,6 +43,6 @@ var sound = {
     themeSource.src = 'sound/theme.wav';
     themeAudio.load();
     themeAudio.loop = true;
-    themeAudio.play();
+    // themeAudio.play();
   }
 };
