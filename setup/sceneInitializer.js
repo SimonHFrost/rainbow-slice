@@ -49,26 +49,22 @@ var sceneInitializer = {
 
     var eastWall = wallTemplate.clone();
     eastWall.position.x = floorBoundry;
-    eastWall.castShadow = true;
     scene.add(eastWall);
 
     var westWall = wallTemplate.clone();
     westWall.position.x = -floorBoundry;
-    westWall.castShadow = true;
     scene.add(westWall);
 
     var southWall = wallTemplate.clone();
     southWall.position.z = -floorBoundry;
     southWall.position.x = 0;
     southWall.rotation.y = Math.PI / 2;
-    southWall.castShadow = true;
     scene.add(southWall);
 
     var northWall = wallTemplate.clone();
     northWall.position.z = floorBoundry;
     northWall.position.x = 0;
     northWall.rotation.y = Math.PI / 2;
-    northWall.castShadow = true;
 
     scene.add(northWall);
   },

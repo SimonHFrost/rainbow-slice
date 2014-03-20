@@ -1,5 +1,5 @@
 var story = {
-  health : 1000,
+  health : 250,
   playedWin : false,
 
   triggerEnding : function() {

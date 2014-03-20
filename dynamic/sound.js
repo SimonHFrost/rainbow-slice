@@ -1,41 +1,50 @@
 var sound = {
-  audio : '',
-  source: '',
-
   init : function() {
-    audio = document.createElement('audio');
-    source = document.createElement('source');
-    source.src = 'sound/playerHit.wav';
-    audio.appendChild(source);
+    dynamicSoundsAudio = document.createElement('audio');
+    dynamicSoundsSource = document.createElement('source');
+    dynamicSoundsSource.src = 'sound/playerHit.wav';
+    dynamicSoundsAudio.appendChild(dynamicSoundsSource);
+
+    themeAudio = document.createElement('audio');
+    themeSource = document.createElement('source');
+    themeSource.src = 'sound/theme.wav';
+    themeAudio.appendChild(themeSource);
   },
 
   playHit : function(element) {
-    if(!element.playedAudio && audio.paused) {
+    if(!element.playedAudio && dynamicSoundsAudio.paused) {
       element.playedAudio = true;
-      source.src = 'sound/playerHit.wav';
-      audio.pause();
-      audio.load();
-      audio.play();
+      dynamicSoundsSource.src = 'sound/playerHit.wav';
+      dynamicSoundsAudio.pause();
+      dynamicSoundsAudio.load();
+      dynamicSoundsAudio.play();
     }
   },
 
   playEnemyHit : function(element) {
     if(!element.playedAudio) {
       element.playedAudio = true;
-      source.src = 'sound/enemyHit.wav';
-      audio.pause();
-      audio.load();
-      audio.play();
+      dynamicSoundsSource.src = 'sound/enemyHit.wav';
+      dynamicSoundsAudio.pause();
+      dynamicSoundsAudio.load();
+      dynamicSoundsAudio.play();
     }
   },
 
   playWin : function() {
     if(!story.playedWin) {
       story.playedWin = true;
-      source.src = 'sound/win.wav';
-      audio.pause();
-      audio.load();
-      audio.play();
+      dynamicSoundsSource.src = 'sound/win.wav';
+      dynamicSoundsAudio.pause();
+      dynamicSoundsAudio.load();
+      dynamicSoundsAudio.play();
     }
+  },
+
+  playTheme : function() {
+    themeSource.src = 'sound/theme.wav';
+    themeAudio.load();
+    themeAudio.loop = true;
+    themeAudio.play();
   }
 };
