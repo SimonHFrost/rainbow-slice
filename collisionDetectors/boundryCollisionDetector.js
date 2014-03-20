@@ -1,6 +1,5 @@
 var boundryCollisionDetector = {
   FLOOR_DIMENSIONS : 3000,
-  health : 1000,
   directionStatus : {
     TOP : 0,
     RIGHT : 1,
@@ -10,14 +9,7 @@ var boundryCollisionDetector = {
 
   detectWallCollisions : function() {
     this.putBackInBounds(sceneObjects.player);
-    this.deleteBulletsIfOutOfBounds();
     this.detectBoundryCollisionsEnemies();
-  },
-
-  deleteBulletsIfOutOfBounds : function() {
-    for (var i = 0; i < sceneObjects.allBullets.length; i++) {
-      this.deleteIfOutOfBounds(sceneObjects.allBullets[i]);
-    }
   },
 
   detectBoundryCollisionsEnemies : function() {

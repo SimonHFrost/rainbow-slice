@@ -2,11 +2,9 @@ var bulletCollisionDetector = {
   PLAYER_WIDTH_HALF : sceneInitializer.PLAYER_WIDTH/2,
   ENEMY_WIDTH_HALF : sceneInitializer.ENEMY_WIDTH/2,
 
-  detectBulletCollisions : function() {
-    for(var i = 0; i < sceneObjects.allBullets.length; i++) {
-      this.detectBulletPlayerCollision(sceneObjects.allBullets[i]);
-      this.detectBulletEnemyCollision(sceneObjects.allBullets[i]);
-    }
+  detectBulletCollisions : function(bullet) {
+    this.detectBulletPlayerCollision(bullet);
+    this.detectBulletEnemyCollision(bullet);
   },
 
   detectBulletPlayerCollision : function(bullet) {

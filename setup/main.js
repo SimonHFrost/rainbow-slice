@@ -42,10 +42,12 @@ var main = {
 
     shooting.facePlayer();
     shooting.fire();
-    shooting.updateBulletPosition();
+
+    for(var i = 0; i < sceneObjects.allBullets.length; i++){
+      sceneObjects.allBullets[i].update();
+    }
 
     boundryCollisionDetector.detectWallCollisions();
     movementCollisionDetector.detectEnemyCollisions();
-    bulletCollisionDetector.detectBulletCollisions();
   }
 };

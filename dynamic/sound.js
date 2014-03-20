@@ -14,31 +14,29 @@ var sound = {
   playHit : function(element) {
     if(!element.playedAudio && dynamicSoundsAudio.paused) {
       element.playedAudio = true;
-      dynamicSoundsSource.src = 'sound/playerHit.wav';
-      dynamicSoundsAudio.pause();
-      dynamicSoundsAudio.load();
-      dynamicSoundsAudio.play();
+      this.playDynamicSound('sound/playerHit.wav');
     }
   },
 
   playEnemyHit : function(element) {
     if(!element.playedAudio) {
       element.playedAudio = true;
-      dynamicSoundsSource.src = 'sound/enemyHit.wav';
-      dynamicSoundsAudio.pause();
-      dynamicSoundsAudio.load();
-      dynamicSoundsAudio.play();
+      this.playDynamicSound('sound/enemyHit.wav');
     }
   },
 
   playWin : function() {
     if(!story.playedWin) {
       story.playedWin = true;
-      dynamicSoundsSource.src = 'sound/win.wav';
-      dynamicSoundsAudio.pause();
-      dynamicSoundsAudio.load();
-      dynamicSoundsAudio.play();
+      this.playDynamicSound('sound/win.wav');
     }
+  },
+
+  playDynamicSound : function(location) {
+    dynamicSoundsSource.src = location;
+    dynamicSoundsAudio.pause();
+    dynamicSoundsAudio.load();
+    dynamicSoundsAudio.play();
   },
 
   playTheme : function() {
