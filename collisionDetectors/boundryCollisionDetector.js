@@ -14,7 +14,7 @@ var boundryCollisionDetector = {
 
   detectBoundryCollisionsEnemies : function() {
     for (var i = 0; i < sceneObjects.enemies.length; i++) {
-      this.putBackInBounds(sceneObjects.enemies[i]);
+      this.putBackInBounds(sceneObjects.enemies[i].threeObject);
     }
   },
 

@@ -7,7 +7,7 @@ var main = {
     sceneInitializer.initCameraAndLights();
     sceneInitializer.initSceneObjects();
 
-    // meshLoader.load();
+    meshLoader.load();
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);

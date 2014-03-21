@@ -8,7 +8,7 @@ var shooting = {
         this.lastFired = clock.getElapsedTime().toFixed(this.FIRE_RATE);
 
         var nonDeadEnemies = sceneObjects.enemies.filter(function (el) {
-          return el.dead !== true;
+          return el.threeObject.dead !== true;
         });
         if(nonDeadEnemies.length === 0) {
           story.triggerEnding();
@@ -16,16 +16,16 @@ var shooting = {
         }
         var enemyToFire = nonDeadEnemies[Math.floor((Math.random() * nonDeadEnemies.length))];
 
-        var bulletThing = new Bullet(enemyToFire);
+        var bulletThing = new Bullet(enemyToFire.threeObject);
     }
   },
 
   facePlayer : function() {
     for(var i = 0; i < sceneObjects.enemies.length; i++) {
-      if (sceneObjects.enemies[i].dead !== true) {
-        sceneObjects.enemies[i].lookAt( sceneObjects.player.position );
+      if (sceneObjects.enemies[i].threeObject.dead !== true) {
+        sceneObjects.enemies[i].threeObject.lookAt( sceneObjects.player.position );
       }
     }
   }
-  
+
 };

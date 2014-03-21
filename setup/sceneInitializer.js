@@ -110,12 +110,10 @@ var sceneInitializer = {
     cube.position.x = x * spacing + xOffSet;
     cube.position.z = z * spacing + zOffSet;
     cube.castShadow = true;
-    scene.add( cube );
 
-    cube.gridX = x;
-    cube.gridZ = z;
-
-    sceneObjects.enemies.push( cube );
+    var someEnemy = new Enemy(cube);
+    someEnemy.gridX = x;
+    someEnemy.gridZ = z;
   },
 
   makeSkyBox : function() {

@@ -36,7 +36,7 @@ var bulletCollisionDetector = {
 
   detectBulletEnemyCollision : function(bullet) {
     for(var i = 0; i < sceneObjects.enemies.length; i++) {
-      var enemy = sceneObjects.enemies[i];
+      var enemy = sceneObjects.enemies[i].threeObject;
 
       if (enemy === bullet.enemyToFire) {
         continue;

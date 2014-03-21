@@ -24,7 +24,7 @@ var movementCollisionDetector = {
       var normalized = directionVector.clone().normalize();
 
       var ray = new THREE.Raycaster( originPoint, normalized );
-      var collisionResults = ray.intersectObjects( sceneObjects.enemies );
+      var collisionResults = ray.intersectObjects( _.pluck(sceneObjects.enemies, 'threeObject'));
       if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
         var enemy = collisionResults[0].object;
         enemy.material = materials.DEAD;
