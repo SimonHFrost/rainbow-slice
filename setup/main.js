@@ -33,21 +33,29 @@ var main = {
   },
 
   render : function() {
-    movement.updateMovement();
-
     renderer.clear();
     renderer.render( scene, camera );
-
-    controls.update();
-
-    shooting.facePlayer();
-    shooting.fire();
 
     for(var i = 0; i < sceneObjects.allBullets.length; i++){
       sceneObjects.allBullets[i].update();
     }
 
+    for(var j = 0; j < sceneObjects.enemies.length; j++){
+      sceneObjects.enemies[j].update();
+    }
+
     boundryCollisionDetector.detectWallCollisions();
+
+    controls.update();
+    movement.updateMovement();
     movementCollisionDetector.detectEnemyCollisions();
+
+    var nonDeadEnemies = sceneObjects.enemies.filter(function (el) {
+      return el.threeObject.dead !== true;
+    });
+    if(nonDeadEnemies.length === 0) {
+      story.triggerEnding();
+      return;
+    }
   }
 };

@@ -104,16 +104,12 @@ var sceneInitializer = {
     var zOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
     var spacing = size + 800;
 
-    var geometry = new THREE.CubeGeometry( size, size, size );
-    var material = materials.ENEMY;
-    var cube = new THREE.Mesh( geometry, material );
-    cube.position.x = x * spacing + xOffSet;
-    cube.position.z = z * spacing + zOffSet;
-    cube.castShadow = true;
-
-    var someEnemy = new Enemy(cube);
+    var someEnemy = new Enemy();
     someEnemy.gridX = x;
     someEnemy.gridZ = z;
+
+    someEnemy.threeObject.position.x = x * spacing + xOffSet;
+    someEnemy.threeObject.position.z = z * spacing + zOffSet;
   },
 
   makeSkyBox : function() {
