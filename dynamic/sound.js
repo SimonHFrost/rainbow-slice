@@ -26,10 +26,7 @@ var sound = {
   },
 
   playWin : function() {
-    if(!story.playedWin) {
-      story.playedWin = true;
-      this.playDynamicSound('sound/win.wav');
-    }
+    this.playDynamicSound('sound/win.wav');
   },
 
   playDynamicSound : function(location) {
@@ -43,6 +40,7 @@ var sound = {
     themeSource.src = 'sound/theme.wav';
     themeAudio.load();
     themeAudio.loop = true;
-    // themeAudio.play();
+    if (!DEBUG_MODE)
+      themeAudio.play();
   }
 };

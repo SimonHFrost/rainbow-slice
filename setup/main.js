@@ -50,12 +50,19 @@ var main = {
     movement.updateMovement();
     movementCollisionDetector.detectEnemyCollisions();
 
+    this.checkStoryChanges();
+  },
+
+  checkStoryChanges : function() {
     var nonDeadEnemies = sceneObjects.enemies.filter(function (el) {
       return el.threeObject.dead !== true;
     });
     if(nonDeadEnemies.length === 0) {
-      story.triggerEnding();
-      return;
+      story.triggerWin();
+    }
+
+    if(story.health <= 0) {
+      story.triggerDead();
     }
   }
 };
