@@ -1,8 +1,8 @@
 var movementCollisionDetector = {
+  PUSH_DISTANCE : 20,
+
   detectEnemyCollisions : function() {
     var originPoint = sceneObjects.player.position.clone();
-    var pushDistance = 20;
-
     var playerSize = sceneObjects.player.geometry.depth / 2;
 
     var horizontalVertices = [
@@ -31,22 +31,43 @@ var movementCollisionDetector = {
         enemy.dead = true;
         sound.playEnemyHit(enemy);
 
+        // this.pushEnemyInFourDirections(enemy, normalized);
+        this.pushEnemyInEightDirections(enemy, normalized);
+      }
+    }
+  },
+
+  pushEnemyInFourDirections : function(enemy, normalized) {
+      if (Math.abs(normalized.x) > Math.abs(normalized.z)) {
         if (normalized.x > 0) {
-          enemy.position.x += pushDistance;
+          enemy.position.x += this.PUSH_DISTANCE;
+        } else {
+          enemy.position.x -= this.PUSH_DISTANCE;
         }
-
-        if (normalized.x < 0) {
-          enemy.position.x -= pushDistance;
-        }
-
+      } else {
         if (normalized.z > 0) {
-          enemy.position.z += pushDistance;
-        }
-
-        if (normalized.z < 0) {
-          enemy.position.z -= pushDistance;
+          enemy.position.z += this.PUSH_DISTANCE;
+        } else {
+          enemy.position.z -= this.PUSH_DISTANCE;
         }
       }
+  },
+
+  pushEnemyInEightDirections : function(enemy, normalized) {
+    if (normalized.x > 0) {
+      enemy.position.x += this.PUSH_DISTANCE;
+    }
+
+    if (normalized.x < 0) {
+      enemy.position.x -= this.PUSH_DISTANCE;
+    }
+
+    if (normalized.z > 0) {
+      enemy.position.z += this.PUSH_DISTANCE;
+    }
+
+    if (normalized.z < 0) {
+      enemy.position.z -= this.PUSH_DISTANCE;
     }
   }
 };

@@ -1,6 +1,6 @@
 function Bullet(enemyToFire) {
-  this.SPEED = 25;
   this.BULLET_SIZE = 50;
+  this.SPEED = 20;
 
   this.threeObject = new THREE.Mesh(new THREE.CubeGeometry(this.BULLET_SIZE, this.BULLET_SIZE, this.BULLET_SIZE ), materials.BULLET);
 
@@ -13,18 +13,14 @@ function Bullet(enemyToFire) {
   var dir = pWorld.sub(this.threeObject.position).normalize();
 
   this.direction = dir;
+  this.direction.multiplyScalar(this.SPEED);
 
   sceneObjects.allBullets.push(this);
   scene.add(this.threeObject);
 }
 
 Bullet.prototype.update = function() {
-  this.updatePosition();
+  this.threeObject.position.add(this.direction);
   boundryCollisionDetector.deleteIfOutOfBounds(this.threeObject);
   bulletCollisionDetector.detectBulletCollisions(this.threeObject);
-};
-
-Bullet.prototype.updatePosition = function() {
-  this.threeObject.position.x += this.direction.x * this.SPEED;
-  this.threeObject.position.z += this.direction.z * this.SPEED;
 };

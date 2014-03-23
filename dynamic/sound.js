@@ -9,6 +9,7 @@ var sound = {
     themeSource = document.createElement('source');
     themeSource.src = 'sound/theme.wav';
     themeAudio.appendChild(themeSource);
+    this.playTheme();
   },
 
   playHit : function(element) {

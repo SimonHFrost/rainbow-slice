@@ -27,7 +27,7 @@ var bulletCollisionDetector = {
         if (!story.playedWin) {
           elem = document.getElementById('scoreNumber');
           elem.innerHTML = 'Health: ' + story.health;
-          bullet.used = true; // hack
+          bullet.used = true;
           scene.remove(bullet);
         }
       }

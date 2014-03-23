@@ -20,7 +20,6 @@ var main = {
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     sound.init();
-    sound.playTheme();
 
     window.addEventListener('resize', this.onWindowResize, false);
   },
