@@ -6,21 +6,20 @@ var sceneInitializer = {
   ENEMY_WIDTH : 200,
 
   initCameraAndLights : function() {
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 200000 );
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 200000);
     camera.rotation.x = -Math.PI / 2;
     camera.position.y = 12500;
-    camera.position.z = 5000;
 
-    var pointLight = new THREE.SpotLight( 0xDDDDDD );
-    pointLight.position.set( 5000, 5000, 5000 );
+    var pointLight = new THREE.SpotLight(0xFFFFFF);
+    pointLight.position.set(5000, 5000, 5000);
     pointLight.castShadow = true;
 
     pointLight.shadowCameraNear = 50;
     pointLight.shadowCameraFar = 250000;
-    scene.add( pointLight );
+    scene.add(pointLight);
 
-    var ambientLight = new THREE.AmbientLight( 0x505050 );
-    scene.add( ambientLight );
+    var ambientLight = new THREE.AmbientLight(0x808080);
+    scene.add(ambientLight);
   },
 
   initSceneObjects : function() {
@@ -35,18 +34,32 @@ var sceneInitializer = {
     var floorWidth = this.FLOOR_DIMENSIONS * 2;
     var floorDepth = this.FLOOR_DIMENSIONS * 2;
 
-    floor = new THREE.Mesh( new THREE.PlaneGeometry( floorWidth, floorDepth), materials.GROUND );
-    floor.position.y = - 100;
-    floor.rotation.x = - Math.PI / 2;
+    var floorTexture = THREE.ImageUtils.loadTexture('./img/grass.png');
+    floorTexture.wrapS = THREE.RepeatWrapping;
+    floorTexture.wrapT = THREE.RepeatWrapping;
+    floorTexture.repeat.set(4, 4);
+
+    var floorMaterial = new THREE.MeshLambertMaterial({map: floorTexture});
+
+    floor = new THREE.Mesh(new THREE.PlaneGeometry(floorWidth, floorDepth), floorMaterial);
+    floor.position.y = -100;
+    floor.rotation.x = -Math.PI / 2;
     floor.receiveShadow = true;
-    scene.add( floor );
+    scene.add(floor);
   },
 
   makeWalls : function() {
     var wallWidth = 400;
     var wallDepth = 200;
     var floorBoundry = this.FLOOR_DIMENSIONS + wallWidth/2;
-    var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), materials.BASIC);
+
+    var wallTexture = THREE.ImageUtils.loadTexture('./img/rock.png');
+    wallTexture.wrapS = THREE.RepeatWrapping;
+    wallTexture.wrapT = THREE.RepeatWrapping;
+    wallTexture.repeat.set(1, 16);
+
+    var wallMaterial = new THREE.MeshLambertMaterial({map: wallTexture});
+    var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), wallMaterial);
 
     var eastWall = wallTemplate.clone();
     eastWall.position.x = floorBoundry;
