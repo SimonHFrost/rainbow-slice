@@ -14,8 +14,7 @@ var main = {
     renderer.shadowMapEnabled = true;
     renderer.shadowMapSoft = true;
 
-    var container = document.createElement('div');
-    document.body.appendChild( container );
+    var container = document.getElementById('webglDiv');
     container.appendChild( renderer.domElement );
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -33,7 +32,7 @@ var main = {
 
   render : function() {
     renderer.clear();
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 
     for(var i = 0; i < sceneObjects.allBullets.length; i++){
       sceneObjects.allBullets[i].update();

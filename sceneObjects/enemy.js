@@ -1,7 +1,7 @@
 function Enemy() {
   this.ENEMY_WIDTH = 200;
   this.FIRE_RATE = 1;
-  this.FIRE_FAILURE_RATE = 0.4;
+  this.FIRE_FAILURE_RATE = 0.6;
 
   this.CHANCE_OF_ACTION = 0.001;
   this.CHANCE_OF_IDLE = 0.01;
