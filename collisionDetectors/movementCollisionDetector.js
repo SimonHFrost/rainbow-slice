@@ -28,7 +28,7 @@ var movementCollisionDetector = {
       if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
         var enemy = collisionResults[0].object;
 
-        enemy.children[0].material = materials.BASIC;
+        enemy.children[0].material = materials.DEAD;
 
         enemy.dead = true;
         sound.playEnemyHit(enemy);

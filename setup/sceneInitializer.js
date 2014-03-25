@@ -9,6 +9,7 @@ var sceneInitializer = {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 200000);
     camera.rotation.x = -Math.PI / 2;
     camera.position.y = 12500;
+    camera.position.z = 5000;
 
     var pointLight = new THREE.SpotLight(0xFFFFFF);
     pointLight.position.set(5000, 5000, 5000);

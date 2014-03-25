@@ -2,7 +2,9 @@ function Bullet(enemyToFire) {
   this.BULLET_SIZE = 50;
   this.SPEED = 20;
 
-  this.threeObject = new THREE.Mesh(new THREE.CubeGeometry(this.BULLET_SIZE, this.BULLET_SIZE, this.BULLET_SIZE ), materials.BULLET);
+  var material = new THREE.MeshBasicMaterial( { shading: THREE.FlatShading, color: 0xFFFFFF } );
+  material.color.setRGB(Math.random(), Math.random(), Math.random());
+  this.threeObject = new THREE.Mesh(new THREE.CubeGeometry(this.BULLET_SIZE, this.BULLET_SIZE, this.BULLET_SIZE ), material);
 
   this.threeObject.enemyToFire = enemyToFire;
   this.threeObject.position.x = enemyToFire.position.x;

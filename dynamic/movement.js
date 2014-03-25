@@ -1,10 +1,12 @@
 var movement = {
   TRANSLATION_SPEED : 20,
   FULL_ROTATION : 2 * Math.PI,
+  isMoving : false,
 
   updateMovement : function() {
     this.movePlayer();
     this.rotatePlayer();
+    this.setMovementStatus();
   },
 
   movePlayer : function() {
@@ -65,5 +67,13 @@ var movement = {
 
   setRotation : function(amount) {
     sceneObjects.playerModel.rotation.y = amount * this.FULL_ROTATION;
+  },
+
+  setMovementStatus : function() {
+    if (Key.isDown(Key.W) || Key.isDown(Key.S) || Key.isDown(Key.A) || Key.isDown(Key.D)) {
+      this.isMoving = true;
+    } else {
+      this.isMoving = false;
+    }
   }
 };

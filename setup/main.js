@@ -48,6 +48,13 @@ var main = {
     movement.updateMovement();
     movementCollisionDetector.detectEnemyCollisions();
 
+    if(movement.isMoving) {
+        for (var k = 0; k < sceneObjects.morphs.length; k++) {
+          var morph = sceneObjects.morphs[k];
+          morph.updateAnimation(50000 * clock.getDelta());
+        }
+    }
+
     this.checkStoryChanges();
   },
 

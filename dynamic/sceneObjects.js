@@ -2,5 +2,6 @@ var sceneObjects = {
   allBullets : [],
   player : '',
   playerModel: '',
-  enemies : []
+  enemies : [],
+  morphs : [],
 };

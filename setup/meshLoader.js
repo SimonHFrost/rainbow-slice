@@ -7,19 +7,10 @@ var meshLoader = {
 
     loader.load('./setup/horse.js', function (geometry) {
         me.morphColorsToFaceColors(geometry);
-
-        var playerMaterial = new THREE.MeshLambertMaterial( { color: 0xffaa55, morphTargets: true, vertexColors: THREE.FaceColors } );
-        var playerModel = new THREE.SkinnedMesh(geometry, playerMaterial, false);
-
-        playerModel.rotation.y = Math.PI;
-        playerModel.scale.set(3, 3, 3);
-        playerModel.castShadow = true;
-        playerModel.position.y = -100;
+        me.addMorph(geometry, 550, 1000);
 
         // using player as a hitbox
         sceneObjects.player.visible = false;
-        sceneObjects.player.add(playerModel);
-        sceneObjects.playerModel = playerModel;
     });
 
     loader.load('./setup/parrot.js', function (geometry) {
@@ -39,11 +30,30 @@ var meshLoader = {
   },
 
   morphColorsToFaceColors : function(geometry) {
-			if (geometry.morphColors && geometry.morphColors.length) {
-				var colorMap = geometry.morphColors[0];
-				for (var i = 0; i < colorMap.colors.length; i ++) {
-					geometry.faces[i].color = colorMap.colors[i];
-				}
+		if (geometry.morphColors && geometry.morphColors.length) {
+			var colorMap = geometry.morphColors[0];
+			for (var i = 0; i < colorMap.colors.length; i ++) {
+				geometry.faces[i].color = colorMap.colors[i];
 			}
-    }
+		}
+  },
+
+  addMorph : function( geometry, speed, duration) {
+    var material = new THREE.MeshLambertMaterial( { color: 0xffaa55, morphTargets: true, vertexColors: THREE.FaceColors } );
+    var meshAnim = new THREE.MorphAnimMesh( geometry, material );
+
+    meshAnim.speed = speed;
+    meshAnim.duration = duration;
+    meshAnim.time = 600 * Math.random();
+
+    meshAnim.position.y = -100;
+    meshAnim.rotation.y = Math.PI;
+
+    meshAnim.castShadow = true;
+    meshAnim.scale.set(3, 3, 3);
+
+    sceneObjects.playerModel = meshAnim;
+    sceneObjects.player.add(meshAnim);
+    sceneObjects.morphs.push(meshAnim);
+  }
 };

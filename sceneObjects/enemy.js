@@ -4,17 +4,18 @@ function Enemy() {
   this.FIRE_FAILURE_RATE = 0.6;
 
   this.CHANCE_OF_ACTION = 0.001;
-  this.CHANCE_OF_IDLE = 0.01;
+  this.CHANCE_OF_AIMING = 0.01;
 
   this.availableActions = {
-    STANDING : 0,
+    IDLE: 0,
     STRAFING_RIGHT : 1,
     STRAFING_LEFT : 2,
-    ADVANCING : 3
+    ADVANCING : 3,
+    AIMING: 4,
   };
 
   this.lastFired = -1;
-  this.currentAction = this.availableActions.STANDING;
+  this.currentAction = this.availableActions.IDLE;
 
   var geometry = new THREE.CubeGeometry(this.ENEMY_WIDTH, this.ENEMY_WIDTH, this.ENEMY_WIDTH);
   var material = materials.ENEMY;
@@ -29,9 +30,11 @@ function Enemy() {
 
 Enemy.prototype.update = function() {
   if(!this.threeObject.dead) {
-    this.threeObject.lookAt(sceneObjects.player.position);
-    this.fireBullet();
-    this.updateMovement();
+    if(this.currentAction !== this.availableActions.IDLE) {
+      this.fireBullet();
+      this.updateMovement();
+      this.threeObject.lookAt(sceneObjects.player.position);
+    }
     this.decideIfChangingAction();
   }
 };
@@ -66,15 +69,17 @@ Enemy.prototype.updateMovement = function() {
 };
 
 Enemy.prototype.decideIfChangingAction = function() {
-  if (this.currentAction == this.availableActions.STANDING) {
+  if (this.currentAction == this.availableActions.AIMING) {
     if (Math.random() <= this.CHANCE_OF_ACTION)
       this.currentAction = this.availableActions.ADVANCING;
     else if (Math.random() <= this.CHANCE_OF_ACTION)
       this.currentAction = this.availableActions.STRAFING_RIGHT;
     else if (Math.random() <= this.CHANCE_OF_ACTION)
       this.currentAction = this.availableActions.STRAFING_LEFT;
+    else if (Math.random() <= 0.01)
+      this.currentAction = this.availableActions.IDLE;
   } else {
-    if (Math.random() <= this.CHANCE_OF_IDLE)
-      this.currentAction = this.availableActions.STANDING;
+    if (Math.random() <= this.CHANCE_OF_AIMING)
+      this.currentAction = this.availableActions.AIMING;
   }
 };
