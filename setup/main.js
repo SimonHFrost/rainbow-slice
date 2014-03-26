@@ -19,7 +19,7 @@ var main = {
     container.appendChild( renderer.domElement );
 
     if (DEBUG_MODE) {
-      // controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
 
     sound.init();
@@ -42,7 +42,7 @@ var main = {
     boundryCollisionDetector.detectWallCollisions();
 
     if (DEBUG_MODE) {
-      // controls.update();
+      controls.update();
     }
 
     movement.updateMovement();
