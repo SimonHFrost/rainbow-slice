@@ -7,11 +7,16 @@
 	<body style='background-color:black'>
 		<ul id='menuBar'>
 			<li class='uiText' id='scoreNumber'>Health: 250</li>
-			<li class='uiText'><img src = 'img/title.png'/></li>
+			<li class='uiTitle'><img src = 'img/title.png'/></li>
 			<li class='uiText'>Version: 0.1.8</li>
 		</ul>
 
-		<div id='webglDiv'></div>
+		<div id='webglDiv' style='text-align:center;'></div>
+
+		<ul id='menuBar'>
+			<li class='footerText'>This has only been tested on Chrome OSX (sorry).</li>
+			<li class='footerText'>If you'd like, you can follow this project <a href='https://github.com/simonhfrost/rainbowslice'>here.</a>
+		</ul>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
@@ -37,6 +42,8 @@
 		<script src="sceneObjects/enemy.js"></script>
 		<script>
 			DEBUG_MODE = true;
+			VIEWER_WIDTH = 1000; // 16 x 10
+			VIEWER_HEIGHT = 562.5;
 
 			// start everything
 			main.init();

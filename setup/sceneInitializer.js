@@ -1,15 +1,16 @@
 var sceneInitializer = {
   FLOOR_DIMENSIONS : 3000,
   ENEMY_BORDER_WIDTH : 1000,
+  FULL_ROTATION : 2 * Math.PI / 360,
 
   PLAYER_WIDTH : 400,
   ENEMY_WIDTH : 200,
 
   initCameraAndLights : function() {
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 200000);
-    camera.rotation.x = -Math.PI / 2;
-    camera.position.y = 12500;
-    camera.position.z = 5000;
+    camera = new THREE.PerspectiveCamera(45, VIEWER_WIDTH / VIEWER_HEIGHT, 1, 200000);
+    camera.rotation.x = -75 * this.FULL_ROTATION;
+    camera.position.y = 8000;
+    camera.position.z = 2500;
 
     var pointLight = new THREE.SpotLight(0xFFFFFF);
     pointLight.position.set(5000, 5000, 5000);

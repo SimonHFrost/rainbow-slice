@@ -10,24 +10,21 @@ var main = {
     meshLoader.load();
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(VIEWER_WIDTH, VIEWER_HEIGHT);
     renderer.shadowMapEnabled = true;
     renderer.shadowMapSoft = true;
+    renderer.domElement.style.display = "inline";
 
     var container = document.getElementById('webglDiv');
     container.appendChild( renderer.domElement );
 
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    if (DEBUG_MODE) {
+      // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    }
+
     sound.init();
 
     window.addEventListener('resize', this.onWindowResize, false);
-  },
-
-  onWindowResize : function() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize( window.innerWidth, window.innerHeight);
   },
 
   render : function() {
@@ -44,7 +41,10 @@ var main = {
 
     boundryCollisionDetector.detectWallCollisions();
 
-    controls.update();
+    if (DEBUG_MODE) {
+      // controls.update();
+    }
+
     movement.updateMovement();
     movementCollisionDetector.detectEnemyCollisions();
 
