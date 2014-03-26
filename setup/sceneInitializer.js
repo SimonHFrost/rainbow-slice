@@ -105,8 +105,10 @@ var sceneInitializer = {
           z = Math.floor(Math.random() * numEnemiesPerSide);
 
           somethingAlreadyAtLocation = _.some(sceneObjects.enemies, function(enemy) {
-            return (enemy.gridX == x && enemy.gridZ == z) || (x == 2 && z == 2);
+            return (enemy.gridX == x && enemy.gridZ == z);
           });
+
+          somethingAlreadyAtLocation = somethingAlreadyAtLocation || (x == 2 && z == 2);
         }
 
         this.instantiateEnemy(x, z);

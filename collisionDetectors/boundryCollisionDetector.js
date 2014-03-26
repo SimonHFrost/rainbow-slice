@@ -20,26 +20,29 @@ var boundryCollisionDetector = {
 
   putBackInBounds : function(misbehavor) {
     var status = this.getOutOfBoundsStatus(misbehavor.position);
+    var width = misbehavor.geometry.width / 2;
 
-    switch(status) {
-    case this.directionStatus.RIGHT:
-      misbehavor.position.x = this.FLOOR_DIMENSIONS;
-      break;
-    case this.directionStatus.LEFT:
-      misbehavor.position.x = -this.FLOOR_DIMENSIONS;
-      break;
-    case this.directionStatus.TOP:
-      misbehavor.position.z = this.FLOOR_DIMENSIONS;
-      break;
-    case this.directionStatus.BOTTOM:
-      misbehavor.position.z = -this.FLOOR_DIMENSIONS;
-      break;
+    if (misbehavor.position.x > this.FLOOR_DIMENSIONS - width) {
+      misbehavor.position.x = this.FLOOR_DIMENSIONS - width;
+    }
+
+    if (misbehavor.position.x < -this.FLOOR_DIMENSIONS + width) {
+      misbehavor.position.x = -this.FLOOR_DIMENSIONS + width;
+    }
+
+    if (misbehavor.position.z > this.FLOOR_DIMENSIONS - width) {
+      misbehavor.position.z = this.FLOOR_DIMENSIONS - width;
+    }
+
+    if (misbehavor.position.z < -this.FLOOR_DIMENSIONS + width) {
+      misbehavor.position.z = -this.FLOOR_DIMENSIONS + width;
     }
   },
 
   deleteIfOutOfBounds : function(misbehavor) {
     if (this.getOutOfBoundsStatus(misbehavor.position) !== null) {
       scene.remove(misbehavor);
+      sceneObjects.removeBullet(misbehavor);
     }
   },
 
