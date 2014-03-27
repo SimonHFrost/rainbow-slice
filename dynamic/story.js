@@ -10,6 +10,8 @@ var story = {
       elem.innerHTML = 'You won with ' + story.health + ' health left!';
       sound.playWin();
 
+      _trackEvent('GameEvents', 'Finished');
+
       _.each(sceneObjects.allBullets, function(bullet) {
         scene.remove(bullet);
       });
