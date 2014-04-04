@@ -3,11 +3,11 @@ var main = {
     clock = new THREE.Clock();
     clock.start();
 
+    meshLoader.load();
+
     scene = new THREE.Scene();
     sceneInitializer.initCameraAndLights();
     sceneInitializer.initSceneObjects();
-
-    meshLoader.load();
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(VIEWER_WIDTH, VIEWER_HEIGHT);
@@ -39,6 +39,8 @@ var main = {
       sceneObjects.enemies[j].update();
     }
 
+    sceneObjects.enemySpawner.update();
+
     boundryCollisionDetector.detectWallCollisions();
 
     if (DEBUG_MODE) {
@@ -59,13 +61,6 @@ var main = {
   },
 
   checkStoryChanges : function() {
-    var nonDeadEnemies = sceneObjects.enemies.filter(function (el) {
-      return el.threeObject.dead !== true;
-    });
-    if(nonDeadEnemies.length === 0) {
-      story.triggerWin();
-    }
-
     if(story.health <= 0) {
       story.triggerDead();
     }

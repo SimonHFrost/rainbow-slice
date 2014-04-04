@@ -1,7 +1,7 @@
 function Enemy() {
   this.ENEMY_WIDTH = 200;
-  this.FIRE_RATE = 1;
-  this.FIRE_FAILURE_RATE = 0.6;
+  this.FIRE_RATE = 0.1;
+  this.FIRE_FAILURE_RATE = 0.4;
 
   this.CHANCE_OF_ACTION = 0.01;
   this.CHANCE_OF_AIMING = 0.01;
@@ -14,7 +14,7 @@ function Enemy() {
     AIMING: 4,
   };
 
-  this.lastFired = -1;
+  this.lastFired = 0;
   this.currentAction = this.availableActions.IDLE;
 
   var geometry = new THREE.CubeGeometry(this.ENEMY_WIDTH, this.ENEMY_WIDTH, this.ENEMY_WIDTH);
@@ -40,11 +40,10 @@ Enemy.prototype.update = function() {
 };
 
 Enemy.prototype.fireBullet = function() {
-  var fireInterval = clock.getElapsedTime().toFixed(this.FIRE_RATE);
-  if(this.lastFired !== fireInterval) {
-      this.lastFired = clock.getElapsedTime().toFixed(this.FIRE_RATE);
-      if (Math.random() >= this.FIRE_FAILURE_RATE)
-        var bulletThing = new Bullet(this.threeObject);
+  if(clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
+    this.lastFired = clock.getElapsedTime() + this.FIRE_RATE;
+    if (Math.random() >= this.FIRE_FAILURE_RATE)
+      var bulletThing = new Bullet(this.threeObject);
   }
 };
 

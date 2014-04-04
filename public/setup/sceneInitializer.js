@@ -28,7 +28,7 @@ var sceneInitializer = {
     this.makeFloor();
     this.makeWalls();
     this.makePlayer();
-    this.makeEnemies();
+    sceneObjects.enemySpawner = new EnemySpawner();
     this.makeSkyBox();
   },
 
@@ -89,45 +89,6 @@ var sceneInitializer = {
     var playerWidth = this.PLAYER_WIDTH;
     sceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), materials.BASIC);
     scene.add(sceneObjects.player);
-  },
-
-  makeEnemies : function() {
-    var numEnemiesPerSide = 5;
-    var numEnemies = 11;
-
-    while (numEnemies--) {
-        var somethingAlreadyAtLocation = true;
-
-        var x;
-        var z;
-
-        while(somethingAlreadyAtLocation) {
-          x = Math.floor(Math.random() * numEnemiesPerSide);
-          z = Math.floor(Math.random() * numEnemiesPerSide);
-
-          somethingAlreadyAtLocation = _.some(sceneObjects.enemies, function(enemy) {
-            return (enemy.gridX == x && enemy.gridZ == z);
-          });
-
-          somethingAlreadyAtLocation = somethingAlreadyAtLocation || (x == 2 && z == 2);
-        }
-
-        this.instantiateEnemy(x, z);
-    }
-  },
-
-  instantiateEnemy : function(x, z) {
-    var size = this.ENEMY_WIDTH;
-    var xOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
-    var zOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
-    var spacing = size + 800;
-
-    var someEnemy = new Enemy();
-    someEnemy.gridX = x;
-    someEnemy.gridZ = z;
-
-    someEnemy.threeObject.position.x = x * spacing + xOffSet;
-    someEnemy.threeObject.position.z = z * spacing + zOffSet;
   },
 
   makeSkyBox : function() {

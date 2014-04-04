@@ -1,5 +1,6 @@
 var meshLoader = {
   FLOOR : 0,
+  enemyTemplate : '',
 
   load : function() {
     var me = this;
@@ -19,14 +20,13 @@ var meshLoader = {
       var enemyModel = new THREE.SkinnedMesh(geometry, enemyMaterial, false);
       enemyModel.castShadow = true;
       enemyModel.scale.set(8, 8, 8);
-
-      for(var i = 0; i < sceneObjects.enemies.length; i++) {
-        var enemy = sceneObjects.enemies[i];
-
-        enemy.threeObject.visible = false;
-        enemy.threeObject.add(enemyModel.clone());
-      }
+      me.enemyTemplate = enemyModel;
     });
+  },
+
+  setEnemyModel : function(enemy) {
+    enemy.threeObject.visible = false;
+    enemy.threeObject.add(this.enemyTemplate.clone());
   },
 
   morphColorsToFaceColors : function(geometry) {
