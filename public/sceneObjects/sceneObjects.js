@@ -5,6 +5,8 @@ var sceneObjects = {
   enemies : [],
   morphs : [],
   enemySpawner : '',
+  movement : '',
+  updatableObjects : [],
 
   removeBullet : function(threeObject) {
     var bullet = _.find(sceneObjects.allBullets, function(element) {

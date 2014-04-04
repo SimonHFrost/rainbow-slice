@@ -11,7 +11,9 @@ var main = {
 
     sceneObjects.enemySpawner = new EnemySpawner();
     sceneObjects.movement = new Movement();
+    sceneObjects.updatableObjects.push(sceneObjects.movement);
     sceneObjects.story = new Story();
+    sceneObjects.updatableObjects.push(sceneObjects.story);
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(VIEWER_WIDTH, VIEWER_HEIGHT);
@@ -44,7 +46,10 @@ var main = {
     }
 
     sceneObjects.enemySpawner.update();
-    sceneObjects.movement.update();
+
+    for (var k = 0; k < sceneObjects.updatableObjects.length; k++){
+      sceneObjects.updatableObjects[k].update();
+    }
 
     boundryCollisionDetector.detectWallCollisions();
 
@@ -60,8 +65,6 @@ var main = {
           morph.updateAnimation(50000 * clock.getDelta());
         }
     }
-
-    this.checkStoryChanges();
   },
 
   checkStoryChanges : function() {
