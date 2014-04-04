@@ -3,7 +3,8 @@ var main = {
     clock = new THREE.Clock();
     clock.start();
 
-    meshLoader.load();
+    sceneObjects.meshLoader = new MeshLoader();
+    sceneObjects.meshLoader.load();
 
     scene = new THREE.Scene();
     sceneInitializer.initCameraAndLights();

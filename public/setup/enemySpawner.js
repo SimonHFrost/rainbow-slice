@@ -46,7 +46,7 @@ EnemySpawner.prototype.instantiateEnemy = function(x, z) {
   someEnemy.threeObject.position.x = x * spacing + xOffSet;
   someEnemy.threeObject.position.z = z * spacing + zOffSet;
 
-  meshLoader.setEnemyModel(someEnemy);
+  sceneObjects.meshLoader.setEnemyModel(someEnemy);
 };
 
 EnemySpawner.prototype.update = function() {
