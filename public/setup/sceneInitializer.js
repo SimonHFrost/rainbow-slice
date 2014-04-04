@@ -28,7 +28,6 @@ var sceneInitializer = {
     this.makeFloor();
     this.makeWalls();
     this.makePlayer();
-    sceneObjects.enemySpawner = new EnemySpawner();
     this.makeSkyBox();
   },
 

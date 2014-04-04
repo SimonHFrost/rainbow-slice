@@ -6,7 +6,7 @@ var meshLoader = {
     var me = this;
     var loader = new THREE.JSONLoader();
 
-    loader.load('./setup/horse.js', function (geometry) {
+    loader.load('./models/horse.js', function (geometry) {
         me.morphColorsToFaceColors(geometry);
         me.addMorph(geometry, 550, 1000);
 
@@ -14,7 +14,7 @@ var meshLoader = {
         sceneObjects.player.visible = false;
     });
 
-    loader.load('./setup/parrot.js', function (geometry) {
+    loader.load('./models/parrot.js', function (geometry) {
       me.morphColorsToFaceColors(geometry);
       var enemyMaterial = new THREE.MeshLambertMaterial( { color: 0xffaa55, morphTargets: true, vertexColors: THREE.FaceColors } );
       var enemyModel = new THREE.SkinnedMesh(geometry, enemyMaterial, false);

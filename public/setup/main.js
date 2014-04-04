@@ -9,6 +9,10 @@ var main = {
     sceneInitializer.initCameraAndLights();
     sceneInitializer.initSceneObjects();
 
+    sceneObjects.enemySpawner = new EnemySpawner();
+    sceneObjects.movement = new Movement();
+    sceneObjects.story = new Story();
+
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(VIEWER_WIDTH, VIEWER_HEIGHT);
     renderer.shadowMapEnabled = true;
@@ -40,6 +44,7 @@ var main = {
     }
 
     sceneObjects.enemySpawner.update();
+    sceneObjects.movement.update();
 
     boundryCollisionDetector.detectWallCollisions();
 
@@ -47,10 +52,9 @@ var main = {
       controls.update();
     }
 
-    movement.updateMovement();
     movementCollisionDetector.detectEnemyCollisions();
 
-    if(movement.isMoving) {
+    if(sceneObjects.movement.isMoving) {
         for (var k = 0; k < sceneObjects.morphs.length; k++) {
           var morph = sceneObjects.morphs[k];
           morph.updateAnimation(50000 * clock.getDelta());
@@ -61,8 +65,8 @@ var main = {
   },
 
   checkStoryChanges : function() {
-    if(story.health <= 0) {
-      story.triggerDead();
+    if(sceneObjects.story.health <= 0) {
+      sceneObjects.story.triggerDead();
     }
   }
 };

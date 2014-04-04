@@ -19,14 +19,14 @@ var bulletCollisionDetector = {
           return;
         }
 
-        if (story.health > 0) {
+        if (sceneObjects.story.health > 0) {
           sound.playHit(bullet);
-          story.health--;
+          sceneObjects.story.health--;
         }
 
-        if (!story.playedWin) {
+        if (!sceneObjects.story.playedWin) {
           elem = document.getElementById('scoreNumber');
-          elem.innerHTML = 'Health: ' + story.health;
+          elem.innerHTML = 'Health: ' + sceneObjects.story.health;
           bullet.used = true;
           scene.remove(bullet);
         }
