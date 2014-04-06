@@ -4,6 +4,12 @@ function Story() {
   this.playedDead = false;
 }
 
+Story.prototype.update = function() {
+  if(this.health <= 0) {
+    this.triggerDead();
+  }
+};
+
 Story.prototype.triggerWin = function() {
   if(!this.playedWin) {
     this.playedWin = true;

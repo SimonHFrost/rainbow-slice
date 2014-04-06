@@ -8,7 +8,7 @@ function EnemySpawner() {
   // this.spawnInitialEnemies();
 }
 
-EnemySpawner.prototype.spanInitialEnemies = function() {
+EnemySpawner.prototype.spawnInitialEnemies = function() {
   var numEnemiesPerSide = 5;
   var numEnemies = 11;
 

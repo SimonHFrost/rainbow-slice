@@ -86,13 +86,13 @@ var sceneInitializer = {
 
   makePlayer : function() {
     var playerWidth = this.PLAYER_WIDTH;
-    sceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), materials.BASIC);
+    sceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
     scene.add(sceneObjects.player);
   },
 
   makeSkyBox : function() {
     var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-    var skyBox = new THREE.Mesh ( skyGeometry, materials.SKY );
+    var skyBox = new THREE.Mesh ( skyGeometry, Materials.SKY );
     scene.add( skyBox );
   },
 

@@ -18,7 +18,7 @@ function Enemy() {
   this.currentAction = this.availableActions.IDLE;
 
   var geometry = new THREE.CubeGeometry(this.ENEMY_WIDTH, this.ENEMY_WIDTH, this.ENEMY_WIDTH);
-  var material = materials.ENEMY;
+  var material = Materials.ENEMY;
 
   this.threeObject = new THREE.Mesh(geometry, material);
   this.threeObject.dead = false;

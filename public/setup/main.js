@@ -68,9 +68,5 @@ var main = {
     }
   },
 
-  checkStoryChanges : function() {
-    if(sceneObjects.story.health <= 0) {
-      sceneObjects.story.triggerDead();
-    }
-  }
+
 };
