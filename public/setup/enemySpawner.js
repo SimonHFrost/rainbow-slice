@@ -52,7 +52,7 @@ EnemySpawner.prototype.instantiateEnemy = function(x, z) {
 EnemySpawner.prototype.update = function() {
   var numEnemiesPerSide = 5;
 
-  if(clock.getElapsedTime() >= this.lastFired + this.SPAWN_RATE) {
+  if(sceneObjects.clock.getElapsedTime() >= this.lastFired + this.SPAWN_RATE) {
     this.lastFired = this.lastFired + this.SPAWN_RATE;
     var x = Math.floor(Math.random() * numEnemiesPerSide);
     var z = Math.floor(Math.random() * numEnemiesPerSide);

@@ -40,8 +40,8 @@ Enemy.prototype.update = function() {
 };
 
 Enemy.prototype.fireBullet = function() {
-  if(clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
-    this.lastFired = clock.getElapsedTime() + this.FIRE_RATE;
+  if(sceneObjects.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
+    this.lastFired = sceneObjects.clock.getElapsedTime() + this.FIRE_RATE;
     if (Math.random() >= this.FIRE_FAILURE_RATE)
       var bulletThing = new Bullet(this.threeObject);
   }

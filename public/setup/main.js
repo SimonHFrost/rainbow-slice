@@ -1,7 +1,7 @@
-var main = {
-  init : function() {
+function Main() {
     clock = new THREE.Clock();
     clock.start();
+    sceneObjects.clock = clock;
 
     sceneObjects.meshLoader = new MeshLoader();
     sceneObjects.meshLoader.load();
@@ -35,38 +35,35 @@ var main = {
     new Sound().playTheme();
 
     window.addEventListener('resize', this.onWindowResize, false);
-  },
+}
 
-  render : function() {
-    renderer.clear();
-    renderer.render(scene, camera);
+Main.prototype.render = function() {
+  renderer.clear();
+  renderer.render(scene, camera);
 
-    for(var i = 0; i < sceneObjects.allBullets.length; i++){
-      sceneObjects.allBullets[i].update();
-    }
+  for(var i = 0; i < sceneObjects.allBullets.length; i++){
+    sceneObjects.allBullets[i].update();
+  }
 
-    for(var j = 0; j < sceneObjects.enemies.length; j++){
-      sceneObjects.enemies[j].update();
-    }
+  for(var j = 0; j < sceneObjects.enemies.length; j++){
+    sceneObjects.enemies[j].update();
+  }
 
-    for (var k = 0; k < sceneObjects.updatableObjects.length; k++){
-      sceneObjects.updatableObjects[k].update();
-    }
+  for (var k = 0; k < sceneObjects.updatableObjects.length; k++){
+    sceneObjects.updatableObjects[k].update();
+  }
 
-    new BoundryCollisionDetector().detectWallCollisions();
-    new MovementCollisionDetector().detectEnemyCollisions();
+  new BoundryCollisionDetector().detectWallCollisions();
+  new MovementCollisionDetector().detectEnemyCollisions();
 
-    if (DEBUG_MODE) {
-      controls.update();
-    }
+  if (DEBUG_MODE) {
+    controls.update();
+  }
 
-    if(sceneObjects.movement.isMoving) {
-        for (var k = 0; k < sceneObjects.morphs.length; k++) {
-          var morph = sceneObjects.morphs[k];
-          morph.updateAnimation(50000 * clock.getDelta());
-        }
-    }
-  },
-
-
+  if(sceneObjects.movement.isMoving) {
+      for (var k = 0; k < sceneObjects.morphs.length; k++) {
+        var morph = sceneObjects.morphs[k];
+        morph.updateAnimation(50000 * sceneObjects.clock.getDelta());
+      }
+  }
 };
