@@ -1,6 +1,6 @@
 var bulletCollisionDetector = {
-  PLAYER_WIDTH_HALF : sceneInitializer.PLAYER_WIDTH/2,
-  ENEMY_WIDTH_HALF : sceneInitializer.ENEMY_WIDTH/2,
+  PLAYER_WIDTH_HALF : SceneInitializer.PLAYER_WIDTH/2,
+  ENEMY_WIDTH_HALF : SceneInitializer.ENEMY_WIDTH/2,
 
   detectBulletCollisions : function(bullet) {
     this.detectBulletPlayerCollision(bullet);

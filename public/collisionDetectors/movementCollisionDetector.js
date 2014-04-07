@@ -2,6 +2,7 @@ var movementCollisionDetector = {
   PUSH_DISTANCE : 20,
 
   detectEnemyCollisions : function() {
+
     var originPoint = sceneObjects.player.position.clone();
     var playerSize = sceneObjects.player.geometry.depth / 2;
 

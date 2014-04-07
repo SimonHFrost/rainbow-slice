@@ -7,6 +7,8 @@ var main = {
     sceneObjects.meshLoader.load();
 
     scene = new THREE.Scene();
+
+    var sceneInitializer = new SceneInitializer();
     sceneInitializer.initCameraAndLights();
     sceneInitializer.initSceneObjects();
 
