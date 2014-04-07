@@ -23,6 +23,6 @@ function Bullet(enemyToFire) {
 
 Bullet.prototype.update = function() {
   this.threeObject.position.add(this.direction);
-  boundryCollisionDetector.deleteIfOutOfBounds(this.threeObject);
-  bulletCollisionDetector.detectBulletCollisions(this.threeObject);
+  new BoundryCollisionDetector().deleteIfOutOfBounds(this.threeObject);
+  new BulletCollisionDetector().detectBulletCollisions(this.threeObject);
 };

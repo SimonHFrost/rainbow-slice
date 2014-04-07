@@ -13,6 +13,7 @@ var main = {
     sceneInitializer.initSceneObjects();
 
     sceneObjects.enemySpawner = new EnemySpawner();
+    sceneObjects.updatableObjects.push(sceneObjects.enemySpawner);
     sceneObjects.movement = new Movement();
     sceneObjects.updatableObjects.push(sceneObjects.movement);
     sceneObjects.story = new Story();
@@ -48,19 +49,16 @@ var main = {
       sceneObjects.enemies[j].update();
     }
 
-    sceneObjects.enemySpawner.update();
-
     for (var k = 0; k < sceneObjects.updatableObjects.length; k++){
       sceneObjects.updatableObjects[k].update();
     }
 
-    boundryCollisionDetector.detectWallCollisions();
+    new BoundryCollisionDetector().detectWallCollisions();
+    new MovementCollisionDetector().detectEnemyCollisions();
 
     if (DEBUG_MODE) {
       controls.update();
     }
-
-    movementCollisionDetector.detectEnemyCollisions();
 
     if(sceneObjects.movement.isMoving) {
         for (var k = 0; k < sceneObjects.morphs.length; k++) {
