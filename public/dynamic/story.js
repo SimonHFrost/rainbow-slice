@@ -15,7 +15,7 @@ Story.prototype.triggerWin = function() {
     this.playedWin = true;
     elem = document.getElementById('scoreNumber');
     elem.innerHTML = 'You won with ' + story.health + ' health left!';
-    sound.playWin();
+    new Sound().playWin();
 
     _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 

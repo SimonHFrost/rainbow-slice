@@ -32,7 +32,7 @@ var movementCollisionDetector = {
         enemy.children[0].material = Materials.DEAD;
 
         enemy.dead = true;
-        sound.playEnemyHit(enemy);
+        new Sound().playEnemyHit(enemy);
 
         // this.pushEnemyInFourDirections(enemy, normalized);
         this.pushEnemyInEightDirections(enemy, normalized);

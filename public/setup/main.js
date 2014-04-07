@@ -31,7 +31,7 @@ var main = {
       controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
 
-    sound.init();
+    new Sound().playTheme();
 
     window.addEventListener('resize', this.onWindowResize, false);
   },

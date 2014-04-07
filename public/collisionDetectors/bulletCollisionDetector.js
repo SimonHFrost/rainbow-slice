@@ -20,7 +20,7 @@ var bulletCollisionDetector = {
         }
 
         if (sceneObjects.story.health > 0) {
-          sound.playHit(bullet);
+          new Sound().playHit(bullet);
           sceneObjects.story.health--;
         }
 
