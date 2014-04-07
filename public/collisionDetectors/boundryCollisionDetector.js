@@ -8,7 +8,7 @@ function BoundryCollisionDetector() {
   };
 }
 
-BoundryCollisionDetector.prototype.detectWallCollisions = function() {
+BoundryCollisionDetector.prototype.update = function() {
   this.putBackInBounds(SceneObjects.player);
   this.detectBoundryCollisionsEnemies();
 };

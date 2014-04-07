@@ -16,10 +16,11 @@ function SceneInitializer() {
   SceneObjects.updatableObjects.push(SceneObjects.movement);
   SceneObjects.story = new Story();
   SceneObjects.updatableObjects.push(SceneObjects.story);
-
-  clock = new THREE.Clock();
-  clock.start();
-  SceneObjects.clock = clock;
+  SceneObjects.updatableObjects.push(new BoundryCollisionDetector());
+  SceneObjects.updatableObjects.push(new MovementCollisionDetector());
+  SceneObjects.updatableObjects.push(new BulletCollisionDetector());
+  SceneObjects.clock = new THREE.Clock();
+  SceneObjects.clock.start();
 
   new Sound().playTheme();
 }
@@ -93,13 +94,11 @@ SceneInitializer.prototype.makeWalls = function() {
 
   var southWall = wallTemplate.clone();
   southWall.position.z = -floorBoundry;
-  southWall.position.x = 0;
   southWall.rotation.y = Math.PI / 2;
   scene.add(southWall);
 
   var northWall = wallTemplate.clone();
   northWall.position.z = floorBoundry;
-  northWall.position.x = 0;
   northWall.rotation.y = Math.PI / 2;
 
   scene.add(northWall);

@@ -3,9 +3,11 @@ function BulletCollisionDetector() {
   this.ENEMY_WIDTH_HALF = SceneInitializer.ENEMY_WIDTH/2;
 }
 
-BulletCollisionDetector.prototype.detectBulletCollisions = function(bullet) {
-  this.detectBulletPlayerCollision(bullet);
-  this.detectBulletEnemyCollision(bullet);
+BulletCollisionDetector.prototype.update = function() {
+  for(var i = 0; i < SceneObjects.allBullets.length; i++) {
+    this.detectBulletPlayerCollision(SceneObjects.allBullets[i].threeObject);
+    this.detectBulletEnemyCollision(SceneObjects.allBullets[i].threeObject);
+  }
 };
 
 BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet) {

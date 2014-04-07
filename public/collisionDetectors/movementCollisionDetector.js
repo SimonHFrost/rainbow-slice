@@ -1,10 +1,10 @@
 function MovementCollisionDetector() {
   this.PUSH_DISTANCE = 20;
-};
+}
 
-MovementCollisionDetector.prototype.detectEnemyCollisions = function() {
+MovementCollisionDetector.prototype.update = function() {
   var originPoint = SceneObjects.player.position.clone();
-  var playerSize = SceneObjects.player.geometry.depth / 2;
+  var playerSize = SceneInitializer.PLAYER_WIDTH / 2;
 
   var horizontalVertices = [
     new THREE.Vector3(0, 0, playerSize),

@@ -23,28 +23,17 @@ Main.prototype.render = function() {
   renderer.clear();
   renderer.render(scene, camera);
 
-  for(var i = 0; i < SceneObjects.allBullets.length; i++){
-    SceneObjects.allBullets[i].update();
+  for (var i = 0; i < SceneObjects.updatableObjects.length; i++){
+    SceneObjects.updatableObjects[i].update();
   }
-
-  for(var j = 0; j < SceneObjects.enemies.length; j++){
-    SceneObjects.enemies[j].update();
-  }
-
-  for (var k = 0; k < SceneObjects.updatableObjects.length; k++){
-    SceneObjects.updatableObjects[k].update();
-  }
-
-  new BoundryCollisionDetector().detectWallCollisions();
-  new MovementCollisionDetector().detectEnemyCollisions();
 
   if (Main.DEBUG_MODE) {
     controls.update();
   }
 
   if(SceneObjects.movement.isMoving) {
-      for (var k = 0; k < SceneObjects.morphs.length; k++) {
-        var morph = SceneObjects.morphs[k];
+      for (var i = 0; i < SceneObjects.morphs.length; i++) {
+        var morph = SceneObjects.morphs[i];
         morph.updateAnimation(50000 * SceneObjects.clock.getDelta());
       }
   }

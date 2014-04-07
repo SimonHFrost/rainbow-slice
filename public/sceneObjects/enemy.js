@@ -24,6 +24,7 @@ function Enemy(size) {
   this.threeObject.castShadow = true;
 
   SceneObjects.enemies.push(this);
+  SceneObjects.updatableObjects.push(this);
   scene.add(this.threeObject);
 }
 

@@ -18,11 +18,10 @@ function Bullet(enemyToFire) {
   this.direction.multiplyScalar(this.SPEED);
 
   SceneObjects.allBullets.push(this);
+  SceneObjects.updatableObjects.push(this);
   scene.add(this.threeObject);
 }
 
 Bullet.prototype.update = function() {
   this.threeObject.position.add(this.direction);
-  new BoundryCollisionDetector().deleteIfOutOfBounds(this.threeObject);
-  new BulletCollisionDetector().detectBulletCollisions(this.threeObject);
 };
