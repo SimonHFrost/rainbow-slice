@@ -1,26 +1,8 @@
 function Main() {
-    clock = new THREE.Clock();
-    clock.start();
-    sceneObjects.clock = clock;
-
-    sceneObjects.meshLoader = new MeshLoader();
-    sceneObjects.meshLoader.load();
-
-    scene = new THREE.Scene();
-
     var sceneInitializer = new SceneInitializer();
-    sceneInitializer.initCameraAndLights();
-    sceneInitializer.initSceneObjects();
-
-    sceneObjects.enemySpawner = new EnemySpawner();
-    sceneObjects.updatableObjects.push(sceneObjects.enemySpawner);
-    sceneObjects.movement = new Movement();
-    sceneObjects.updatableObjects.push(sceneObjects.movement);
-    sceneObjects.story = new Story();
-    sceneObjects.updatableObjects.push(sceneObjects.story);
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(VIEWER_WIDTH, VIEWER_HEIGHT);
+    renderer.setSize(Main.VIEWER_WIDTH, Main.VIEWER_HEIGHT);
     renderer.shadowMapEnabled = true;
     renderer.shadowMapSoft = true;
     renderer.domElement.style.display = "inline";
@@ -28,14 +10,14 @@ function Main() {
     var container = document.getElementById('webglDiv');
     container.appendChild( renderer.domElement );
 
-    if (DEBUG_MODE) {
+    if (Main.DEBUG_MODE) {
       controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
-
-    new Sound().playTheme();
-
-    window.addEventListener('resize', this.onWindowResize, false);
 }
+
+Main.VIEWER_WIDTH = 1000;
+Main.VIEWER_HEIGHT = 562.5;
+Main.DEBUG_MODE = true;
 
 Main.prototype.render = function() {
   renderer.clear();
@@ -56,7 +38,7 @@ Main.prototype.render = function() {
   new BoundryCollisionDetector().detectWallCollisions();
   new MovementCollisionDetector().detectEnemyCollisions();
 
-  if (DEBUG_MODE) {
+  if (Main.DEBUG_MODE) {
     controls.update();
   }
 

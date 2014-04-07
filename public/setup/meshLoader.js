@@ -1,6 +1,8 @@
 function MeshLoader() {
   this.FLOOR = 0;
   this.enemyTemplate = '';
+
+  this.load();
 }
 
 MeshLoader.prototype.load = function() {

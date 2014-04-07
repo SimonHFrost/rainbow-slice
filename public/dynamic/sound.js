@@ -42,6 +42,6 @@ Sound.prototype.playTheme = function() {
   themeSource.src = 'sound/theme.wav';
   themeAudio.load();
   themeAudio.loop = true;
-  if (!DEBUG_MODE)
+  if (!Main.DEBUG_MODE)
     themeAudio.play();
 };

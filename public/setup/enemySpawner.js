@@ -3,7 +3,7 @@ function EnemySpawner() {
   this.ENEMY_BORDER_WIDTH = 1000;
   this.ENEMY_WIDTH = 200;
   this.SPAWN_RATE = 2;
-  this.lastFired = 0;
+  this.lastSpawned = 0;
 
   // this.spawnInitialEnemies();
 }
@@ -39,7 +39,7 @@ EnemySpawner.prototype.instantiateEnemy = function(x, z) {
   var zOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
   var spacing = size + 800;
 
-  var someEnemy = new Enemy();
+  var someEnemy = new Enemy(size);
   someEnemy.gridX = x;
   someEnemy.gridZ = z;
 
@@ -52,8 +52,8 @@ EnemySpawner.prototype.instantiateEnemy = function(x, z) {
 EnemySpawner.prototype.update = function() {
   var numEnemiesPerSide = 5;
 
-  if(sceneObjects.clock.getElapsedTime() >= this.lastFired + this.SPAWN_RATE) {
-    this.lastFired = this.lastFired + this.SPAWN_RATE;
+  if(sceneObjects.clock.getElapsedTime() >= this.lastSpawned + this.SPAWN_RATE) {
+    this.lastSpawned = this.lastSpawned + this.SPAWN_RATE;
     var x = Math.floor(Math.random() * numEnemiesPerSide);
     var z = Math.floor(Math.random() * numEnemiesPerSide);
 

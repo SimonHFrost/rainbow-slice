@@ -28,7 +28,7 @@ Story.prototype.triggerWin = function() {
 Story.prototype.triggerDead = function() {
   if(!this.playedDead) {
     this.playedDead = true;
-    if (!DEBUG_MODE)
+    if (!Main.DEBUG_MODE)
       location.reload();
   }
 };

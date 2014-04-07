@@ -15,7 +15,7 @@
 
 		<ul id='menuBar'>
 			<li class='footerText'>This has only been tested on Chrome OSX (sorry).</li>
-			<li class='footerText'>If you'd like, you can follow this project <a href='https://github.com/simonhfrost/rainbowslice'>here.</a>
+			<li class='footerText'>If you'd like, you can follow this project <a href='https://github.com/simonhfrost/rainbow_slice'>here.</a>
 		</ul>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.js"></script>
@@ -42,15 +42,10 @@
 		<script src="sceneObjects/bullet.js"></script>
 		<script src="sceneObjects/enemy.js"></script>
 		<script>
-			DEBUG_MODE = true;
-			VIEWER_WIDTH = 1000; // 16 x 10
-			VIEWER_HEIGHT = 562.5;
-
 			// start everything
 			var main = new Main();
 			animate();
 
-			// move this into main somehow
 			function animate() {
 				requestAnimationFrame( animate );
 				main.render();

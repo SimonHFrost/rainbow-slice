@@ -1,5 +1,4 @@
-function Enemy() {
-  this.ENEMY_WIDTH = 200;
+function Enemy(size) {
   this.FIRE_RATE = 0.1;
   this.FIRE_FAILURE_RATE = 0.4;
 
@@ -17,7 +16,7 @@ function Enemy() {
   this.lastFired = 0;
   this.currentAction = this.availableActions.IDLE;
 
-  var geometry = new THREE.CubeGeometry(this.ENEMY_WIDTH, this.ENEMY_WIDTH, this.ENEMY_WIDTH);
+  var geometry = new THREE.CubeGeometry(size, size, size);
   var material = Materials.ENEMY;
 
   this.threeObject = new THREE.Mesh(geometry, material);

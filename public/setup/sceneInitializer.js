@@ -1,14 +1,34 @@
 function SceneInitializer() {
+  scene = new THREE.Scene();
+
   this.FLOOR_DIMENSIONS = 3000;
   this.ENEMY_BORDER_WIDTH = 1000;
   this.FULL_ROTATION = 2 * Math.PI / 360;
+
+  sceneObjects.meshLoader = new MeshLoader();
+
+  this.initCameraAndLights();
+  this.initSceneObjects();
+
+  sceneObjects.enemySpawner = new EnemySpawner();
+  sceneObjects.updatableObjects.push(sceneObjects.enemySpawner);
+  sceneObjects.movement = new Movement();
+  sceneObjects.updatableObjects.push(sceneObjects.movement);
+  sceneObjects.story = new Story();
+  sceneObjects.updatableObjects.push(sceneObjects.story);
+
+  clock = new THREE.Clock();
+  clock.start();
+  sceneObjects.clock = clock;
+
+  new Sound().playTheme();
 }
 
 SceneInitializer.PLAYER_WIDTH = 400;
 SceneInitializer.ENEMY_WIDTH = 200;
 
 SceneInitializer.prototype.initCameraAndLights = function() {
-  camera = new THREE.PerspectiveCamera(45, VIEWER_WIDTH / VIEWER_HEIGHT, 1, 200000);
+  camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);
   camera.rotation.x = -75 * this.FULL_ROTATION;
   camera.position.y = 8000;
   camera.position.z = 2500;
