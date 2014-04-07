@@ -9,13 +9,13 @@ function BoundryCollisionDetector() {
 }
 
 BoundryCollisionDetector.prototype.detectWallCollisions = function() {
-  this.putBackInBounds(sceneObjects.player);
+  this.putBackInBounds(SceneObjects.player);
   this.detectBoundryCollisionsEnemies();
 };
 
 BoundryCollisionDetector.prototype.detectBoundryCollisionsEnemies = function() {
-  for (var i = 0; i < sceneObjects.enemies.length; i++) {
-    this.putBackInBounds(sceneObjects.enemies[i].threeObject);
+  for (var i = 0; i < SceneObjects.enemies.length; i++) {
+    this.putBackInBounds(SceneObjects.enemies[i].threeObject);
   }
 };
 
@@ -43,7 +43,7 @@ BoundryCollisionDetector.prototype.putBackInBounds = function(misbehavor) {
 BoundryCollisionDetector.prototype.deleteIfOutOfBounds = function(misbehavor) {
   if (this.getOutOfBoundsStatus(misbehavor.position) !== null) {
     scene.remove(misbehavor);
-    sceneObjects.removeBullet(misbehavor);
+    SceneObjects.removeBullet(misbehavor);
   }
 };
 

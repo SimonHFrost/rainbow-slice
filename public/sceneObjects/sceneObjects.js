@@ -1,20 +1,23 @@
-var sceneObjects = {
-  allBullets : [],
-  player : '',
-  playerModel: '',
-  enemies : [],
-  morphs : [],
-  enemySpawner : '',
-  movement : '',
-  updatableObjects : [],
-  clock : '',
+/* Static properties and method */
 
-  removeBullet : function(threeObject) {
-    var bullet = _.find(sceneObjects.allBullets, function(element) {
-      return element.threeObject === threeObject;
-    });
+function SceneObjects() {
+}
 
-    var index = sceneObjects.allBullets.indexOf(bullet);
-    sceneObjects.allBullets.splice(index, 1);
-  }
+SceneObjects.allBullets = [];
+SceneObjects.player = '';
+SceneObjects.playerModel = '';
+SceneObjects.enemies = [];
+SceneObjects.morphs = [];
+SceneObjects.enemySpawner = '';
+SceneObjects.movement = '';
+SceneObjects.updatableObjects = [];
+SceneObjects.clock = '';
+
+SceneObjects.removeBullet = function(threeObject) {
+  var bullet = _.find(SceneObjects.allBullets, function(element) {
+    return element.threeObject === threeObject;
+  });
+
+  var index = SceneObjects.allBullets.indexOf(bullet);
+  SceneObjects.allBullets.splice(index, 1);
 };

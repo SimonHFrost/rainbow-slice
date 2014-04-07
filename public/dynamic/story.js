@@ -19,7 +19,7 @@ Story.prototype.triggerWin = function() {
 
     _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 
-    _.each(sceneObjects.allBullets, function(bullet) {
+    _.each(SceneObjects.allBullets, function(bullet) {
       scene.remove(bullet);
     });
   }

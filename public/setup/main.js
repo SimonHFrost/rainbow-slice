@@ -23,16 +23,16 @@ Main.prototype.render = function() {
   renderer.clear();
   renderer.render(scene, camera);
 
-  for(var i = 0; i < sceneObjects.allBullets.length; i++){
-    sceneObjects.allBullets[i].update();
+  for(var i = 0; i < SceneObjects.allBullets.length; i++){
+    SceneObjects.allBullets[i].update();
   }
 
-  for(var j = 0; j < sceneObjects.enemies.length; j++){
-    sceneObjects.enemies[j].update();
+  for(var j = 0; j < SceneObjects.enemies.length; j++){
+    SceneObjects.enemies[j].update();
   }
 
-  for (var k = 0; k < sceneObjects.updatableObjects.length; k++){
-    sceneObjects.updatableObjects[k].update();
+  for (var k = 0; k < SceneObjects.updatableObjects.length; k++){
+    SceneObjects.updatableObjects[k].update();
   }
 
   new BoundryCollisionDetector().detectWallCollisions();
@@ -42,10 +42,10 @@ Main.prototype.render = function() {
     controls.update();
   }
 
-  if(sceneObjects.movement.isMoving) {
-      for (var k = 0; k < sceneObjects.morphs.length; k++) {
-        var morph = sceneObjects.morphs[k];
-        morph.updateAnimation(50000 * sceneObjects.clock.getDelta());
+  if(SceneObjects.movement.isMoving) {
+      for (var k = 0; k < SceneObjects.morphs.length; k++) {
+        var morph = SceneObjects.morphs[k];
+        morph.updateAnimation(50000 * SceneObjects.clock.getDelta());
       }
   }
 };

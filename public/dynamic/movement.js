@@ -12,22 +12,22 @@ Movement.prototype.update = function() {
 
 Movement.prototype.movePlayer = function() {
   if (Key.isDown(Key.A)) {
-    sceneObjects.player.position.x -= this.TRANSLATION_SPEED;
+    SceneObjects.player.position.x -= this.TRANSLATION_SPEED;
     this.setRotation(0.75);
   }
 
   if (Key.isDown(Key.D)) {
-    sceneObjects.player.position.x += this.TRANSLATION_SPEED;
+    SceneObjects.player.position.x += this.TRANSLATION_SPEED;
     this.setRotation(0.25);
   }
 
   if (Key.isDown(Key.W)) {
-    sceneObjects.player.position.z -= this.TRANSLATION_SPEED;
+    SceneObjects.player.position.z -= this.TRANSLATION_SPEED;
     this.setRotation(0.5);
   }
 
   if (Key.isDown(Key.S)) {
-    sceneObjects.player.position.z += this.TRANSLATION_SPEED;
+    SceneObjects.player.position.z += this.TRANSLATION_SPEED;
     this.setRotation(0);
   }
 };
@@ -67,7 +67,7 @@ Movement.prototype.rotatePlayer = function() {
 };
 
 Movement.prototype.setRotation = function(amount) {
-  sceneObjects.playerModel.rotation.y = amount * this.FULL_ROTATION;
+  SceneObjects.playerModel.rotation.y = amount * this.FULL_ROTATION;
 };
 
 Movement.prototype.setMovementStatus = function() {

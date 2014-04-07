@@ -5,21 +5,21 @@ function SceneInitializer() {
   this.ENEMY_BORDER_WIDTH = 1000;
   this.FULL_ROTATION = 2 * Math.PI / 360;
 
-  sceneObjects.meshLoader = new MeshLoader();
+  SceneObjects.meshLoader = new MeshLoader();
 
   this.initCameraAndLights();
   this.initSceneObjects();
 
-  sceneObjects.enemySpawner = new EnemySpawner();
-  sceneObjects.updatableObjects.push(sceneObjects.enemySpawner);
-  sceneObjects.movement = new Movement();
-  sceneObjects.updatableObjects.push(sceneObjects.movement);
-  sceneObjects.story = new Story();
-  sceneObjects.updatableObjects.push(sceneObjects.story);
+  SceneObjects.enemySpawner = new EnemySpawner();
+  SceneObjects.updatableObjects.push(SceneObjects.enemySpawner);
+  SceneObjects.movement = new Movement();
+  SceneObjects.updatableObjects.push(SceneObjects.movement);
+  SceneObjects.story = new Story();
+  SceneObjects.updatableObjects.push(SceneObjects.story);
 
   clock = new THREE.Clock();
   clock.start();
-  sceneObjects.clock = clock;
+  SceneObjects.clock = clock;
 
   new Sound().playTheme();
 }
@@ -107,8 +107,8 @@ SceneInitializer.prototype.makeWalls = function() {
 
 SceneInitializer.prototype.makePlayer = function() {
   var playerWidth = SceneInitializer.PLAYER_WIDTH;
-  sceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
-  scene.add(sceneObjects.player);
+  SceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
+  scene.add(SceneObjects.player);
 };
 
 SceneInitializer.prototype.makeSkyBox = function() {

@@ -23,7 +23,7 @@ function Enemy(size) {
   this.threeObject.dead = false;
   this.threeObject.castShadow = true;
 
-  sceneObjects.enemies.push(this);
+  SceneObjects.enemies.push(this);
   scene.add(this.threeObject);
 }
 
@@ -32,15 +32,15 @@ Enemy.prototype.update = function() {
     if(this.currentAction !== this.availableActions.IDLE) {
       this.fireBullet();
       this.updateMovement();
-      this.threeObject.lookAt(sceneObjects.player.position);
+      this.threeObject.lookAt(SceneObjects.player.position);
     }
     this.decideIfChangingAction();
   }
 };
 
 Enemy.prototype.fireBullet = function() {
-  if(sceneObjects.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
-    this.lastFired = sceneObjects.clock.getElapsedTime() + this.FIRE_RATE;
+  if(SceneObjects.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
+    this.lastFired = SceneObjects.clock.getElapsedTime() + this.FIRE_RATE;
     if (Math.random() >= this.FIRE_FAILURE_RATE)
       var bulletThing = new Bullet(this.threeObject);
   }
@@ -48,7 +48,7 @@ Enemy.prototype.fireBullet = function() {
 
 Enemy.prototype.updateMovement = function() {
   var pLocal = new THREE.Vector3(0, 0, -1);
-  var pWorld = pLocal.applyMatrix4(sceneObjects.player.matrixWorld);
+  var pWorld = pLocal.applyMatrix4(SceneObjects.player.matrixWorld);
   var facing = pWorld.sub(this.threeObject.position).normalize();
   facing.multiplyScalar(5);
 

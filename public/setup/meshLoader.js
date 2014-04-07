@@ -14,7 +14,7 @@ MeshLoader.prototype.load = function() {
       me.addMorph(geometry, 550, 1000);
 
       // using player as a hitbox
-      sceneObjects.player.visible = false;
+      SceneObjects.player.visible = false;
   });
 
   loader.load('./models/parrot.js', function(geometry) {
@@ -55,7 +55,7 @@ MeshLoader.prototype.addMorph = function( geometry, speed, duration) {
   meshAnim.castShadow = true;
   meshAnim.scale.set(3, 3, 3);
 
-  sceneObjects.playerModel = meshAnim;
-  sceneObjects.player.add(meshAnim);
-  sceneObjects.morphs.push(meshAnim);
+  SceneObjects.playerModel = meshAnim;
+  SceneObjects.player.add(meshAnim);
+  SceneObjects.morphs.push(meshAnim);
 };

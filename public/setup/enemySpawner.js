@@ -22,7 +22,7 @@ EnemySpawner.prototype.spawnInitialEnemies = function() {
         x = Math.floor(Math.random() * numEnemiesPerSide);
         z = Math.floor(Math.random() * numEnemiesPerSide);
 
-        somethingAlreadyAtLocation = _.some(sceneObjects.enemies, function(enemy) {
+        somethingAlreadyAtLocation = _.some(SceneObjects.enemies, function(enemy) {
           return (enemy.gridX == x && enemy.gridZ == z);
         });
 
@@ -46,13 +46,13 @@ EnemySpawner.prototype.instantiateEnemy = function(x, z) {
   someEnemy.threeObject.position.x = x * spacing + xOffSet;
   someEnemy.threeObject.position.z = z * spacing + zOffSet;
 
-  sceneObjects.meshLoader.setEnemyModel(someEnemy);
+  SceneObjects.meshLoader.setEnemyModel(someEnemy);
 };
 
 EnemySpawner.prototype.update = function() {
   var numEnemiesPerSide = 5;
 
-  if(sceneObjects.clock.getElapsedTime() >= this.lastSpawned + this.SPAWN_RATE) {
+  if(SceneObjects.clock.getElapsedTime() >= this.lastSpawned + this.SPAWN_RATE) {
     this.lastSpawned = this.lastSpawned + this.SPAWN_RATE;
     var x = Math.floor(Math.random() * numEnemiesPerSide);
     var z = Math.floor(Math.random() * numEnemiesPerSide);

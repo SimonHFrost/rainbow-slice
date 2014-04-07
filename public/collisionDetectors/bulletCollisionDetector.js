@@ -9,10 +9,10 @@ BulletCollisionDetector.prototype.detectBulletCollisions = function(bullet) {
 };
 
 BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet) {
-  var right = sceneObjects.player.position.x + this.PLAYER_WIDTH_HALF;
-  var left = sceneObjects.player.position.x - this.PLAYER_WIDTH_HALF;
-  var up = sceneObjects.player.position.z + this.PLAYER_WIDTH_HALF;
-  var down = sceneObjects.player.position.z - this.PLAYER_WIDTH_HALF;
+  var right = SceneObjects.player.position.x + this.PLAYER_WIDTH_HALF;
+  var left = SceneObjects.player.position.x - this.PLAYER_WIDTH_HALF;
+  var up = SceneObjects.player.position.z + this.PLAYER_WIDTH_HALF;
+  var down = SceneObjects.player.position.z - this.PLAYER_WIDTH_HALF;
 
   if (left < bullet.position.x && bullet.position.x < right) {
     if (down < bullet.position.z && bullet.position.z < up) {
@@ -20,14 +20,14 @@ BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet)
         return;
       }
 
-      if (sceneObjects.story.health > 0) {
+      if (SceneObjects.story.health > 0) {
         new Sound().playHit(bullet);
-        sceneObjects.story.health--;
+        SceneObjects.story.health--;
       }
 
-      if (!sceneObjects.story.playedWin) {
+      if (!SceneObjects.story.playedWin) {
         elem = document.getElementById('scoreNumber');
-        elem.innerHTML = 'Health: ' + sceneObjects.story.health;
+        elem.innerHTML = 'Health: ' + SceneObjects.story.health;
         bullet.used = true;
         scene.remove(bullet);
       }
@@ -36,8 +36,8 @@ BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet)
 };
 
 BulletCollisionDetector.prototype.detectBulletEnemyCollision = function(bullet) {
-  for(var i = 0; i < sceneObjects.enemies.length; i++) {
-    var enemy = sceneObjects.enemies[i].threeObject;
+  for(var i = 0; i < SceneObjects.enemies.length; i++) {
+    var enemy = SceneObjects.enemies[i].threeObject;
 
     if (enemy === bullet.enemyToFire) {
       continue;

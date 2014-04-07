@@ -11,13 +11,13 @@ function Bullet(enemyToFire) {
   this.threeObject.position.z = enemyToFire.position.z;
 
   var pLocal = new THREE.Vector3(0, 0, -1);
-  var pWorld = pLocal.applyMatrix4(sceneObjects.player.matrixWorld);
+  var pWorld = pLocal.applyMatrix4(SceneObjects.player.matrixWorld);
   var dir = pWorld.sub(this.threeObject.position).normalize();
 
   this.direction = dir;
   this.direction.multiplyScalar(this.SPEED);
 
-  sceneObjects.allBullets.push(this);
+  SceneObjects.allBullets.push(this);
   scene.add(this.threeObject);
 }
 
