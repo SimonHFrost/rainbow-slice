@@ -2,8 +2,6 @@ var http = require('http');
 var static = require('node-static');
 var socketIO = require('socket.io');
 
-var fileServer = new static.Server('./public');
-
 var folder = new(static.Server)('./public');
 httpServer = http.createServer(function (request, response) {
   folder.serve(request, response);
