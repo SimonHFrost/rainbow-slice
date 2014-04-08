@@ -10,7 +10,7 @@ function Main() {
     renderer.domElement.style.display = "inline";
 
     var container = document.getElementById('webglDiv');
-    container.appendChild( renderer.domElement );
+    container.appendChild(renderer.domElement);
 
     if (Main.DEBUG_MODE) {
       controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -19,7 +19,7 @@ function Main() {
 
 Main.VIEWER_WIDTH = 1000;
 Main.VIEWER_HEIGHT = 562.5;
-Main.DEBUG_MODE = true;
+Main.DEBUG_MODE = false;
 
 Main.prototype.render = function() {
   renderer.clear();
