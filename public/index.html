@@ -8,7 +8,7 @@
 		<ul id='menuBar'>
 			<li class='uiText' id='scoreNumber'>Health: 250</li>
 			<li class='uiTitle'><img src = 'img/title.png'/></li>
-			<li class='uiText'>Version: 0.1.11</li>
+			<li class='uiText'><p class='connectionCount'></p><p>Version: 0.1.11</p></li>
 		</ul>
 
 		<div id='webglDiv' style='text-align:center;'></div>
@@ -20,6 +20,9 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r61/three.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+
 		<script src="lib/OrbitControls.js"></script>
 		<script src="lib/keyboard.js"></script>
 		<script src="lib/analytics.js"></script>
@@ -41,6 +44,9 @@
 		<script src="sceneObjects/sceneObjects.js"></script>
 		<script src="sceneObjects/bullet.js"></script>
 		<script src="sceneObjects/enemy.js"></script>
+
+		<script src="networking/connectionCount.js"></script>
+
 		<script>
 			// start everything
 			var main = new Main();

@@ -1,12 +1,21 @@
-var http = require('http'),
-  static = require('node-static');
+var http = require('http');
+var static = require('node-static');
+var socketIO = require('socket.io');
 
 var fileServer = new static.Server('./public');
 
 var folder = new(static.Server)('./public');
-console.log('Server started on port 8080');
-
-http.createServer(function (request, response) {
-  console.log('Request made: ' + request);
+httpServer = http.createServer(function (request, response) {
   folder.serve(request, response);
 }).listen(8080);
+
+io = socketIO.listen(httpServer);
+
+var connectionCount = 0;
+io.sockets.on('connection', function (socket) {
+  console.log('Client Connected!');
+  connectionCount++;
+
+  // socket.emit('connectionCount', { connectionCount: connectionCount });
+  io.sockets.emit('connectionCount', { connectionCount: connectionCount });
+});
