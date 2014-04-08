@@ -22,17 +22,10 @@ BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet)
         return;
       }
 
-      if (SceneObjects.story.health > 0) {
-        new Sound().playHit(bullet);
-        SceneObjects.story.health--;
-      }
-
-      if (!SceneObjects.story.playedWin) {
-        elem = document.getElementById('scoreNumber');
-        elem.innerHTML = 'Health: ' + SceneObjects.story.health;
-        bullet.used = true;
-        scene.remove(bullet);
-      }
+      SceneObjects.story.decreaseHealth();
+      
+      bullet.used = true;
+      scene.remove(bullet);
     }
   }
 };

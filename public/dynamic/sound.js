@@ -10,18 +10,12 @@ function Sound() {
   themeAudio.appendChild(themeSource);
 }
 
-Sound.prototype.playHit = function(element) {
-  if(!element.playedAudio) {
-    element.playedAudio = true;
-    this.playDynamicSound('sound/playerHit.wav');
-  }
+Sound.prototype.playHit = function() {
+  this.playDynamicSound('sound/playerHit.wav');
 };
 
-Sound.prototype.playEnemyHit = function(element) {
-  if(!element.playedAudio) {
-    element.playedAudio = true;
-    this.playDynamicSound('sound/enemyHit.wav');
-  }
+Sound.prototype.playEnemyHit = function() {
+  this.playDynamicSound('sound/enemyHit.wav');
 };
 
 Sound.prototype.playWin = function() {

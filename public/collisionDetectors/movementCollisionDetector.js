@@ -24,18 +24,23 @@ MovementCollisionDetector.prototype.update = function() {
     var directionVector = globalVertex.sub( SceneObjects.player.position );
     var normalized = directionVector.clone().normalize();
 
-    var ray = new THREE.Raycaster( originPoint, normalized );
+    var ray = new THREE.Raycaster(originPoint, normalized);
     var collisionResults = ray.intersectObjects( _.pluck(SceneObjects.enemies, 'threeObject'));
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
       var enemy = collisionResults[0].object;
+      this.pushEnemyInEightDirections(enemy, normalized);
+
+      if(enemy.used) {
+        continue;
+      }
+      enemy.used = true;
+      enemy.dead = true;
 
       enemy.children[0].material = Materials.DEAD;
 
-      enemy.dead = true;
-      new Sound().playEnemyHit(enemy);
+      SceneObjects.story.increaseKills();
 
       // this.pushEnemyInFourDirections(enemy, normalized);
-      this.pushEnemyInEightDirections(enemy, normalized);
     }
   }
 };

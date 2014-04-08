@@ -1,7 +1,7 @@
 function Main() {
     var sceneInitializer = new SceneInitializer();
 
-    var connectionCount = new ConnectionCount($('.connectionCount'));
+    var connectionCount = new ConnectionCount($('#connectionCount'));
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(Main.VIEWER_WIDTH, Main.VIEWER_HEIGHT);

@@ -9,6 +9,9 @@ function BoundryCollisionDetector() {
 }
 
 BoundryCollisionDetector.prototype.update = function() {
+  for (var i = 0; i < SceneObjects.allBullets.length; i++) {
+    this.deleteIfOutOfBounds(SceneObjects.allBullets[i].threeObject);
+  }
   this.putBackInBounds(SceneObjects.player);
   this.detectBoundryCollisionsEnemies();
 };

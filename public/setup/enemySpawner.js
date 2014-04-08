@@ -2,7 +2,7 @@ function EnemySpawner() {
   this.FLOOR_DIMENSIONS = 3000;
   this.ENEMY_BORDER_WIDTH = 1000;
   this.ENEMY_WIDTH = 200;
-  this.SPAWN_RATE = 2;
+  this.SPAWN_RATE = 1;
   this.lastSpawned = 0;
 
   // this.spawnInitialEnemies();
