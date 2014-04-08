@@ -1,6 +1,6 @@
 function ConnectionCount(connectionCount) {
   var socket;
-  if(main.DEBUG_MODE) {
+  if(Main.DEBUG_MODE) {
     socket = io.connect('http://localhost');
   } else {
     socket = io.connect('http://rainbowslice.com');
