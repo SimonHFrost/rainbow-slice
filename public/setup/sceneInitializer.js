@@ -1,3 +1,6 @@
+/*global SceneObjects */
+/*global THREE */
+
 function SceneInitializer() {
   scene = new THREE.Scene();
 
