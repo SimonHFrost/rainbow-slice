@@ -23,7 +23,6 @@ BoundryCollisionDetector.prototype.detectBoundryCollisionsEnemies = function() {
 };
 
 BoundryCollisionDetector.prototype.putBackInBounds = function(misbehavor) {
-  var status = this.getOutOfBoundsStatus(misbehavor.position);
   var width = misbehavor.geometry.width / 2;
 
   if (misbehavor.position.x > this.FLOOR_DIMENSIONS - width) {

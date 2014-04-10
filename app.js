@@ -16,7 +16,7 @@ httpServer = http.createServer(function (request, response) {
 io = socketIO.listen(httpServer);
 
 var connectionCount = 0;
-io.sockets.on('connection', function (socket) {
+io.sockets.on('connection', function () {
   console.log('Client Connected!');
   connectionCount++;
 
