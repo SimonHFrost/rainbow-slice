@@ -29,13 +29,13 @@ function SceneInitializer() {
 }
 
 SceneInitializer.PLAYER_WIDTH = 400;
-SceneInitializer.ENEMY_WIDTH = 200;
+SceneInitializer.ENEMY_WIDTH = 400;
 
 SceneInitializer.prototype.initCameraAndLights = function() {
   camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);
-  camera.rotation.x = -75 * this.FULL_ROTATION;
   camera.position.y = 8000;
   camera.position.z = 2500;
+  camera.lookAt(new THREE.Vector3(0,0,0));
 
   var pointLight = new THREE.SpotLight(0xFFFFFF);
   pointLight.position.set(5000, 5000, 5000);

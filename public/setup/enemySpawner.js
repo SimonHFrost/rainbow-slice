@@ -1,7 +1,6 @@
 function EnemySpawner() {
   this.FLOOR_DIMENSIONS = 3000;
   this.ENEMY_BORDER_WIDTH = 1000;
-  this.ENEMY_WIDTH = 200;
   this.SPAWN_RATE = 1;
   this.lastSpawned = 0;
 
@@ -34,7 +33,7 @@ EnemySpawner.prototype.spawnInitialEnemies = function() {
 };
 
 EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-  var size = this.ENEMY_WIDTH;
+  var size = SceneInitializer.ENEMY_WIDTH;
   var xOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
   var zOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
   var spacing = size + 800;

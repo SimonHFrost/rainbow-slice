@@ -29,6 +29,7 @@ MovementCollisionDetector.prototype.update = function() {
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
       var enemy = collisionResults[0].object;
       this.pushEnemyInEightDirections(enemy, normalized);
+      // this.pushEnemyInFourDirections(enemy, normalized);
 
       if(enemy.used) {
         continue;
@@ -39,8 +40,6 @@ MovementCollisionDetector.prototype.update = function() {
       enemy.children[0].material = Materials.DEAD;
 
       SceneObjects.story.increaseKills();
-
-      // this.pushEnemyInFourDirections(enemy, normalized);
     }
   }
 };
