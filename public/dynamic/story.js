@@ -25,6 +25,7 @@ Story.prototype.increaseKills = function() {
   $('#killNumber').html('Kills: ' + this.kills);
 };
 
+// Not used atm
 Story.prototype.triggerWin = function() {
   if(!this.playedWin) {
     this.playedWin = true;
@@ -43,7 +44,8 @@ Story.prototype.triggerWin = function() {
 Story.prototype.triggerDead = function() {
   if(!this.playedDead) {
     this.playedDead = true;
-    if (!Main.DEBUG_MODE)
-      location.reload();
+    SceneObjects.network.submitScore(this.kills);
+    _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
+    location.reload();
   }
 };

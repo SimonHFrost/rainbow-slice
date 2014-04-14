@@ -1,7 +1,8 @@
 function Main() {
     var sceneInitializer = new SceneInitializer();
 
-    var connectionCount = new ConnectionCount($('#connectionCount'));
+    var network = new Network($('#connectionCount'));
+    SceneObjects.network = network;
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(Main.VIEWER_WIDTH, Main.VIEWER_HEIGHT);
@@ -9,8 +10,8 @@ function Main() {
     renderer.shadowMapSoft = true;
     renderer.domElement.style.display = "inline";
 
-    var container = document.getElementById('webglDiv');
-    container.appendChild(renderer.domElement);
+    var container = $('#webglDiv')[0];
+    container.insertBefore(renderer.domElement, container.firstChild);
 
     if (Main.DEBUG_MODE) {
       controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -19,7 +20,7 @@ function Main() {
 
 Main.VIEWER_WIDTH = 1000;
 Main.VIEWER_HEIGHT = 562.5;
-Main.DEBUG_MODE = false;
+Main.DEBUG_MODE = true;
 
 Main.prototype.render = function() {
   renderer.clear();

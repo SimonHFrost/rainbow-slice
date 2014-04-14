@@ -1,5 +1,5 @@
 function Enemy(size) {
-  this.FIRE_RATE = 0.1;
+  this.FIRE_RATE = 0.05;
   this.FIRE_FAILURE_RATE = 0.4;
 
   this.CHANCE_OF_ACTION = 0.01;

@@ -16,9 +16,16 @@ httpServer = http.createServer(function (request, response) {
 io = socketIO.listen(httpServer);
 
 var connectionCount = 0;
-io.sockets.on('connection', function () {
+var scores = [];
+io.sockets.on('connection', function (socket) {
   console.log('Client Connected!');
   connectionCount++;
 
+  socket.on('submitScore', function (data) {
+    console.log('RecievedScore: ' + data.score);
+    scores.push(data.score);
+  });
+
   io.sockets.emit('connectionCount', { connectionCount: connectionCount });
+  io.sockets.emit('scores', {scores: scores});
 });

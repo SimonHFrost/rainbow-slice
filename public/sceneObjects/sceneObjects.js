@@ -12,6 +12,7 @@ SceneObjects.enemySpawner = '';
 SceneObjects.movement = '';
 SceneObjects.updatableObjects = [];
 SceneObjects.clock = '';
+SceneObjects.network = '';
 
 SceneObjects.removeBullet = function(threeObject) {
   var bullet = _.find(SceneObjects.allBullets, function(element) {
