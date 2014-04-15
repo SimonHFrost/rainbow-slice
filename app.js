@@ -14,6 +14,7 @@ httpServer = http.createServer(function (request, response) {
 }).listen(port);
 
 io = socketIO.listen(httpServer);
+io.set('transports', ['xhr-polling']);
 
 var connectionCount = 0;
 var scores = [];
@@ -24,6 +25,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('submitScore', function (data) {
     console.log('RecievedScore: ' + data.score);
     scores.push(data.score);
+    socket.emit('receivedScore');
   });
 
   io.sockets.emit('connectionCount', { connectionCount: connectionCount });

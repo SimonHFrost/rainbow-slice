@@ -45,7 +45,6 @@ Story.prototype.triggerDead = function() {
   if(!this.playedDead) {
     this.playedDead = true;
     SceneObjects.network.submitScore(this.kills);
-    _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
-    location.reload();
+    _gaq.push(['_trackEvent', 'GameEvents', 'Finished', this.kills]);
   }
 };

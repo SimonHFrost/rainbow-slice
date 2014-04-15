@@ -20,6 +20,10 @@ function Network(connectionCount) {
 
     $('#scores').append(top5Elements);
   });
+
+  this.socket.on('receivedScore', function() {
+    location.reload();
+  });
 }
 
 Network.prototype.submitScore = function(score) {
