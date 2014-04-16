@@ -28,6 +28,12 @@ MovementCollisionDetector.prototype.update = function() {
     var collisionResults = ray.intersectObjects( _.pluck(SceneObjects.enemies, 'threeObject'));
     if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
       var enemy = collisionResults[0].object;
+
+      // this is a hack to prevent bug hitting every mesh when they spawn
+      if (enemy.position.distanceTo(originPoint) > 500) {
+        continue;
+      }
+
       this.pushEnemyInEightDirections(enemy, normalized);
       // this.pushEnemyInFourDirections(enemy, normalized);
 

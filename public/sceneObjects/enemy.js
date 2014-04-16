@@ -1,4 +1,4 @@
-function Enemy(size) {
+function Enemy(size, positionX, positionZ) {
   this.FIRE_RATE = 0.05;
   this.FIRE_FAILURE_RATE = 0.4;
 
@@ -22,6 +22,8 @@ function Enemy(size) {
   this.threeObject = new THREE.Mesh(geometry, material);
   this.threeObject.dead = false;
   this.threeObject.castShadow = true;
+  this.threeObject.position.x = positionX;
+  this.threeObject.position.z = positionZ;
 
   SceneObjects.enemies.push(this);
   SceneObjects.updatableObjects.push(this);

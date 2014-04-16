@@ -1,60 +1,28 @@
 function EnemySpawner() {
   this.FLOOR_DIMENSIONS = 3000;
   this.ENEMY_BORDER_WIDTH = 1000;
+  this.NUM_ENEMIES_PER_SIDE = 5;
   this.SPAWN_RATE = 1;
   this.lastSpawned = 0;
-
-  // this.spawnInitialEnemies();
 }
 
-EnemySpawner.prototype.spawnInitialEnemies = function() {
-  var numEnemiesPerSide = 5;
-  var numEnemies = 11;
-
-  while (numEnemies--) {
-      var somethingAlreadyAtLocation = true;
-
-      var x;
-      var z;
-
-      while(somethingAlreadyAtLocation) {
-        x = Math.floor(Math.random() * numEnemiesPerSide);
-        z = Math.floor(Math.random() * numEnemiesPerSide);
-
-        somethingAlreadyAtLocation = _.some(SceneObjects.enemies, function(enemy) {
-          return (enemy.gridX == x && enemy.gridZ == z);
-        });
-
-        somethingAlreadyAtLocation = somethingAlreadyAtLocation || (x == 2 && z == 2);
-      }
-
-      this.instantiateEnemy(x, z);
-  }
-};
-
 EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-  var size = SceneInitializer.ENEMY_WIDTH;
-  var xOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
-  var zOffSet = -(this.FLOOR_DIMENSIONS - this.ENEMY_BORDER_WIDTH);
-  var spacing = size + 800;
+  var spacing = this.FLOOR_DIMENSIONS * 2 / (this.NUM_ENEMIES_PER_SIDE + 1);
 
-  var someEnemy = new Enemy(size);
+  var positionX = (spacing + x * spacing) - this.FLOOR_DIMENSIONS;
+  var positionZ = (spacing + z * spacing) - this.FLOOR_DIMENSIONS;
+  var someEnemy = new Enemy(SceneInitializer.ENEMY_WIDTH, positionX, positionZ);
   someEnemy.gridX = x;
   someEnemy.gridZ = z;
-
-  someEnemy.threeObject.position.x = x * spacing + xOffSet;
-  someEnemy.threeObject.position.z = z * spacing + zOffSet;
 
   SceneObjects.meshLoader.setEnemyModel(someEnemy);
 };
 
 EnemySpawner.prototype.update = function() {
-  var numEnemiesPerSide = 5;
-
   if(SceneObjects.clock.getElapsedTime() >= this.lastSpawned + this.SPAWN_RATE) {
     this.lastSpawned = this.lastSpawned + this.SPAWN_RATE;
-    var x = Math.floor(Math.random() * numEnemiesPerSide);
-    var z = Math.floor(Math.random() * numEnemiesPerSide);
+    var x = Math.floor(Math.random() * this.NUM_ENEMIES_PER_SIDE);
+    var z = Math.floor(Math.random() * this.NUM_ENEMIES_PER_SIDE);
 
     this.instantiateEnemy(x, z);
   }
