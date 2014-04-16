@@ -9,6 +9,9 @@ function Main() {
     renderer.shadowMapEnabled = true;
     renderer.shadowMapSoft = true;
     renderer.domElement.style.display = "inline";
+    renderer.domElement.style.float = "left";
+    renderer.domElement.style.borderRightStyle = "solid";
+    renderer.domElement.style.borderRightColor = "white";
 
     var container = $('#webglDiv')[0];
     container.insertBefore(renderer.domElement, container.firstChild);

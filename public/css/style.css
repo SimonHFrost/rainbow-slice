@@ -1,21 +1,41 @@
+body {
+  background-color:black;
+}
+
+#titleBar {
+  margin:0;
+  padding:0;
+  list-style-type:none;
+  text-align:center;
+  width: 1000;
+}
+
 #menuBar {
   list-style-type:none;
   margin:0;
   padding:0;
   text-align:center;
-  width: 100%;
+  width: 1000;
+  position:absolute;
 }
 
 #menuBar li {
   display:inline-block;
+  margin-left:20px;
+  margin-right:20px;
 }
 
 .uiText {
   text-align:center;
-  color:white;
+  color:black;
   font-size:24;
   font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
-  width: 250px;
+  width: 200px;
+  background-color: white;
+}
+
+.spacerDiv {
+  width: 200px;
 }
 
 .uiTitle {
@@ -24,6 +44,14 @@
   font-size:24;
   font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
   width: 500px;
+}
+
+.highscoresText {
+  text-align:center;
+  color:black;
+  background-color:white;
+  font-size:24;
+  font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
 }
 
 .footerText {

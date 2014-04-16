@@ -115,6 +115,7 @@ SceneInitializer.prototype.makePlayer = function() {
 
 SceneInitializer.prototype.makeSkyBox = function() {
   var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-  var skyBox = new THREE.Mesh ( skyGeometry, Materials.SKY );
+  // var skyBox = new THREE.Mesh ( skyGeometry, Materials.SKY );
+  var skyBox = new THREE.Mesh(skyGeometry);
   scene.add( skyBox );
 };

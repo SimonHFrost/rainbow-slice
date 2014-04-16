@@ -7,7 +7,7 @@ function Story() {
 
 Story.prototype.update = function() {
   if(this.health <= 0) {
-    this.triggerDead();
+    // this.triggerDead();
   }
 };
 

@@ -14,7 +14,7 @@ function Network(connectionCount) {
     var top5 = sortedScores.slice(0,5);
     var top5Elements = _.map(top5, function(theElement) {
       var theNode = $('<p>' + theElement + '</p>');
-      theNode.addClass('uiText');
+      theNode.addClass('highscoresText');
       return theNode;
     });
 
