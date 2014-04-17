@@ -29,5 +29,5 @@ io.sockets.on('connection', function (socket) {
   });
 
   io.sockets.emit('connectionCount', { connectionCount: connectionCount });
-  io.sockets.emit('scores', {scores: scores});
+  socket.emit('scores', {scores: scores});
 });

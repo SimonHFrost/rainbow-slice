@@ -25,6 +25,18 @@ body {
   margin-right:20px;
 }
 
+#webglDiv {
+  display: inline-block;
+  width: 100%;
+  background-image: url('../img/rainbow.gif');
+}
+
+#scores {
+  vertical-align:top;
+  float: none;
+  overflow: hidden;
+}
+
 .uiText {
   text-align:center;
   color:black;
