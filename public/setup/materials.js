@@ -1,15 +1,25 @@
 function Materials() {
-  var floorTexture = THREE.ImageUtils.loadTexture('./img/grass.png');
-  floorTexture.wrapS = THREE.RepeatWrapping;
-  floorTexture.wrapT = THREE.RepeatWrapping;
-  floorTexture.repeat.set(4, 4);
+  Materials.GRASS = this.makeTexturedMaterial('./img/grass.png');
+  Materials.SEA = this.makeTexturedMaterial('./img/sea.png');
+  Materials.SKY = this.makeTexturedMaterial('./img/sky.png');
+  Materials.SKY.side = THREE.BackSide;
 
-  Materials.GRASS = new THREE.MeshLambertMaterial({map: floorTexture});
+  var wallTexture = THREE.ImageUtils.loadTexture('./img/rock.png');
+  wallTexture.wrapS = THREE.RepeatWrapping;
+  wallTexture.wrapT = THREE.RepeatWrapping;
+  wallTexture.repeat.set(1, 16);
+
+  Materials.WALL = new THREE.MeshLambertMaterial({map: wallTexture});
 }
 
-Materials.BASIC = new THREE.MeshLambertMaterial( { shading: THREE.SmoothShading, color: 0x000000 } );
-Materials.ENEMY = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xFFFFFF } );
-Materials.DEAD = new THREE.MeshBasicMaterial( { shading: THREE.SmoothShading, color: 0x000000 } );
-Materials.SKY = new THREE.MeshBasicMaterial( {color: 'black', side: THREE.BackSide} );
+Materials.prototype.makeTexturedMaterial = function(textureLocation) {
+  var texture = THREE.ImageUtils.loadTexture(textureLocation);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(4, 4);
+
+  return new THREE.MeshLambertMaterial({map: texture});
+};
+
 Materials.GROUND = new THREE.MeshBasicMaterial( {shading: THREE.SmoothShading, color: 0x009933 });
 Materials.BULLET = new THREE.MeshLambertMaterial( { shading: THREE.FlatShading, color: 0xFFFFFF } );

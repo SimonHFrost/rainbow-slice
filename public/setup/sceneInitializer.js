@@ -51,7 +51,7 @@ SceneInitializer.prototype.initCameraAndLights = function() {
 };
 
 SceneInitializer.prototype.initSceneObjects = function() {
-  this.makeFloor();
+  this.makeIsland();
   this.makeWalls();
   this.makePlayer();
   this.makeSkyBox();
@@ -71,24 +71,52 @@ SceneInitializer.prototype.makeFloor = function() {
 
 SceneInitializer.prototype.makeIsland = function() {
   var geom = new THREE.Geometry();
-  geom.vertices.push(new THREE.Vector3(-8000,this.FLOOR,500));
-  geom.vertices.push(new THREE.Vector3(-7000,this.FLOOR,-3000));
-  geom.vertices.push(new THREE.Vector3(-1500,this.FLOOR,-5000));
-  geom.vertices.push(new THREE.Vector3(-1000,this.FLOOR,-8000));
-  geom.vertices.push(new THREE.Vector3(1000,this.FLOOR,-7000));
-  geom.vertices.push(new THREE.Vector3(6000,this.FLOOR,-1500));
-  geom.vertices.push(new THREE.Vector3(5000,this.FLOOR,3500));
-  geom.vertices.push(new THREE.Vector3(1500,this.FLOOR,6000));
-  geom.vertices.push(new THREE.Vector3(-1000,this.FLOOR,7000));
+
+  var topVectors = [
+    new THREE.Vector3(-8000,this.FLOOR,500),
+    new THREE.Vector3(-7000,this.FLOOR,-3000),
+    new THREE.Vector3(-1500,this.FLOOR,-5000),
+    new THREE.Vector3(-1000,this.FLOOR,-8000),
+    new THREE.Vector3(1000,this.FLOOR,-7000),
+    new THREE.Vector3(6000,this.FLOOR,-1500),
+    new THREE.Vector3(5000,this.FLOOR,3500),
+    new THREE.Vector3(1500,this.FLOOR,6000),
+    new THREE.Vector3(-1000,this.FLOOR,7000)
+  ];
+
+  var islandBottom = this.FLOOR - 1000;
+
+  var bottomVectors = [
+    new THREE.Vector3(-8000,islandBottom,500),
+    new THREE.Vector3(-7000,islandBottom,-3000),
+    new THREE.Vector3(-1500,islandBottom,-5000),
+    new THREE.Vector3(-1000,islandBottom,-8000),
+    new THREE.Vector3(1000,islandBottom,-7000),
+    new THREE.Vector3(6000,islandBottom,-1500),
+    new THREE.Vector3(5000,islandBottom,3500),
+    new THREE.Vector3(1500,islandBottom,6000),
+    new THREE.Vector3(-1000,islandBottom,7000)
+  ];
+
+  geom.vertices = geom.vertices.concat(topVectors);
+  geom.vertices = geom.vertices.concat(bottomVectors);
 
   geom.faces.push(new THREE.Face3(8, 1, 0));
   geom.faces.push(new THREE.Face3(8, 2, 1));
   geom.faces.push(new THREE.Face3(4, 3, 2));
   geom.faces.push(new THREE.Face3(5, 4, 2));
   geom.faces.push(new THREE.Face3(6, 5, 2));
-  geom.faces.push(new THREE.Face3(8, 7, 2));
   geom.faces.push(new THREE.Face3(8, 6, 2));
   geom.faces.push(new THREE.Face3(8, 7, 6));
+
+  var bottomOffset = topVectors.length;
+  for(var i = 0; i < topVectors.length; i++) {
+    var currentVertex = i;
+    var nextVertex = currentVertex === topVectors.length - 1 ? 0 : currentVertex + 1;
+
+    geom.faces.push(new THREE.Face3(currentVertex, nextVertex, bottomOffset + nextVertex));
+    geom.faces.push(new THREE.Face3(bottomOffset + nextVertex, bottomOffset + currentVertex, currentVertex));
+  }
 
   // Need to map UVs to get this to work
   // var object = new THREE.Mesh(geom, Materials.GRASS);
@@ -103,8 +131,13 @@ SceneInitializer.prototype.makeIsland = function() {
     );
   object.doubleSided = true;
   object.overdraw = true;
-
+  object.receiveShadow = true;
   scene.add(object);
+
+  var sea = new THREE.Mesh(new THREE.PlaneGeometry(50000, 50000), Materials.SEA);
+  sea.position.y = islandBottom;
+  sea.rotation.x = -Math.PI / 2;
+  scene.add(sea);
 };
 
 SceneInitializer.prototype.makeWalls = function() {
@@ -112,13 +145,7 @@ SceneInitializer.prototype.makeWalls = function() {
   var wallDepth = 200;
   var floorBoundry = this.FLOOR_DIMENSIONS + wallWidth/2;
 
-  var wallTexture = THREE.ImageUtils.loadTexture('./img/rock.png');
-  wallTexture.wrapS = THREE.RepeatWrapping;
-  wallTexture.wrapT = THREE.RepeatWrapping;
-  wallTexture.repeat.set(1, 16);
-
-  var wallMaterial = new THREE.MeshLambertMaterial({map: wallTexture});
-  var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), wallMaterial);
+  var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), Materials.WALL);
 
   var eastWall = wallTemplate.clone();
   eastWall.position.x = floorBoundry;
@@ -148,7 +175,6 @@ SceneInitializer.prototype.makePlayer = function() {
 
 SceneInitializer.prototype.makeSkyBox = function() {
   var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-  // var skyBox = new THREE.Mesh ( skyGeometry, Materials.SKY );
-  var skyBox = new THREE.Mesh(skyGeometry);
+  var skyBox = new THREE.Mesh ( skyGeometry, Materials.SKY );
   scene.add( skyBox );
 };
