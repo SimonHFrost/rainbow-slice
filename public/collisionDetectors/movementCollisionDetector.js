@@ -1,5 +1,4 @@
 function MovementCollisionDetector() {
-  this.PUSH_DISTANCE = 20;
 }
 
 MovementCollisionDetector.prototype.update = function() {
@@ -34,52 +33,13 @@ MovementCollisionDetector.prototype.update = function() {
         continue;
       }
 
-      this.pushEnemyInEightDirections(enemy, normalized);
-      // this.pushEnemyInFourDirections(enemy, normalized);
-
       if(enemy.used) {
         continue;
       }
       enemy.used = true;
-      enemy.dead = true;
 
-      enemy.children[0].material = Materials.DEAD;
-
+      SceneObjects.removeEnemy(enemy);
       SceneObjects.story.increaseKills();
     }
-  }
-};
-
-MovementCollisionDetector.prototype.pushEnemyInFourDirections = function(enemy, normalized) {
-    if (Math.abs(normalized.x) > Math.abs(normalized.z)) {
-      if (normalized.x > 0) {
-        enemy.position.x += this.PUSH_DISTANCE;
-      } else {
-        enemy.position.x -= this.PUSH_DISTANCE;
-      }
-    } else {
-      if (normalized.z > 0) {
-        enemy.position.z += this.PUSH_DISTANCE;
-      } else {
-        enemy.position.z -= this.PUSH_DISTANCE;
-      }
-    }
-};
-
-MovementCollisionDetector.prototype.pushEnemyInEightDirections = function(enemy, normalized) {
-  if (normalized.x > 0) {
-    enemy.position.x += this.PUSH_DISTANCE;
-  }
-
-  if (normalized.x < 0) {
-    enemy.position.x -= this.PUSH_DISTANCE;
-  }
-
-  if (normalized.z > 0) {
-    enemy.position.z += this.PUSH_DISTANCE;
-  }
-
-  if (normalized.z < 0) {
-    enemy.position.z -= this.PUSH_DISTANCE;
   }
 };

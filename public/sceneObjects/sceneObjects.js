@@ -22,3 +22,16 @@ SceneObjects.removeBullet = function(threeObject) {
   var index = SceneObjects.allBullets.indexOf(bullet);
   SceneObjects.allBullets.splice(index, 1);
 };
+
+SceneObjects.removeEnemy = function(threeObject) {
+  scene.remove(threeObject);
+
+  var enemy = _.find(SceneObjects.enemies, function(element){
+    return element.threeObject === threeObject;
+  });
+  var index = SceneObjects.enemies.indexOf(enemy);
+  SceneObjects.enemies.splice(index, 1);
+
+  var objectIndex = SceneObjects.updatableObjects.indexOf(enemy);
+  SceneObjects.updatableObjects.splice(objectIndex, 1);
+};
