@@ -37,24 +37,29 @@ body {
   overflow: hidden;
 }
 
-.uiText {
-  text-align:center;
-  color:black;
-  font-size:24;
+#fontDetails,
+.uiText,
+.uiTitle,
+.highscoresText,
+.footerText {
   font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
-  width: 200px;
-  background-color: white;
+  font-size: 24px;
+  color: white;
 }
 
 .spacerDiv {
   width: 200px;
 }
 
+.uiText {
+  text-align:center;
+  width: 200px;
+  color:black;
+  background-color: white;
+}
+
 .uiTitle {
   text-align:center;
-  color:white;
-  font-size:24;
-  font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
   width: 500px;
 }
 
@@ -62,13 +67,9 @@ body {
   text-align:center;
   color:black;
   background-color:white;
-  font-size:24;
-  font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
 }
 
 .footerText {
   text-align:center;
-  color:white;
   font-size:12;
-  font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
 }
