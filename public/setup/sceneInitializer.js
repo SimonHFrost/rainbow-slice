@@ -118,21 +118,30 @@ SceneInitializer.prototype.makeIsland = function() {
     geom.faces.push(new THREE.Face3(bottomOffset + nextVertex, bottomOffset + currentVertex, currentVertex));
   }
 
-  // Need to map UVs to get this to work
-  // var object = new THREE.Mesh(geom, Materials.GRASS);
+  for (var i = 0; i < geom.faces.length; i++) {
+    geom.faceVertexUvs[0].push([
+      new THREE.UV(0, 0),
+      new THREE.UV(0, 1),
+      new THREE.UV(1, 1),
+      new THREE.UV(1, 0)
+    ]);
+  }
 
-  var object = new THREE.Mesh(
-      geom,
-      new THREE.MeshBasicMaterial({
-          color:              0x67E667,
-          wireframe:          false,
-          wireframeLinewidth: 3
-      })
-    );
-  object.doubleSided = true;
-  object.overdraw = true;
-  object.receiveShadow = true;
-  scene.add(object);
+  /* Will be useful for debugging UV
+  var wireFrameMaterial =
+    new THREE.MeshBasicMaterial({
+      color:              0x000000,
+      wireframe:          true,
+      wireframeLinewidth: 3
+  });
+
+  wireFrameMaterial.doubleSided = true;
+  wireFrameMaterial.overdraw = true;
+  wireFrameMaterial.receiveShadow = true;
+  */
+
+  var island = new THREE.Mesh(geom, Materials.GRASS);
+  scene.add(island);
 
   var sea = new THREE.Mesh(new THREE.PlaneGeometry(50000, 50000), Materials.SEA);
   sea.position.y = islandBottom;
