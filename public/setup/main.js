@@ -1,4 +1,6 @@
 function Main() {
+    // shouldn't have to instantiate this and then not use it...
+    var materials = new Materials();
     var sceneInitializer = new SceneInitializer();
 
     var network = new Network($('#connectionCount'));

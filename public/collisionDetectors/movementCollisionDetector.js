@@ -29,13 +29,10 @@ MovementCollisionDetector.prototype.update = function() {
       var enemy = collisionResults[0].object;
 
       // this is a hack to prevent bug hitting every mesh when they spawn
-      if (enemy.position.distanceTo(originPoint) > 500) {
+      if (enemy.position.distanceTo(originPoint) > 500 || enemy.used) {
         continue;
       }
 
-      if(enemy.used) {
-        continue;
-      }
       enemy.used = true;
 
       SceneObjects.removeEnemy(enemy);

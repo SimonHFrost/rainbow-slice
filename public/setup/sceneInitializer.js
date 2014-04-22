@@ -7,6 +7,7 @@ function SceneInitializer() {
   this.FLOOR_DIMENSIONS = 3000;
   this.ENEMY_BORDER_WIDTH = 1000;
   this.FULL_ROTATION = 2 * Math.PI / 360;
+  this.FLOOR = -100;
 
   SceneObjects.meshLoader = new MeshLoader();
 
@@ -60,18 +61,50 @@ SceneInitializer.prototype.makeFloor = function() {
   var floorWidth = this.FLOOR_DIMENSIONS * 2;
   var floorDepth = this.FLOOR_DIMENSIONS * 2;
 
-  var floorTexture = THREE.ImageUtils.loadTexture('./img/grass.png');
-  floorTexture.wrapS = THREE.RepeatWrapping;
-  floorTexture.wrapT = THREE.RepeatWrapping;
-  floorTexture.repeat.set(4, 4);
+  floor = new THREE.Mesh(new THREE.PlaneGeometry(floorWidth, floorDepth), Materials.GRASS);
 
-  var floorMaterial = new THREE.MeshLambertMaterial({map: floorTexture});
-
-  floor = new THREE.Mesh(new THREE.PlaneGeometry(floorWidth, floorDepth), floorMaterial);
   floor.position.y = -100;
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
   scene.add(floor);
+};
+
+SceneInitializer.prototype.makeIsland = function() {
+  var geom = new THREE.Geometry();
+  geom.vertices.push(new THREE.Vector3(-8000,this.FLOOR,500));
+  geom.vertices.push(new THREE.Vector3(-7000,this.FLOOR,-3000));
+  geom.vertices.push(new THREE.Vector3(-1500,this.FLOOR,-5000));
+  geom.vertices.push(new THREE.Vector3(-1000,this.FLOOR,-8000));
+  geom.vertices.push(new THREE.Vector3(1000,this.FLOOR,-7000));
+  geom.vertices.push(new THREE.Vector3(6000,this.FLOOR,-1500));
+  geom.vertices.push(new THREE.Vector3(5000,this.FLOOR,3500));
+  geom.vertices.push(new THREE.Vector3(1500,this.FLOOR,6000));
+  geom.vertices.push(new THREE.Vector3(-1000,this.FLOOR,7000));
+
+  geom.faces.push(new THREE.Face3(8, 1, 0));
+  geom.faces.push(new THREE.Face3(8, 2, 1));
+  geom.faces.push(new THREE.Face3(4, 3, 2));
+  geom.faces.push(new THREE.Face3(5, 4, 2));
+  geom.faces.push(new THREE.Face3(6, 5, 2));
+  geom.faces.push(new THREE.Face3(8, 7, 2));
+  geom.faces.push(new THREE.Face3(8, 6, 2));
+  geom.faces.push(new THREE.Face3(8, 7, 6));
+
+  // Need to map UVs to get this to work
+  // var object = new THREE.Mesh(geom, Materials.GRASS);
+
+  var object = new THREE.Mesh(
+      geom,
+      new THREE.MeshBasicMaterial({
+          color:              0x67E667,
+          wireframe:          false,
+          wireframeLinewidth: 3
+      })
+    );
+  object.doubleSided = true;
+  object.overdraw = true;
+
+  scene.add(object);
 };
 
 SceneInitializer.prototype.makeWalls = function() {

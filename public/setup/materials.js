@@ -1,4 +1,10 @@
 function Materials() {
+  var floorTexture = THREE.ImageUtils.loadTexture('./img/grass.png');
+  floorTexture.wrapS = THREE.RepeatWrapping;
+  floorTexture.wrapT = THREE.RepeatWrapping;
+  floorTexture.repeat.set(4, 4);
+
+  Materials.GRASS = new THREE.MeshLambertMaterial({map: floorTexture});
 }
 
 Materials.BASIC = new THREE.MeshLambertMaterial( { shading: THREE.SmoothShading, color: 0x000000 } );
