@@ -1,5 +1,5 @@
 function Movement() {
-  this.TRANSLATION_SPEED = 30;
+  this.TRANSLATION_SPEED = 40;
   this.TRANSLATION_ANGLED_SPEED = Math.sqrt(Math.pow(this.TRANSLATION_SPEED, 2) / 2);
 
   this.FULL_ROTATION = 2 * Math.PI;

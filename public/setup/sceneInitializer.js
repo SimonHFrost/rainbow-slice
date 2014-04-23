@@ -179,6 +179,7 @@ SceneInitializer.prototype.makeWalls = function() {
 SceneInitializer.prototype.makePlayer = function() {
   var playerWidth = SceneInitializer.PLAYER_WIDTH;
   SceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
+  SceneObjects.player.add(camera);
   scene.add(SceneObjects.player);
 };
 

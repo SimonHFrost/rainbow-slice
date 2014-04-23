@@ -18,9 +18,7 @@ function Main() {
     var container = $('#webglDiv')[0];
     container.insertBefore(renderer.domElement, container.firstChild);
 
-    if (Main.DEBUG_MODE) {
-      controls = new THREE.OrbitControls(camera, renderer.domElement);
-    }
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
 }
 
 Main.VIEWER_WIDTH = 1000;
@@ -35,9 +33,7 @@ Main.prototype.render = function() {
     SceneObjects.updatableObjects[i].update();
   }
 
-  if (Main.DEBUG_MODE) {
-    controls.update();
-  }
+  controls.update();
 
   if(SceneObjects.movement.isMoving) {
       for (var i = 0; i < SceneObjects.morphs.length; i++) {
