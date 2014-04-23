@@ -1,5 +1,5 @@
 var config = {};
 
-config.DEBUG_MODE = true;
+config.DEBUG_MODE = false;
 
 module.exports = config;
