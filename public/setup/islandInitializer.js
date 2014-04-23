@@ -4,73 +4,88 @@ function IslandInitializer() {
 IslandInitializer.prototype.makeIsland = function(floor) {
     var geom = new THREE.Geometry();
 
-    var topVectors = [
-      new THREE.Vector3(-8000,floor,500),
-      new THREE.Vector3(-7000,floor,-3000),
-      new THREE.Vector3(-1500,floor,-5000),
-      new THREE.Vector3(-1000,floor,-8000),
-      new THREE.Vector3(1000,floor,-7000),
-      new THREE.Vector3(6000,floor,-1500),
-      new THREE.Vector3(5000,floor,3500),
-      new THREE.Vector3(-2000,floor,6000),
-      new THREE.Vector3(-1000,floor,7000)
-    ];
-
-    var islandBottom = floor - 1000;
-
-    var bottomVectors = [
-      new THREE.Vector3(-8000,islandBottom,500),
-      new THREE.Vector3(-7000,islandBottom,-3000),
-      new THREE.Vector3(-1500,islandBottom,-5000),
-      new THREE.Vector3(-1000,islandBottom,-8000),
-      new THREE.Vector3(1000,islandBottom,-7000),
-      new THREE.Vector3(6000,islandBottom,-1500),
-      new THREE.Vector3(5000,islandBottom,3500),
-      new THREE.Vector3(1500,islandBottom,6000),
-      new THREE.Vector3(-1000,islandBottom,7000)
-    ];
-
-    geom.vertices = geom.vertices.concat(topVectors);
-    geom.vertices = geom.vertices.concat(bottomVectors);
-
-    geom.faces.push(new THREE.Face3(8, 1, 0));
-    geom.faces.push(new THREE.Face3(8, 2, 1));
-    geom.faces.push(new THREE.Face3(4, 3, 2));
-    geom.faces.push(new THREE.Face3(5, 4, 2));
-    geom.faces.push(new THREE.Face3(6, 5, 2));
-    geom.faces.push(new THREE.Face3(8, 6, 2));
-    geom.faces.push(new THREE.Face3(8, 7, 6));
-
-    var bottomOffset = topVectors.length;
-    for(var i = 0; i < topVectors.length; i++) {
-      var currentVertex = i;
-      var nextVertex = currentVertex === topVectors.length - 1 ? 0 : currentVertex + 1;
-
-      geom.faces.push(new THREE.Face3(currentVertex, nextVertex, bottomOffset + nextVertex));
-      geom.faces.push(new THREE.Face3(bottomOffset + nextVertex, bottomOffset + currentVertex, currentVertex));
-    }
-
-    for (var i = 0; i < geom.faces.length; i++) {
-      geom.faceVertexUvs[0].push([
-        new THREE.UV(0, 0),
-        new THREE.UV(0, 1),
-        new THREE.UV(1, 1),
-        new THREE.UV(1, 0)
-      ]);
-    }
+    var islandFloor = floor - 1000;
+    geom.vertices = this.createVectors(floor, islandFloor);
+    geom.faces = this.createFaces(geom.vertices);
+    this.setUv(geom);
 
     var island = new THREE.Mesh(geom, Materials.GRASS);
+    // var island = new THREE.Mesh(geom, this.createWireframe());
+
     island.receiveShadow = true;
     scene.add(island);
 
-    this.createSea(islandBottom);
+    this.createSea(islandFloor);
 };
 
-IslandInitializer.prototype.createSea = function(islandBottom) {
+IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
+  var topVectors = [
+    new THREE.Vector3(-8000,floor,500),
+    new THREE.Vector3(-7000,floor,-3000),
+    new THREE.Vector3(-1500,floor,-5000),
+    new THREE.Vector3(-1000,floor,-8000),
+    new THREE.Vector3(1000,floor,-7000),
+    new THREE.Vector3(6000,floor,-1500),
+    new THREE.Vector3(5000,floor,3500),
+    new THREE.Vector3(-1000,floor,7000)
+  ];
+
+  var bottomVectors = [
+    new THREE.Vector3(-8000,islandFloor,500),
+    new THREE.Vector3(-7000,islandFloor,-3000),
+    new THREE.Vector3(-1500,islandFloor,-5000),
+    new THREE.Vector3(-1000,islandFloor,-8000),
+    new THREE.Vector3(1000,islandFloor,-7000),
+    new THREE.Vector3(6000,islandFloor,-1500),
+    new THREE.Vector3(5000,islandFloor,3500),
+    new THREE.Vector3(-1000,islandFloor,7000)
+  ];
+
+  return topVectors.concat(bottomVectors);
+};
+
+IslandInitializer.prototype.createFaces = function(vertices) {
+  var faces = [];
+
+  faces.push(new THREE.Face3(7, 1, 0));
+  faces.push(new THREE.Face3(7, 2, 1));
+  faces.push(new THREE.Face3(4, 3, 2));
+  faces.push(new THREE.Face3(5, 4, 2));
+  faces.push(new THREE.Face3(6, 5, 2));
+  faces.push(new THREE.Face3(7, 6, 2));
+
+  var numPerLayer = vertices.length / 2; // two layers
+  for(var i = 0; i < numPerLayer; i++) {
+    var currentVertex = i;
+    var nextVertex = currentVertex === numPerLayer - 1 ? 0 : currentVertex + 1;
+
+    faces.push(new THREE.Face3(currentVertex, nextVertex, numPerLayer + nextVertex));
+    faces.push(new THREE.Face3(numPerLayer + nextVertex, numPerLayer + currentVertex, currentVertex));
+  }
+
+  return faces;
+};
+
+IslandInitializer.prototype.setUv = function(geom) {
+  for (var i = 0; i < geom.faces.length; i++) {
+    geom.faceVertexUvs[0].push([
+      new THREE.Vector2(0, 0),
+      new THREE.Vector2(0, 1),
+      new THREE.Vector2(1, 1),
+      new THREE.Vector2(1, 0)
+    ]);
+  }
+};
+
+IslandInitializer.prototype.createSea = function(islandFloor) {
     var sea = new THREE.Mesh(new THREE.PlaneGeometry(50000, 50000), Materials.SEA);
-    sea.position.y = islandBottom;
+    sea.position.y = islandFloor;
     sea.rotation.x = -Math.PI / 2;
     scene.add(sea);
+};
+
+IslandInitializer.prototype.getLinearEquation = function(vector1, vector2) {
+  return function(input) { return x + input * ((vector1.z - vector2.z) / (vector1.x - vector2.x)); };
 };
 
 IslandInitializer.prototype.createWireframe = function() {
