@@ -30,6 +30,17 @@ IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
     new THREE.Vector3(-1000,floor,7000)
   ];
 
+  IslandInitializer.boundaries = [
+    new THREE.Line3(topVectors[0], topVectors[1]),
+    new THREE.Line3(topVectors[1], topVectors[2]),
+    new THREE.Line3(topVectors[2], topVectors[3]),
+    new THREE.Line3(topVectors[3], topVectors[4]),
+    new THREE.Line3(topVectors[4], topVectors[5]),
+    new THREE.Line3(topVectors[5], topVectors[6]),
+    new THREE.Line3(topVectors[6], topVectors[7]),
+    new THREE.Line3(topVectors[7], topVectors[0]),
+  ];
+
   var bottomVectors = [
     new THREE.Vector3(-8000,islandFloor,500),
     new THREE.Vector3(-7000,islandFloor,-3000),
@@ -63,6 +74,12 @@ IslandInitializer.prototype.createFaces = function(vertices) {
     faces.push(new THREE.Face3(numPerLayer + nextVertex, numPerLayer + currentVertex, currentVertex));
   }
 
+  var triangles = [];
+  IslandInitializer.faces = faces.forEach(function(face){
+    triangles.push(new THREE.Triangle(vertices[face.a], vertices[face.b], vertices[face.c]));
+  });
+  IslandInitializer.triangles = triangles;
+
   return faces;
 };
 
@@ -84,12 +101,8 @@ IslandInitializer.prototype.createSea = function(islandFloor) {
     scene.add(sea);
 };
 
-IslandInitializer.prototype.getLinearEquation = function(vector1, vector2) {
-  return function(input) { return x + input * ((vector1.z - vector2.z) / (vector1.x - vector2.x)); };
-};
-
 IslandInitializer.prototype.createWireframe = function() {
-  /* Will be useful for debugging UV */
+  /* Useful for debugging UV */
   var wireFrameMaterial =
     new THREE.MeshBasicMaterial({
       color: 0x000000,
