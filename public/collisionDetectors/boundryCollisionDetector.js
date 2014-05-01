@@ -15,52 +15,44 @@ function BoundryCollisionDetector() {
 
 BoundryCollisionDetector.prototype.update = function() {
   for (var i = 0; i < SceneObjects.allBullets.length; i++) {
-    this.deleteIfOutOfBounds(SceneObjects.allBullets[i].threeObject);
+    // this.deleteIfOutOfBounds(SceneObjects.allBullets[i].threeObject);
   }
 
-  this.updateRay();
-  this.checkRay();
-  this.detectBoundryCollisionsEnemies();
+  this.checkObjectInBounds(SceneObjects.player);
+
+  for (var i = 0; i < SceneObjects.enemies.length; i++) {
+    this.checkObjectInBounds(SceneObjects.enemies[i].threeObject);
+  }
 };
 
 BoundryCollisionDetector.prototype.createRay = function() {
-  var underPlayer = SceneObjects.player.position.clone();
-  underPlayer.y = this.RAY_OFFSET;
-
-  if (this.DEBUG_RAYTRACING) {
-    var geometry = new THREE.Geometry();
-    var material = new THREE.LineBasicMaterial({color: 0xff69b4});
-
-    geometry.vertices.push(underPlayer);
-    geometry.vertices.push(this.RAY_ORIGIN);
-    geometry.dynamic = true;
-
-    this.line = new THREE.Line(geometry, material);
-    scene.add(this.line);
-  }
-
-  var directionVector = new THREE.Vector3().subVectors(underPlayer, this.RAY_ORIGIN);
-  directionVector = directionVector.normalize();
-  this.ray = new THREE.Ray(this.RAY_ORIGIN, directionVector);
+  this.ray = new THREE.Ray(this.RAY_ORIGIN, new THREE.Vector3(1, 1, 1));
 };
 
-BoundryCollisionDetector.prototype.updateRay = function() {
-  var underPlayer = SceneObjects.player.position.clone();
+BoundryCollisionDetector.prototype.checkObjectInBounds = function(objectToCheck) {
+  this.updateRayDirection(objectToCheck);
+  var hitLocs = this.getRayHitLocs();
+  this.processHitLocs(objectToCheck, hitLocs);
+};
+
+BoundryCollisionDetector.prototype.updateRayDirection = function(objectToCheck) {
+  var underPlayer = objectToCheck.position.clone();
   underPlayer.y = this.RAY_OFFSET;
   var directionVector = new THREE.Vector3().subVectors(underPlayer, this.RAY_ORIGIN);
   directionVector = directionVector.normalize();
   this.ray.direction = directionVector;
 
   if (this.DEBUG_RAYTRACING) {
-    this.line.geometry.vertices[0] = SceneObjects.player.position.clone();
+    this.line.geometry.vertices[0] = objectToCheck.position.clone();
     this.line.geometry.vertices[0].y = -200;
     this.line.geometry.verticesNeedUpdate = true;
   }
 };
 
-BoundryCollisionDetector.prototype.checkRay = function() {
+BoundryCollisionDetector.prototype.getRayHitLocs = function() {
   var me = this;
   var hitLocs = [];
+
   IslandInitializer.triangles.forEach(function(triangle) {
     var value = me.ray.intersectTriangle(triangle.a, triangle.b, triangle.c);
     if(value) {
@@ -68,93 +60,44 @@ BoundryCollisionDetector.prototype.checkRay = function() {
     }
   });
 
+  return hitLocs;
+};
+
+BoundryCollisionDetector.prototype.processHitLocs = function(objectToCheck, hitLocs) {
   if (hitLocs.length === 0) {
-    SceneObjects.player.position.x = 0;
-    SceneObjects.player.position.z = 0;
+    objectToCheck.position.x = 0;
+    objectToCheck.position.z = 0;
   }
 
   if(hitLocs.length == 2) {
-    var distToOrigin = SceneObjects.player.position.distanceTo(this.RAY_ORIGIN);
+    var distToOrigin = objectToCheck.position.distanceTo(this.RAY_ORIGIN);
     var distToFirst = hitLocs[0].distanceTo(this.RAY_ORIGIN);
     var distToSecond = hitLocs[1].distanceTo(this.RAY_ORIGIN);
 
-    var playerPosition = SceneObjects.player.position.clone();
+    var playerPosition = objectToCheck.position.clone();
     if(distToFirst < distToOrigin) {
       if(distToSecond < distToOrigin) {
 
         playerDistToFirst = hitLocs[0].distanceTo(playerPosition);
         playerDistToSecond = hitLocs[1].distanceTo(playerPosition);
         if(playerDistToFirst < playerDistToSecond) {
-          SceneObjects.player.position = hitLocs[0];
-          SceneObjects.player.position.y = 0;
+          objectToCheck.position = hitLocs[0];
+          objectToCheck.position.y = 0;
         } else {
-          SceneObjects.player.position = hitLocs[1];
-          SceneObjects.player.position.y = 0;
+          objectToCheck.position = hitLocs[1];
+          objectToCheck.position.y = 0;
         }
       }
     } else if (distToFirst > distToOrigin) {
       playerDistToFirst = hitLocs[0].distanceTo(playerPosition);
       playerDistToSecond = hitLocs[1].distanceTo(playerPosition);
       if(playerDistToFirst < playerDistToSecond) {
-        SceneObjects.player.position = hitLocs[0];
-        SceneObjects.player.position.y = 0;
+        objectToCheck.position = hitLocs[0];
+        objectToCheck.position.y = 0;
       } else {
-        SceneObjects.player.position = hitLocs[1];
-        SceneObjects.player.position.y = 0;
+        objectToCheck.position = hitLocs[1];
+        objectToCheck.position.y = 0;
       }
     }
   }
-};
-
-BoundryCollisionDetector.prototype.detectBoundryCollisionsEnemies = function() {
-  for (var i = 0; i < SceneObjects.enemies.length; i++) {
-    this.putBackInBounds(SceneObjects.enemies[i].threeObject);
-  }
-};
-
-BoundryCollisionDetector.prototype.putBackInBounds = function(misbehavor) {
-  var width = misbehavor.geometry.width / 2;
-
-  if (misbehavor.position.x > this.FLOOR_DIMENSIONS - width) {
-    misbehavor.position.x = this.FLOOR_DIMENSIONS - width;
-  }
-
-  if (misbehavor.position.x < -this.FLOOR_DIMENSIONS + width) {
-    misbehavor.position.x = -this.FLOOR_DIMENSIONS + width;
-  }
-
-  if (misbehavor.position.z > this.FLOOR_DIMENSIONS - width) {
-    misbehavor.position.z = this.FLOOR_DIMENSIONS - width;
-  }
-
-  if (misbehavor.position.z < -this.FLOOR_DIMENSIONS + width) {
-    misbehavor.position.z = -this.FLOOR_DIMENSIONS + width;
-  }
-};
-
-BoundryCollisionDetector.prototype.deleteIfOutOfBounds = function(misbehavor) {
-  if (this.getOutOfBoundsStatus(misbehavor.position) !== null) {
-    scene.remove(misbehavor);
-    SceneObjects.removeBullet(misbehavor);
-  }
-};
-
-BoundryCollisionDetector.prototype.getOutOfBoundsStatus = function(position) {
-  if (position.x > this.FLOOR_DIMENSIONS) {
-    return this.directionStatus.RIGHT;
-  }
-
-  if (position.x < -this.FLOOR_DIMENSIONS) {
-    return this.directionStatus.LEFT;
-  }
-
-  if (position.z > this.FLOOR_DIMENSIONS) {
-    return this.directionStatus.TOP;
-  }
-
-  if (position.z < -this.FLOOR_DIMENSIONS) {
-    return this.directionStatus.BOTTOM;
-  }
-
-  return null;
 };

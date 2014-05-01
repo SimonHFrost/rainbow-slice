@@ -52,7 +52,6 @@ SceneInitializer.prototype.initCameraAndLights = function() {
 
 SceneInitializer.prototype.initSceneObjects = function() {
   new IslandInitializer().makeIsland(this.FLOOR);
-  this.makeWalls();
   this.makePlayer();
   this.makeSkyBox();
 };
@@ -67,33 +66,6 @@ SceneInitializer.prototype.makeFloor = function() {
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
   scene.add(floor);
-};
-
-SceneInitializer.prototype.makeWalls = function() {
-  var wallWidth = 400;
-  var wallDepth = 200;
-  var floorBoundry = this.FLOOR_DIMENSIONS + wallWidth/2;
-
-  var wallTemplate = new THREE.Mesh(new THREE.CubeGeometry(wallWidth, wallDepth, this.FLOOR_DIMENSIONS*2), Materials.WALL);
-
-  var eastWall = wallTemplate.clone();
-  eastWall.position.x = floorBoundry;
-  scene.add(eastWall);
-
-  var westWall = wallTemplate.clone();
-  westWall.position.x = -floorBoundry;
-  scene.add(westWall);
-
-  var southWall = wallTemplate.clone();
-  southWall.position.z = -floorBoundry;
-  southWall.rotation.y = Math.PI / 2;
-  scene.add(southWall);
-
-  var northWall = wallTemplate.clone();
-  northWall.position.z = floorBoundry;
-  northWall.rotation.y = Math.PI / 2;
-
-  scene.add(northWall);
 };
 
 SceneInitializer.prototype.makePlayer = function() {
