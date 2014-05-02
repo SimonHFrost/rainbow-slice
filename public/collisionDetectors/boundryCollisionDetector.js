@@ -15,7 +15,7 @@ function BoundryCollisionDetector() {
 
 BoundryCollisionDetector.prototype.update = function() {
   for (var i = 0; i < SceneObjects.allBullets.length; i++) {
-    // this.deleteIfOutOfBounds(SceneObjects.allBullets[i].threeObject);
+    this.deleteObjectOutOfBounds(SceneObjects.allBullets[i].threeObject);
   }
 
   this.checkObjectInBounds(SceneObjects.player);
@@ -32,7 +32,13 @@ BoundryCollisionDetector.prototype.createRay = function() {
 BoundryCollisionDetector.prototype.checkObjectInBounds = function(objectToCheck) {
   this.updateRayDirection(objectToCheck);
   var hitLocs = this.getRayHitLocs();
-  this.processHitLocs(objectToCheck, hitLocs);
+  this.adjustPositionIfNecessary(objectToCheck, hitLocs);
+};
+
+BoundryCollisionDetector.prototype.deleteObjectOutOfBounds = function(objectToCheck) {
+  this.updateRayDirection(objectToCheck);
+  var hitLocs = this.getRayHitLocs();
+  this.deleteIfNecessary(objectToCheck, hitLocs);
 };
 
 BoundryCollisionDetector.prototype.updateRayDirection = function(objectToCheck) {
@@ -63,41 +69,45 @@ BoundryCollisionDetector.prototype.getRayHitLocs = function() {
   return hitLocs;
 };
 
-BoundryCollisionDetector.prototype.processHitLocs = function(objectToCheck, hitLocs) {
+BoundryCollisionDetector.prototype.adjustPositionIfNecessary = function(objectToCheck, hitLocs) {
   if (hitLocs.length === 0) {
-    objectToCheck.position.x = 0;
-    objectToCheck.position.z = 0;
+    this.setObjectLocation(objectToCheck, new THREE.Vector3(0, 0, 0));
   }
 
-  if(hitLocs.length == 2) {
+  if(hitLocs.length === 2) {
     var distToOrigin = objectToCheck.position.distanceTo(this.RAY_ORIGIN);
     var distToFirst = hitLocs[0].distanceTo(this.RAY_ORIGIN);
     var distToSecond = hitLocs[1].distanceTo(this.RAY_ORIGIN);
 
-    var playerPosition = objectToCheck.position.clone();
-    if(distToFirst < distToOrigin) {
-      if(distToSecond < distToOrigin) {
-
-        playerDistToFirst = hitLocs[0].distanceTo(playerPosition);
-        playerDistToSecond = hitLocs[1].distanceTo(playerPosition);
-        if(playerDistToFirst < playerDistToSecond) {
-          objectToCheck.position = hitLocs[0];
-          objectToCheck.position.y = 0;
-        } else {
-          objectToCheck.position = hitLocs[1];
-          objectToCheck.position.y = 0;
-        }
-      }
+    var position = objectToCheck.position.clone();
+    if(distToSecond < distToOrigin) {
+      this.setObjectLocation(objectToCheck, hitLocs[1]);
     } else if (distToFirst > distToOrigin) {
-      playerDistToFirst = hitLocs[0].distanceTo(playerPosition);
-      playerDistToSecond = hitLocs[1].distanceTo(playerPosition);
-      if(playerDistToFirst < playerDistToSecond) {
-        objectToCheck.position = hitLocs[0];
-        objectToCheck.position.y = 0;
-      } else {
-        objectToCheck.position = hitLocs[1];
-        objectToCheck.position.y = 0;
-      }
+      this.setObjectLocation(objectToCheck, hitLocs[0]);
     }
   }
+};
+
+BoundryCollisionDetector.prototype.deleteIfNecessary = function(objectToCheck, hitLocs) {
+  if (hitLocs.length === 0) {
+    SceneObjects.removeBullet(objectToCheck);
+  }
+
+  if(hitLocs.length === 2) {
+    var distToOrigin = objectToCheck.position.distanceTo(this.RAY_ORIGIN);
+    var distToFirst = hitLocs[0].distanceTo(this.RAY_ORIGIN);
+    var distToSecond = hitLocs[1].distanceTo(this.RAY_ORIGIN);
+
+    var position = objectToCheck.position.clone();
+    if(distToSecond < distToOrigin) {
+      SceneObjects.removeBullet(objectToCheck);
+    } else if (distToFirst > distToOrigin) {
+      SceneObjects.removeBullet(objectToCheck);
+    }
+  }
+};
+
+BoundryCollisionDetector.prototype.setObjectLocation = function(objectToCheck, location) {
+  objectToCheck.position = location;
+  objectToCheck.position.y = 0;
 };
