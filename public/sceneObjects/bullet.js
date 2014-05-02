@@ -24,4 +24,15 @@ function Bullet(enemyToFire) {
 
 Bullet.prototype.update = function() {
   this.threeObject.position.add(this.direction);
+  if (this.falling) {
+    this.threeObject.position.y -= 10;
+
+    if(this.threeObject.position.y < -1000) {
+      scene.remove(this.threeObject);
+    }
+  }
+};
+
+Bullet.prototype.toggleFalling = function() {
+  this.falling = true;
 };

@@ -14,6 +14,15 @@ SceneObjects.updatableObjects = [];
 SceneObjects.clock = '';
 SceneObjects.network = '';
 
+SceneObjects.toggleFalling = function(threeObject) {
+  var bullet = _.find(SceneObjects.allBullets, function(element) {
+    return element.threeObject === threeObject;
+  });
+
+  bullet.toggleFalling();
+};
+
+/*
 SceneObjects.removeBullet = function(threeObject) {
   var bullet = _.find(SceneObjects.allBullets, function(element) {
     return element.threeObject === threeObject;
@@ -24,6 +33,7 @@ SceneObjects.removeBullet = function(threeObject) {
 
   scene.remove(threeObject);
 };
+*/
 
 SceneObjects.removeEnemy = function(threeObject) {
   scene.remove(threeObject);

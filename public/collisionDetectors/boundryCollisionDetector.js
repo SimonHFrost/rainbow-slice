@@ -90,7 +90,7 @@ BoundryCollisionDetector.prototype.adjustPositionIfNecessary = function(objectTo
 
 BoundryCollisionDetector.prototype.deleteIfNecessary = function(objectToCheck, hitLocs) {
   if (hitLocs.length === 0) {
-    SceneObjects.removeBullet(objectToCheck);
+    SceneObjects.toggleFalling(objectToCheck);
   }
 
   if(hitLocs.length === 2) {
@@ -100,9 +100,9 @@ BoundryCollisionDetector.prototype.deleteIfNecessary = function(objectToCheck, h
 
     var position = objectToCheck.position.clone();
     if(distToSecond < distToOrigin) {
-      SceneObjects.removeBullet(objectToCheck);
+      SceneObjects.toggleFalling(objectToCheck);
     } else if (distToFirst > distToOrigin) {
-      SceneObjects.removeBullet(objectToCheck);
+      SceneObjects.toggleFalling(objectToCheck);
     }
   }
 };
