@@ -8,6 +8,7 @@ function SceneInitializer() {
   this.ENEMY_BORDER_WIDTH = 1000;
   this.FULL_ROTATION = 2 * Math.PI / 360;
   this.FLOOR = -100;
+  this.ISLAND_FLOOR = this.FLOOR - 1000;
 
   SceneObjects.meshLoader = new MeshLoader();
 
@@ -51,22 +52,11 @@ SceneInitializer.prototype.initCameraAndLights = function() {
 };
 
 SceneInitializer.prototype.initSceneObjects = function() {
-  new IslandInitializer().makeIsland(this.FLOOR);
+  new IslandInitializer().makeIsland(this.FLOOR, this.ISLAND_FLOOR);
   this.makePlayer();
   this.makeSkyBox();
 };
 
-SceneInitializer.prototype.makeFloor = function() {
-  var floorWidth = this.FLOOR_DIMENSIONS * 2;
-  var floorDepth = this.FLOOR_DIMENSIONS * 2;
-
-  floor = new THREE.Mesh(new THREE.PlaneGeometry(floorWidth, floorDepth), Materials.GRASS);
-
-  floor.position.y = -100;
-  floor.rotation.x = -Math.PI / 2;
-  floor.receiveShadow = true;
-  scene.add(floor);
-};
 
 SceneInitializer.prototype.makePlayer = function() {
   var playerWidth = SceneInitializer.PLAYER_WIDTH;

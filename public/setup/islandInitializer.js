@@ -1,10 +1,9 @@
 function IslandInitializer() {
 }
 
-IslandInitializer.prototype.makeIsland = function(floor) {
+IslandInitializer.prototype.makeIsland = function(floor, islandFloor) {
     var geom = new THREE.Geometry();
 
-    var islandFloor = floor - 1000;
     geom.vertices = this.createVectors(floor, islandFloor);
     geom.faces = this.createFaces(geom.vertices);
     this.setUv(geom);
@@ -19,7 +18,7 @@ IslandInitializer.prototype.makeIsland = function(floor) {
 };
 
 IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
-  var topVectors = [
+  var islandVectors = [
     new THREE.Vector3(-8000,floor,500),
     new THREE.Vector3(-7000,floor,-3000),
     new THREE.Vector3(-1500,floor,-5000),
@@ -30,15 +29,17 @@ IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
     new THREE.Vector3(-1000,floor,7000)
   ];
 
+  IslandInitializer.islandVectors = islandVectors;
+
   IslandInitializer.boundaries = [
-    new THREE.Line3(topVectors[0], topVectors[1]),
-    new THREE.Line3(topVectors[1], topVectors[2]),
-    new THREE.Line3(topVectors[2], topVectors[3]),
-    new THREE.Line3(topVectors[3], topVectors[4]),
-    new THREE.Line3(topVectors[4], topVectors[5]),
-    new THREE.Line3(topVectors[5], topVectors[6]),
-    new THREE.Line3(topVectors[6], topVectors[7]),
-    new THREE.Line3(topVectors[7], topVectors[0]),
+    new THREE.Line3(islandVectors[0], islandVectors[1]),
+    new THREE.Line3(islandVectors[1], islandVectors[2]),
+    new THREE.Line3(islandVectors[2], islandVectors[3]),
+    new THREE.Line3(islandVectors[3], islandVectors[4]),
+    new THREE.Line3(islandVectors[4], islandVectors[5]),
+    new THREE.Line3(islandVectors[5], islandVectors[6]),
+    new THREE.Line3(islandVectors[6], islandVectors[7]),
+    new THREE.Line3(islandVectors[7], islandVectors[0]),
   ];
 
   var bottomVectors = [
@@ -52,7 +53,7 @@ IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
     new THREE.Vector3(-1000,islandFloor,7000)
   ];
 
-  return topVectors.concat(bottomVectors);
+  return islandVectors.concat(bottomVectors);
 };
 
 IslandInitializer.prototype.createFaces = function(vertices) {
@@ -65,7 +66,7 @@ IslandInitializer.prototype.createFaces = function(vertices) {
   faces.push(new THREE.Face3(6, 5, 2));
   faces.push(new THREE.Face3(7, 6, 2));
 
-  var numPerLayer = vertices.length / 2; // two layers
+  var numPerLayer = vertices.length / 2;
   for(var i = 0; i < numPerLayer; i++) {
     var currentVertex = i;
     var nextVertex = currentVertex === numPerLayer - 1 ? 0 : currentVertex + 1;
