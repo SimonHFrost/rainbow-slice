@@ -1,18 +1,40 @@
 function EnemySpawner() {
-  this.FLOOR_DIMENSIONS = 3000;
-  this.ENEMY_BORDER_WIDTH = 1000;
-  this.NUM_ENEMIES_PER_SIDE = 5;
   this.MAX_ENEMIES = 15;
   this.spawnRate = 0.1;
   this.lastSpawned = 0;
+
+  this.setSpawnBox();
 }
 
-EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-  var spacing = this.FLOOR_DIMENSIONS * 2 / (this.NUM_ENEMIES_PER_SIDE + 1);
+EnemySpawner.prototype.setSpawnBox = function() {
+  var me = this;
+  var islandVectors = IslandInitializer.islandVectors;
+  this.topBoundary = 0;
+  this.rightBoundary = 0;
+  this.bottomBoundary = 0;
+  this.leftBoundary = 0;
 
-  var positionX = (spacing + x * spacing) - this.FLOOR_DIMENSIONS;
-  var positionZ = (spacing + z * spacing) - this.FLOOR_DIMENSIONS;
-  var someEnemy = new Enemy(SceneInitializer.ENEMY_WIDTH, positionX, positionZ);
+  islandVectors.forEach(function(islandVector) {
+    if(islandVector.z > me.topBoundary) {
+      me.topBoundary = islandVector.z;
+    }
+
+    if(islandVector.x > me.rightBoundary) {
+      me.rightBoundary = islandVector.x;
+    }
+
+    if(islandVector.z < me.bottomBoundary) {
+      me.bottomBoundary = islandVector.z;
+    }
+
+    if(islandVector.x < me.leftBoundary) {
+      me.leftBoundary = islandVector.x;
+    }
+  });
+};
+
+EnemySpawner.prototype.instantiateEnemy = function(x, z) {
+  var someEnemy = new Enemy(SceneInitializer.ENEMY_WIDTH, x, z);
   someEnemy.gridX = x;
   someEnemy.gridZ = z;
 
@@ -28,9 +50,12 @@ EnemySpawner.prototype.update = function() {
       return;
     }
 
+    var xRange = this.rightBoundary - this.leftBoundary;
+    var zRange = this.topBoundary - this.bottomBoundary;
+
     this.lastSpawned = this.lastSpawned + this.spawnRate;
-    var x = Math.floor(Math.random() * this.NUM_ENEMIES_PER_SIDE);
-    var z = Math.floor(Math.random() * this.NUM_ENEMIES_PER_SIDE);
+    var x = Math.floor(Math.random() * xRange);
+    var z = Math.floor(Math.random() * zRange);
 
     this.instantiateEnemy(x, z);
   }

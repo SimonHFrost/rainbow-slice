@@ -66,9 +66,9 @@ BoundryCollisionDetector.prototype.getRayHitLocs = function() {
 BoundryCollisionDetector.prototype.modifyIfNecessary = function(objectToCheck, hitLocs, bullet) {
   if (hitLocs.length === 0) {
     if (bullet) {
-      this.setObjectLocation(objectToCheck, new THREE.Vector3(0, 0, 0));
-    } else {
       SceneObjects.toggleFalling(objectToCheck);
+    } else {
+      this.setObjectLocation(objectToCheck, new THREE.Vector3(0, 0, 0));
     }
   }
 
