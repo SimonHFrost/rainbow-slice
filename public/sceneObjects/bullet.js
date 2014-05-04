@@ -28,6 +28,7 @@ Bullet.prototype.update = function() {
     this.threeObject.position.y -= 10;
 
     if(this.threeObject.position.y < -1000) {
+      SceneObjects.removeBullet(this);
       scene.remove(this.threeObject);
     }
   }

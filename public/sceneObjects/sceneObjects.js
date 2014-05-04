@@ -22,18 +22,12 @@ SceneObjects.toggleFalling = function(threeObject) {
   bullet.toggleFalling();
 };
 
-/*
-SceneObjects.removeBullet = function(threeObject) {
-  var bullet = _.find(SceneObjects.allBullets, function(element) {
-    return element.threeObject === threeObject;
-  });
-
+SceneObjects.removeBullet = function(bullet) {
   var index = SceneObjects.allBullets.indexOf(bullet);
-  SceneObjects.allBullets.splice(index, 1);
-
-  scene.remove(threeObject);
+  if (index != -1) {
+    SceneObjects.allBullets.splice(index, 1);
+  }
 };
-*/
 
 SceneObjects.removeEnemy = function(threeObject) {
   scene.remove(threeObject);
