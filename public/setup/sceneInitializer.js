@@ -21,7 +21,7 @@ function SceneInitializer() {
   SceneObjects.updatableObjects.push(SceneObjects.movement);
   SceneObjects.story = new Story();
   SceneObjects.updatableObjects.push(SceneObjects.story);
-  SceneObjects.updatableObjects.push(new BoundryCollisionDetector());
+  SceneObjects.updatableObjects.push(new BoundaryCollisionDetector());
   SceneObjects.updatableObjects.push(new MovementCollisionDetector());
   SceneObjects.updatableObjects.push(new BulletCollisionDetector());
   SceneObjects.clock = new THREE.Clock();

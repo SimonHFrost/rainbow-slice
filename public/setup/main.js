@@ -23,7 +23,7 @@ function Main() {
 
 Main.VIEWER_WIDTH = 1000;
 Main.VIEWER_HEIGHT = 562.5;
-Main.DEBUG_MODE = false;
+Main.DEBUG_MODE = true;
 
 Main.prototype.render = function() {
   renderer.clear();

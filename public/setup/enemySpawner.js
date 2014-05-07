@@ -54,8 +54,8 @@ EnemySpawner.prototype.update = function() {
     var zRange = this.topBoundary - this.bottomBoundary;
 
     this.lastSpawned = this.lastSpawned + this.spawnRate;
-    var x = Math.floor(Math.random() * xRange);
-    var z = Math.floor(Math.random() * zRange);
+    var x = this.leftBoundary + Math.floor(Math.random() * xRange);
+    var z = this.bottomBoundary + Math.floor(Math.random() * zRange);
 
     this.instantiateEnemy(x, z);
   }
