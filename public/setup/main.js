@@ -38,7 +38,7 @@ Main.prototype.render = function() {
   if(SceneObjects.movement.isMoving) {
       for (var i = 0; i < SceneObjects.morphs.length; i++) {
         var morph = SceneObjects.morphs[i];
-        morph.updateAnimation(50000 * SceneObjects.clock.getDelta());
+        morph.updateAnimation(100000 * SceneObjects.clock.getDelta());
       }
   }
 };

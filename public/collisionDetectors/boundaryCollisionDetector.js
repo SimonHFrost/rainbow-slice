@@ -1,4 +1,4 @@
-function BoundryCollisionDetector() {
+function BoundaryCollisionDetector() {
   this.FLOOR_DIMENSIONS = 3000;
   this.RAY_OFFSET = -200;
   this.RAY_ORIGIN = new THREE.Vector3(-20000, this.RAY_OFFSET, -20000);
@@ -13,7 +13,7 @@ function BoundryCollisionDetector() {
   this.createRay();
 }
 
-BoundryCollisionDetector.prototype.update = function() {
+BoundaryCollisionDetector.prototype.update = function() {
   for (var i = 0; i < SceneObjects.allBullets.length; i++) {
     this.checkObjectInBounds(SceneObjects.allBullets[i].threeObject, true);
   }
@@ -25,17 +25,32 @@ BoundryCollisionDetector.prototype.update = function() {
   }
 };
 
-BoundryCollisionDetector.prototype.createRay = function() {
+BoundaryCollisionDetector.prototype.createRay = function() {
   this.ray = new THREE.Ray(this.RAY_ORIGIN, new THREE.Vector3(1, 1, 1));
+
+  if (this.DEBUG_RAYTRACING) {
+    var underPlayer = SceneObjects.player.position.clone();
+    underPlayer.y = this.RAY_OFFSET;
+
+    var geometry = new THREE.Geometry();
+    var material = new THREE.LineBasicMaterial({color: 0xff69b4});
+
+    geometry.vertices.push(underPlayer);
+    geometry.vertices.push(this.RAY_ORIGIN);
+    geometry.dynamic = true;
+
+    this.line = new THREE.Line(geometry, material);
+    scene.add(this.line);
+  }
 };
 
-BoundryCollisionDetector.prototype.checkObjectInBounds = function(objectToCheck, isBullet) {
+BoundaryCollisionDetector.prototype.checkObjectInBounds = function(objectToCheck, isBullet) {
   this.updateRayDirection(objectToCheck);
   var hitLocs = this.getRayHitLocs();
   this.modifyIfNecessary(objectToCheck, hitLocs, isBullet);
 };
 
-BoundryCollisionDetector.prototype.updateRayDirection = function(objectToCheck) {
+BoundaryCollisionDetector.prototype.updateRayDirection = function(objectToCheck) {
   var underPlayer = objectToCheck.position.clone();
   underPlayer.y = this.RAY_OFFSET;
   var directionVector = new THREE.Vector3().subVectors(underPlayer, this.RAY_ORIGIN);
@@ -49,7 +64,7 @@ BoundryCollisionDetector.prototype.updateRayDirection = function(objectToCheck) 
   }
 };
 
-BoundryCollisionDetector.prototype.getRayHitLocs = function() {
+BoundaryCollisionDetector.prototype.getRayHitLocs = function() {
   var me = this;
   var hitLocs = [];
 
@@ -63,7 +78,7 @@ BoundryCollisionDetector.prototype.getRayHitLocs = function() {
   return hitLocs;
 };
 
-BoundryCollisionDetector.prototype.modifyIfNecessary = function(objectToCheck, hitLocs, bullet) {
+BoundaryCollisionDetector.prototype.modifyIfNecessary = function(objectToCheck, hitLocs, bullet) {
   if (hitLocs.length === 0) {
     if (bullet) {
       SceneObjects.toggleFalling(objectToCheck);
@@ -94,7 +109,7 @@ BoundryCollisionDetector.prototype.modifyIfNecessary = function(objectToCheck, h
   }
 };
 
-BoundryCollisionDetector.prototype.setObjectLocation = function(objectToCheck, location) {
+BoundaryCollisionDetector.prototype.setObjectLocation = function(objectToCheck, location) {
   objectToCheck.position = location;
   objectToCheck.position.y = 0;
 };

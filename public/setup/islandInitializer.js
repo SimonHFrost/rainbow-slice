@@ -85,12 +85,17 @@ IslandInitializer.prototype.createFaces = function(vertices) {
 };
 
 IslandInitializer.prototype.setUv = function(geom) {
+  geom.faceVertexUvs[0].push([
+    new THREE.Vector2(0, 0.85),
+    new THREE.Vector2(0.5, 1),
+    new THREE.Vector2(1, 1),
+  ]);
+
   for (var i = 0; i < geom.faces.length; i++) {
     geom.faceVertexUvs[0].push([
       new THREE.Vector2(0, 0),
       new THREE.Vector2(0, 1),
-      new THREE.Vector2(1, 1),
-      new THREE.Vector2(1, 0)
+      new THREE.Vector2(1, 1)
     ]);
   }
 };
