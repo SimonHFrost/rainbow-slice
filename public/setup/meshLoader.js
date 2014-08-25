@@ -2,6 +2,7 @@ function MeshLoader() {
   this.FLOOR = 0;
   this.enemyTemplate = '';
 
+  this.DEBUG_HITBOX = false;
   this.load();
 }
 
@@ -14,7 +15,9 @@ MeshLoader.prototype.load = function() {
       me.addMorph(geometry, 550, 1000);
 
       // using player as a hitbox
-      SceneObjects.player.visible = false;
+      if (!me.DEBUG_HITBOX) {
+        SceneObjects.player.visible = false;
+      }
   });
 
   loader.load('./models/parrot.js', function(geometry) {
@@ -28,7 +31,9 @@ MeshLoader.prototype.load = function() {
 };
 
 MeshLoader.prototype.setEnemyModel = function(enemy) {
-  enemy.threeObject.visible = false;
+  if (!this.DEBUG_HITBOX) {
+    enemy.threeObject.visible = false;
+  }
   enemy.threeObject.add(this.enemyTemplate.clone());
 };
 

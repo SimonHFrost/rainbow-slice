@@ -35,8 +35,8 @@ SceneInitializer.ENEMY_WIDTH = 400;
 
 SceneInitializer.prototype.initCameraAndLights = function() {
   camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);
-  camera.position.y = 8000;
-  camera.position.z = 2500;
+  camera.position.y = 5000;
+  camera.position.z = 8000;
   camera.lookAt(new THREE.Vector3(0,0,0));
 
   var pointLight = new THREE.SpotLight(0xFFFFFF);
