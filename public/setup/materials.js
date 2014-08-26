@@ -1,10 +1,10 @@
 function Materials() {
-  Materials.GRASS = this.makeTexturedMaterial('./img/grass.png');
-  Materials.SEA = this.makeTexturedMaterial('./img/sea.png');
-  Materials.SKY = this.makeTexturedMaterial('./img/sky.png');
+  Materials.GRASS = this.makeTexturedMaterial('./resources/img/grass.png');
+  Materials.SEA = this.makeTexturedMaterial('./resources/img/sea.png');
+  Materials.SKY = this.makeTexturedMaterial('./resources/img/sky.png');
   Materials.SKY.side = THREE.BackSide;
 
-  var wallTexture = THREE.ImageUtils.loadTexture('./img/rock.png');
+  var wallTexture = THREE.ImageUtils.loadTexture('./resources/img/rock.png');
   wallTexture.wrapS = THREE.RepeatWrapping;
   wallTexture.wrapT = THREE.RepeatWrapping;
   wallTexture.repeat.set(1, 16);
