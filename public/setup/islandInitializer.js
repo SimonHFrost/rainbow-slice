@@ -1,4 +1,5 @@
 window.IslandInitializer = (function() {
+  "use strict";
   function IslandInitializer(scene) {
     this.scene = scene;
   }

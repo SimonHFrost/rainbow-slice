@@ -1,4 +1,5 @@
 window.Bullet = (function () {
+  "use strict";
   function Bullet(scene, enemyToFire) {
     this.scene = scene;
     this.BULLET_SIZE = 50;

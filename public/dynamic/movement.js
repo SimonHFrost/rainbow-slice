@@ -1,4 +1,5 @@
 window.Movement = (function () {
+  "use strict";
   function Movement() {
     this.TRANSLATION_SPEED = 40;
     this.TRANSLATION_ANGLED_SPEED = Math.sqrt(Math.pow(this.TRANSLATION_SPEED, 2) / 2);

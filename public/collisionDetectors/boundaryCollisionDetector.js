@@ -1,4 +1,5 @@
 window.BoundaryCollisionDetector = (function () {
+  "use strict";
   function BoundaryCollisionDetector(scene) {
     this.scene = scene;
     this.FLOOR_DIMENSIONS = 3000;

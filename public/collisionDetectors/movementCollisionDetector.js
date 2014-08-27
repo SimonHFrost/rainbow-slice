@@ -1,4 +1,5 @@
 window.MovementCollisionDetector = (function () {
+  "use strict";
   function MovementCollisionDetector() {
   }
 

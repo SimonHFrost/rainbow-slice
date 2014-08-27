@@ -1,4 +1,5 @@
 window.MeshLoader = (function() {
+  "use strict";
   function MeshLoader() {
     this.FLOOR = 0;
     this.enemyTemplate = '';
@@ -11,7 +12,7 @@ window.MeshLoader = (function() {
     var me = this;
     var loader = new THREE.JSONLoader();
 
-    loader.load('./models/horse.js', function (geometry) {
+    loader.load('./resources/models/horse.js', function (geometry) {
       me.morphColorsToFaceColors(geometry);
       me.addMorph(geometry, 550, 1000);
 
@@ -21,7 +22,7 @@ window.MeshLoader = (function() {
       }
     });
 
-    loader.load('./models/parrot.js', function(geometry) {
+    loader.load('./resources/models/parrot.js', function(geometry) {
       me.morphColorsToFaceColors(geometry);
       var enemyMaterial = new THREE.MeshLambertMaterial( { color: 0xffaa55, morphTargets: true, vertexColors: THREE.FaceColors } );
       var enemyModel = new THREE.SkinnedMesh(geometry, enemyMaterial, false);

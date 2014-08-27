@@ -1,4 +1,5 @@
 window.EnemySpawner = (function(){
+  "use strict";
   function EnemySpawner(scene) {
     this.scene = scene;
 

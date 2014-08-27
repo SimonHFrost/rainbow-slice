@@ -1,4 +1,5 @@
 window.SceneObjects = (function() {
+  "use strict";
   function SceneObjects() {
   }
 

@@ -1,4 +1,5 @@
 window.Story = (function () {
+  "use strict";
   function Story(scene) {
     this.scene = scene;
     this.health = 100;

@@ -1,4 +1,5 @@
 window.BulletCollisionDetector = (function () {
+  "use strict";
   function BulletCollisionDetector(scene) {
     this.scene = scene;
 

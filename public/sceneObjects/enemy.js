@@ -1,4 +1,5 @@
 window.Enemy = (function() {
+  "use strict";
   function Enemy(scene, size, positionX, positionZ) {
     this.scene = scene;
     this.FIRE_RATE = 0.05;

@@ -1,4 +1,5 @@
 window.Main = (function () {
+  "use strict";
   Main.VIEWER_WIDTH = 1000;
   Main.VIEWER_HEIGHT = 562.5;
   Main.DEBUG_MODE = true;
@@ -11,7 +12,8 @@ window.Main = (function () {
       var network = new Network($('#connectionCount'));
       SceneObjects.network = network;
 
-      renderer = new THREE.WebGLRenderer();
+      var renderer = new THREE.WebGLRenderer();
+      this.renderer = renderer;
       renderer.setSize(Main.VIEWER_WIDTH, Main.VIEWER_HEIGHT);
       renderer.shadowMapEnabled = true;
       renderer.shadowMapSoft = true;
@@ -23,20 +25,20 @@ window.Main = (function () {
       var container = $('#webglDiv')[0];
       container.insertBefore(renderer.domElement, container.firstChild);
 
-      controls = new THREE.OrbitControls(SceneInitializer.camera, renderer.domElement);
+      this.controls = new THREE.OrbitControls(SceneInitializer.camera, renderer.domElement);
   }
 
   Main.prototype.render = function() {
-    renderer.clear();
-    renderer.render(SceneInitializer.scene, SceneInitializer.camera);
+    this.renderer.clear();
+    this.renderer.render(SceneInitializer.scene, SceneInitializer.camera);
 
     for (var i = 0; i < SceneObjects.updatableObjects.length; i++){
       SceneObjects.updatableObjects[i].update();
     }
 
-    controls.update();
+    this.controls.update();
 
-    if(SceneObjects.movement.isMoving) {
+    if (SceneObjects.movement.isMoving) {
         for (var i = 0; i < SceneObjects.morphs.length; i++) {
           var morph = SceneObjects.morphs[i];
           morph.updateAnimation(100000 * SceneObjects.clock.getDelta());

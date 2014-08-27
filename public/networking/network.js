@@ -1,4 +1,5 @@
 window.Network = (function () {
+  "use strict";
   function Network(connectionCount) {
     if(Main.DEBUG_MODE) {
       this.socket = io.connect('http://localhost');

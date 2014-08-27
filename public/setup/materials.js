@@ -1,4 +1,5 @@
 window.Materials = (function() {
+  "use strict";
   function Materials() {
     Materials.GRASS = this.makeTexturedMaterial('./resources/img/grass.png');
     Materials.SEA = this.makeTexturedMaterial('./resources/img/sea.png');
