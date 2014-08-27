@@ -1,50 +1,54 @@
-function Story() {
-  this.health = 100;
-  this.kills = 0;
-  this.playedWin = false;
-  this.playedDead = false;
-}
-
-Story.prototype.update = function() {
-  if(this.health <= 0) {
-    this.triggerDead();
+window.Story = (function () {
+  function Story() {
+    this.health = 100;
+    this.kills = 0;
+    this.playedWin = false;
+    this.playedDead = false;
   }
-};
 
-Story.prototype.decreaseHealth = function() {
-  if (this.health > 0) {
-    new Sound().playHit();
-    this.health--;
-    $('#healthNumber').html('Health: ' + this.health);
-  }
-};
+  Story.prototype.update = function() {
+    if(this.health <= 0) {
+      this.triggerDead();
+    }
+  };
 
-Story.prototype.increaseKills = function() {
-  new Sound().playEnemyHit();
-  this.kills++;
-  $('#killNumber').html('Kills: ' + this.kills);
-};
+  Story.prototype.decreaseHealth = function() {
+    if (this.health > 0) {
+      new Sound().playHit();
+      this.health--;
+      $('#healthNumber').html('Health: ' + this.health);
+    }
+  };
 
-// Not used atm
-Story.prototype.triggerWin = function() {
-  if(!this.playedWin) {
-    this.playedWin = true;
-    elem = document.getElementById('healthNumber');
-    elem.innerHTML = 'You won with ' + story.health + ' health left!';
-    new Sound().playWin();
+  Story.prototype.increaseKills = function() {
+    new Sound().playEnemyHit();
+    this.kills++;
+    $('#killNumber').html('Kills: ' + this.kills);
+  };
 
-    _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
+  // Not used atm
+  Story.prototype.triggerWin = function() {
+    if(!this.playedWin) {
+      this.playedWin = true;
+      elem = document.getElementById('healthNumber');
+      elem.innerHTML = 'You won with ' + story.health + ' health left!';
+      new Sound().playWin();
 
-    _.each(SceneObjects.allBullets, function(bullet) {
-      scene.remove(bullet);
-    });
-  }
-};
+      _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 
-Story.prototype.triggerDead = function() {
-  if(!this.playedDead) {
-    this.playedDead = true;
-    SceneObjects.network.submitScore(this.kills);
-    _gaq.push(['_trackEvent', 'GameEvents', 'Finished', this.kills]);
-  }
-};
+      _.each(SceneObjects.allBullets, function(bullet) {
+        scene.remove(bullet);
+      });
+    }
+  };
+
+  Story.prototype.triggerDead = function() {
+    if(!this.playedDead) {
+      this.playedDead = true;
+      SceneObjects.network.submitScore(this.kills);
+      _gaq.push(['_trackEvent', 'GameEvents', 'Finished', this.kills]);
+    }
+  };
+
+  return Story;
+})();

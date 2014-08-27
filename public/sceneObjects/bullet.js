@@ -1,3 +1,5 @@
+window.Bullet = (function () {
+
 function Bullet(enemyToFire) {
   this.BULLET_SIZE = 50;
   this.SPEED = 20;
@@ -37,3 +39,7 @@ Bullet.prototype.update = function() {
 Bullet.prototype.toggleFalling = function() {
   this.falling = true;
 };
+
+  return Bullet;
+
+})();
