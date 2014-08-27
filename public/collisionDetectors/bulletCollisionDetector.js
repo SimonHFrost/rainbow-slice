@@ -1,5 +1,7 @@
 window.BulletCollisionDetector = (function () {
-  function BulletCollisionDetector() {
+  function BulletCollisionDetector(scene) {
+    this.scene = scene;
+
     this.PLAYER_WIDTH_HALF = SceneInitializer.PLAYER_WIDTH/2;
     this.ENEMY_WIDTH_HALF = SceneInitializer.ENEMY_WIDTH/2;
   }
@@ -26,7 +28,7 @@ window.BulletCollisionDetector = (function () {
         SceneObjects.story.decreaseHealth();
 
         bullet.used = true;
-        scene.remove(bullet);
+        this.scene.remove(bullet);
       }
     }
   };
@@ -47,7 +49,7 @@ window.BulletCollisionDetector = (function () {
       if (left < bullet.position.x && bullet.position.x < right) {
         if(down < bullet.position.z && bullet.position.z < up) {
           bullet.used = true;
-          scene.remove(bullet);
+          this.scene.remove(bullet);
         }
       }
     }

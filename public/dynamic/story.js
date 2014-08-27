@@ -1,5 +1,6 @@
 window.Story = (function () {
-  function Story() {
+  function Story(scene) {
+    this.scene = scene;
     this.health = 100;
     this.kills = 0;
     this.playedWin = false;
@@ -28,6 +29,7 @@ window.Story = (function () {
 
   // Not used atm
   Story.prototype.triggerWin = function() {
+    var me = this;
     if(!this.playedWin) {
       this.playedWin = true;
       elem = document.getElementById('healthNumber');
@@ -37,7 +39,7 @@ window.Story = (function () {
       _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 
       _.each(SceneObjects.allBullets, function(bullet) {
-        scene.remove(bullet);
+        me.scene.remove(bullet);
       });
     }
   };

@@ -1,6 +1,8 @@
 window.SceneInitializer = (function(){
+  // "use strict";
   function SceneInitializer() {
     scene = new THREE.Scene();
+    this.scene = scene;
 
     this.FLOOR_DIMENSIONS = 3000;
     this.ENEMY_BORDER_WIDTH = 1000;
@@ -8,20 +10,21 @@ window.SceneInitializer = (function(){
     this.FLOOR = -100;
     this.ISLAND_FLOOR = this.FLOOR - 1000;
 
+    SceneObjects.scene = scene;
     SceneObjects.meshLoader = new MeshLoader();
 
     this.initCameraAndLights();
     this.initSceneObjects();
 
-    SceneObjects.enemySpawner = new EnemySpawner();
+    SceneObjects.enemySpawner = new EnemySpawner(scene);
     SceneObjects.updatableObjects.push(SceneObjects.enemySpawner);
     SceneObjects.movement = new Movement();
     SceneObjects.updatableObjects.push(SceneObjects.movement);
-    SceneObjects.story = new Story();
+    SceneObjects.story = new Story(scene);
     SceneObjects.updatableObjects.push(SceneObjects.story);
-    SceneObjects.updatableObjects.push(new BoundaryCollisionDetector());
+    SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
     SceneObjects.updatableObjects.push(new MovementCollisionDetector());
-    SceneObjects.updatableObjects.push(new BulletCollisionDetector());
+    SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene));
     SceneObjects.clock = new THREE.Clock();
     SceneObjects.clock.start();
 
@@ -43,14 +46,14 @@ window.SceneInitializer = (function(){
 
     pointLight.shadowCameraNear = 50;
     pointLight.shadowCameraFar = 250000;
-    scene.add(pointLight);
+    this.scene.add(pointLight);
 
     var ambientLight = new THREE.AmbientLight(0x808080);
-    scene.add(ambientLight);
+    this.scene.add(ambientLight);
   };
 
   SceneInitializer.prototype.initSceneObjects = function() {
-    new IslandInitializer().makeIsland(this.FLOOR, this.ISLAND_FLOOR);
+    new IslandInitializer(this.scene).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
     this.makePlayer();
     this.makeSkyBox();
   };
@@ -60,13 +63,13 @@ window.SceneInitializer = (function(){
     var playerWidth = SceneInitializer.PLAYER_WIDTH;
     SceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
     SceneObjects.player.add(camera);
-    scene.add(SceneObjects.player);
+    this.scene.add(SceneObjects.player);
   };
 
   SceneInitializer.prototype.makeSkyBox = function() {
     var skyGeometry = new THREE.CubeGeometry( 50000, 50000, 50000 );
-    var skyBox = new THREE.Mesh ( skyGeometry, Materials.SKY );
-    scene.add( skyBox );
+    var skyBox = new THREE.Mesh (skyGeometry, Materials.SKY);
+    this.scene.add(skyBox);
   };
 
   return SceneInitializer;

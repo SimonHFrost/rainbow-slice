@@ -1,5 +1,6 @@
 window.BoundaryCollisionDetector = (function () {
-  function BoundaryCollisionDetector() {
+  function BoundaryCollisionDetector(scene) {
+    this.scene = scene;
     this.FLOOR_DIMENSIONS = 3000;
     this.RAY_OFFSET = -200;
     this.RAY_ORIGIN = new THREE.Vector3(-20000, this.RAY_OFFSET, -20000);
@@ -41,7 +42,7 @@ window.BoundaryCollisionDetector = (function () {
       geometry.dynamic = true;
 
       this.line = new THREE.Line(geometry, material);
-      scene.add(this.line);
+      this.scene.add(this.line);
     }
   };
 

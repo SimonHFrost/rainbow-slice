@@ -1,5 +1,7 @@
 window.EnemySpawner = (function(){
-  function EnemySpawner() {
+  function EnemySpawner(scene) {
+    this.scene;
+
     this.MAX_ENEMIES = 15;
     this.spawnRate = 0.1;
     this.lastSpawned = 0;
@@ -35,7 +37,7 @@ window.EnemySpawner = (function(){
   };
 
   EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-    var someEnemy = new Enemy(SceneInitializer.ENEMY_WIDTH, x, z);
+    var someEnemy = new Enemy(this.scene, SceneInitializer.ENEMY_WIDTH, x, z);
     someEnemy.gridX = x;
     someEnemy.gridZ = z;
 

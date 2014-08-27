@@ -1,5 +1,6 @@
 window.Enemy = (function() {
-  function Enemy(size, positionX, positionZ) {
+  function Enemy(scene, size, positionX, positionZ) {
+    this.scene = scene;
     this.FIRE_RATE = 0.05;
     this.FIRE_FAILURE_RATE = 0.4;
 
@@ -28,7 +29,7 @@ window.Enemy = (function() {
 
     SceneObjects.enemies.push(this);
     SceneObjects.updatableObjects.push(this);
-    scene.add(this.threeObject);
+    this.scene.add(this.threeObject);
   }
 
   Enemy.prototype.update = function() {
@@ -46,7 +47,7 @@ window.Enemy = (function() {
     if(SceneObjects.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
       this.lastFired = SceneObjects.clock.getElapsedTime() + this.FIRE_RATE;
       if (Math.random() >= this.FIRE_FAILURE_RATE) {
-        var bulletThing = new Bullet(this.threeObject);
+        var bulletThing = new Bullet(this.threeObject, this.scene);
       }
     }
   };

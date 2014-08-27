@@ -2,6 +2,7 @@ window.SceneObjects = (function() {
   function SceneObjects() {
   }
 
+  SceneObjects.scene = '';
   SceneObjects.allBullets = [];
   SceneObjects.player = '';
   SceneObjects.playerModel = '';
@@ -29,7 +30,7 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.removeEnemy = function(threeObject) {
-    scene.remove(threeObject);
+    SceneObjects.scene.remove(threeObject);
 
     var enemy = _.find(SceneObjects.enemies, function(element){
       return element.threeObject === threeObject;
