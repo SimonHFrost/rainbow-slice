@@ -1,8 +1,9 @@
 window.SceneInitializer = (function(){
-  // "use strict";
+  "use strict";
   function SceneInitializer() {
-    scene = new THREE.Scene();
+    var scene = new THREE.Scene();
     this.scene = scene;
+    SceneInitializer.scene = scene;
 
     this.FLOOR_DIMENSIONS = 3000;
     this.ENEMY_BORDER_WIDTH = 1000;
@@ -35,10 +36,11 @@ window.SceneInitializer = (function(){
   SceneInitializer.ENEMY_WIDTH = 400;
 
   SceneInitializer.prototype.initCameraAndLights = function() {
-    camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);
+    var camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);
     camera.position.y = 5000;
     camera.position.z = 8000;
     camera.lookAt(new THREE.Vector3(0,0,0));
+    SceneInitializer.camera = camera;
 
     var pointLight = new THREE.SpotLight(0xFFFFFF);
     pointLight.position.set(5000, 5000, 5000);
@@ -62,7 +64,7 @@ window.SceneInitializer = (function(){
   SceneInitializer.prototype.makePlayer = function() {
     var playerWidth = SceneInitializer.PLAYER_WIDTH;
     SceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
-    SceneObjects.player.add(camera);
+    SceneObjects.player.add(SceneInitializer.camera);
     this.scene.add(SceneObjects.player);
   };
 

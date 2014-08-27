@@ -23,12 +23,12 @@ window.Main = (function () {
       var container = $('#webglDiv')[0];
       container.insertBefore(renderer.domElement, container.firstChild);
 
-      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls = new THREE.OrbitControls(SceneInitializer.camera, renderer.domElement);
   }
 
   Main.prototype.render = function() {
     renderer.clear();
-    renderer.render(scene, camera);
+    renderer.render(SceneInitializer.scene, SceneInitializer.camera);
 
     for (var i = 0; i < SceneObjects.updatableObjects.length; i++){
       SceneObjects.updatableObjects[i].update();
