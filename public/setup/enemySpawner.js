@@ -1,6 +1,6 @@
 window.EnemySpawner = (function(){
   function EnemySpawner(scene) {
-    this.scene;
+    this.scene = scene;
 
     this.MAX_ENEMIES = 15;
     this.spawnRate = 0.1;
