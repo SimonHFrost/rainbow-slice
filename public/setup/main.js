@@ -15,10 +15,7 @@ window.Main = (function () {
       renderer.setSize(Main.VIEWER_WIDTH, Main.VIEWER_HEIGHT);
       renderer.shadowMapEnabled = true;
       renderer.shadowMapSoft = true;
-      renderer.domElement.style.display = "inline";
-      renderer.domElement.style.float = "left";
-      renderer.domElement.style.borderRightStyle = "solid";
-      renderer.domElement.style.borderRightColor = "white";
+      renderer.domElement.id = 'renderer';
 
       var container = $('#webglDiv')[0];
       container.insertBefore(renderer.domElement, container.firstChild);

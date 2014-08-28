@@ -47,6 +47,11 @@ body {
   color: white;
 }
 
+#renderer {
+  display: inline;
+  float: left;
+}
+
 .spacerDiv {
   width: 200px;
 }

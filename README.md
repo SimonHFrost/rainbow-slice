@@ -8,9 +8,7 @@ Hobby game I'm working on that can be seen [here](http://www.rainbowslice.com).
 TODO:
 -----
 
-clean up SceneObjects
-check scene usage in all classes assigned properly
-consistent assignment of class variables, should I use var then assign to this, or just use this throughout
 syntax consistency - strings, function declarations
 requirejs
 lightweight testing suite
+fix bullet.used and enemy.isDead hacks
