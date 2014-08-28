@@ -1,14 +1,15 @@
 window.Network = (function () {
   "use strict";
-  function Network(connectionCount) {
+  function Network() {
+    var connectionCountElement = $('#connectionCount');
+
     if(Main.DEBUG_MODE) {
       this.socket = io.connect('http://localhost');
     } else {
       this.socket = io.connect('http://rainbowslice.com');
     }
     this.socket.on('connectionCount', function (data) {
-      console.log(data.connectionCount + ' players have connected.');
-      connectionCount.html(data.connectionCount + ' connections');
+      connectionCountElement.html(data.connectionCount + ' connections');
     });
 
     this.socket.on('scores', function(data) {

@@ -1,14 +1,15 @@
 window.SceneObjects = (function() {
   "use strict";
+  SceneObjects.PLAYER_WIDTH = 400;
+  SceneObjects.ENEMY_WIDTH = 400;
+
   function SceneObjects(scene) {
     this.scene = scene;
-    this.story = new Story(scene);
+    this.network = new Network();
+    this.story = new Story(scene, this.network);
     this.meshLoader = new MeshLoader();
   }
 
-  SceneObjects.PLAYER_WIDTH = 400;
-  SceneObjects.ENEMY_WIDTH = 400;
-  SceneObjects.scene = '';
   SceneObjects.allBullets = [];
   SceneObjects.player = '';
   SceneObjects.playerModel = '';
@@ -18,7 +19,6 @@ window.SceneObjects = (function() {
   SceneObjects.movement = '';
   SceneObjects.updatableObjects = [];
   SceneObjects.clock = '';
-  SceneObjects.network = '';
 
   SceneObjects.toggleFalling = function(threeObject) {
     var bullet = _.find(SceneObjects.allBullets, function(element) {

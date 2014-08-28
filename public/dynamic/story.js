@@ -1,7 +1,8 @@
 window.Story = (function () {
   "use strict";
-  function Story(scene) {
+  function Story(scene, network) {
     this.scene = scene;
+    this.network = network;
     this.health = 100;
     this.kills = 0;
     this.playedWin = false;
@@ -48,7 +49,7 @@ window.Story = (function () {
   Story.prototype.triggerDead = function() {
     if(!this.playedDead) {
       this.playedDead = true;
-      SceneObjects.network.submitScore(this.kills);
+      this.network.submitScore(this.kills);
       _gaq.push(['_trackEvent', 'GameEvents', 'Finished', this.kills]);
     }
   };

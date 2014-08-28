@@ -12,3 +12,4 @@ syntax consistency - strings, function declarations
 requirejs
 lightweight testing suite
 fix bullet.used and enemy.isDead hacks
+consistent way of using my own classes with three.js classes (className.threeObject?)
