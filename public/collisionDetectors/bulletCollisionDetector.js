@@ -1,7 +1,8 @@
 window.BulletCollisionDetector = (function () {
   "use strict";
-  function BulletCollisionDetector(scene) {
+  function BulletCollisionDetector(scene, story) {
     this.scene = scene;
+    this.story = story;
 
     this.PLAYER_WIDTH_HALF = SceneObjects.PLAYER_WIDTH/2;
     this.ENEMY_WIDTH_HALF = SceneObjects.ENEMY_WIDTH/2;
@@ -26,7 +27,7 @@ window.BulletCollisionDetector = (function () {
           return;
         }
 
-        SceneObjects.story.decreaseHealth();
+        this.story.decreaseHealth();
 
         bullet.used = true;
         this.scene.remove(bullet);

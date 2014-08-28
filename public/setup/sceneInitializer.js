@@ -16,11 +16,10 @@ window.SceneInitializer = (function(){
     SceneObjects.updatableObjects.push(SceneObjects.enemySpawner);
     SceneObjects.movement = new Movement();
     SceneObjects.updatableObjects.push(SceneObjects.movement);
-    SceneObjects.story = new Story(scene);
-    SceneObjects.updatableObjects.push(SceneObjects.story);
+    SceneObjects.updatableObjects.push(this.sceneObjects.story);
     SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
     SceneObjects.updatableObjects.push(new MovementCollisionDetector(this.sceneObjects));
-    SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene));
+    SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene, this.sceneObjects.story));
     SceneObjects.clock = new THREE.Clock();
     SceneObjects.clock.start();
 
