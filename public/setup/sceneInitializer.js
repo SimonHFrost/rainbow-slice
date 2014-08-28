@@ -10,7 +10,7 @@ window.SceneInitializer = (function(){
     this.initCameraAndLights();
     this.initSceneObjects();
 
-    SceneObjects.enemySpawner = new EnemySpawner(scene, this.sceneObjects);
+    SceneObjects.enemySpawner = new EnemySpawner(scene, this.sceneObjects.meshLoader);
     SceneObjects.updatableObjects.push(SceneObjects.enemySpawner);
     SceneObjects.movement = new Movement();
     SceneObjects.updatableObjects.push(SceneObjects.movement);
