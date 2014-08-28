@@ -1,6 +1,8 @@
 window.SceneObjects = (function() {
   "use strict";
-  function SceneObjects() {
+  function SceneObjects(scene) {
+    this.scene = scene;
+    this.story = new Story(scene);
   }
 
   SceneObjects.PLAYER_WIDTH = 400;
@@ -32,8 +34,8 @@ window.SceneObjects = (function() {
     }
   };
 
-  SceneObjects.removeEnemy = function(threeObject) {
-    SceneObjects.scene.remove(threeObject);
+  SceneObjects.prototype.removeEnemy = function(threeObject) {
+    this.scene.remove(threeObject);
 
     var enemy = _.find(SceneObjects.enemies, function(element){
       return element.threeObject === threeObject;

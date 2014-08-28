@@ -7,8 +7,8 @@ window.Main = (function () {
   function Main() {
       // shouldn't have to instantiate this and then not use it...
       var materials = new Materials();
-      var scene = new THREE.Scene();
-      var sceneInitializer = new SceneInitializer(scene);
+      this.scene = new THREE.Scene();
+      var sceneInitializer = new SceneInitializer(this.scene);
 
       var renderer = new THREE.WebGLRenderer();
       this.renderer = renderer;
@@ -25,7 +25,7 @@ window.Main = (function () {
 
   Main.prototype.render = function() {
     this.renderer.clear();
-    this.renderer.render(SceneObjects.scene, SceneObjects.camera);
+    this.renderer.render(this.scene, SceneObjects.camera);
 
     for (var i = 0; i < SceneObjects.updatableObjects.length; i++){
       SceneObjects.updatableObjects[i].update();

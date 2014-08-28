@@ -4,7 +4,8 @@ window.SceneInitializer = (function(){
     this.FLOOR = -100;
     this.ISLAND_FLOOR = this.FLOOR - 1000;
 
-    SceneObjects.scene = scene;
+    this.scene = scene;
+    this.sceneObjects = new SceneObjects(scene);
 
     this.initCameraAndLights();
     this.initSceneObjects();
@@ -18,7 +19,7 @@ window.SceneInitializer = (function(){
     SceneObjects.story = new Story(scene);
     SceneObjects.updatableObjects.push(SceneObjects.story);
     SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
-    SceneObjects.updatableObjects.push(new MovementCollisionDetector());
+    SceneObjects.updatableObjects.push(new MovementCollisionDetector(this.sceneObjects));
     SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene));
     SceneObjects.clock = new THREE.Clock();
     SceneObjects.clock.start();
@@ -39,14 +40,14 @@ window.SceneInitializer = (function(){
 
     pointLight.shadowCameraNear = 50;
     pointLight.shadowCameraFar = 250000;
-    SceneObjects.scene.add(pointLight);
+    this.scene.add(pointLight);
 
     var ambientLight = new THREE.AmbientLight(0x808080);
-    SceneObjects.scene.add(ambientLight);
+    this.scene.add(ambientLight);
   };
 
   SceneInitializer.prototype.initSceneObjects = function() {
-    new IslandInitializer(SceneObjects.scene).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
+    new IslandInitializer(this.scene).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
     this.makePlayer();
     this.makeSkyBox();
   };
@@ -56,13 +57,13 @@ window.SceneInitializer = (function(){
     var playerWidth = SceneObjects.PLAYER_WIDTH;
     SceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
     SceneObjects.player.add(SceneObjects.camera);
-    SceneObjects.scene.add(SceneObjects.player);
+    this.scene.add(SceneObjects.player);
   };
 
   SceneInitializer.prototype.makeSkyBox = function() {
     var skyGeometry = new THREE.CubeGeometry(50000, 50000, 50000);
     var skyBox = new THREE.Mesh (skyGeometry, Materials.SKY);
-    SceneObjects.scene.add(skyBox);
+    this.scene.add(skyBox);
   };
 
   return SceneInitializer;

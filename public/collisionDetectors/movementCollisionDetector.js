@@ -1,6 +1,7 @@
 window.MovementCollisionDetector = (function () {
   "use strict";
-  function MovementCollisionDetector() {
+  function MovementCollisionDetector(sceneObjects) {
+    this.sceneObjects = sceneObjects;
   }
 
   MovementCollisionDetector.prototype.update = function() {
@@ -37,8 +38,8 @@ window.MovementCollisionDetector = (function () {
 
           enemy.used = true;
 
-          SceneObjects.removeEnemy(enemy);
-          SceneObjects.story.increaseKills();
+          this.sceneObjects.removeEnemy(enemy);
+          this.sceneObjects.story.increaseKills();
         }
       }
     };
