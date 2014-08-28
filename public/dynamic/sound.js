@@ -3,14 +3,14 @@ window.Sound = (function () {
   function Sound() {
     var dynamicSoundsAudio = document.createElement('audio');
     var dynamicSoundsSource = document.createElement('source');
-    dynamicSoundsSource.src = 'sound/playerHit.wav';
+    dynamicSoundsSource.src = 'resources/sound/playerHit.wav';
     dynamicSoundsAudio.appendChild(dynamicSoundsSource);
     this.dynamicSoundsAudio = dynamicSoundsAudio;
     this.dynamicSoundsSource = dynamicSoundsSource;
 
     var themeAudio = document.createElement('audio');
     var themeSource = document.createElement('source');
-    themeSource.src = 'sound/theme.wav';
+    themeSource.src = 'resources/sound/theme.wav';
     themeAudio.appendChild(themeSource);
 
     this.themeAudio = themeAudio;
@@ -18,17 +18,17 @@ window.Sound = (function () {
   }
 
   Sound.prototype.playHit = function() {
-    this.playDynamicSound('sound/playerHit.wav');
+    this.playDynamicSound('resources/sound/playerHit.wav');
   };
 
   Sound.prototype.playEnemyHit = function() {
-    this.playDynamicSound('sound/enemyHit.wav');
+    this.playDynamicSound('resources/sound/enemyHit.wav');
   };
 
   Sound.prototype.playWin = function() {
     if(!element.playedAudio) {
       elemnt.playedAudio = true;
-      this.playDynamicSound('sound/win.wav');
+      this.playDynamicSound('resources/sound/win.wav');
     }
   };
 
@@ -40,7 +40,7 @@ window.Sound = (function () {
   };
 
   Sound.prototype.playTheme = function() {
-    this.themeSource.src = 'sound/theme.wav';
+    this.themeSource.src = 'resources/sound/theme.wav';
     this.themeAudio.load();
     this.themeAudio.loop = true;
     if (!Main.DEBUG_MODE) {
