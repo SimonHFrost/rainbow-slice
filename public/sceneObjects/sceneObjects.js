@@ -3,6 +3,7 @@ window.SceneObjects = (function() {
   function SceneObjects(scene) {
     this.scene = scene;
     this.story = new Story(scene);
+    this.meshLoader = new MeshLoader();
   }
 
   SceneObjects.PLAYER_WIDTH = 400;

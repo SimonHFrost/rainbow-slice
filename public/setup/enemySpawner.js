@@ -1,7 +1,8 @@
 window.EnemySpawner = (function(){
   "use strict";
-  function EnemySpawner(scene) {
+  function EnemySpawner(scene, sceneObjects) {
     this.scene = scene;
+    this.sceneObjects = sceneObjects;
 
     this.MAX_ENEMIES = 15;
     this.spawnRate = 0.1;
@@ -42,7 +43,7 @@ window.EnemySpawner = (function(){
     someEnemy.gridX = x;
     someEnemy.gridZ = z;
 
-    SceneObjects.meshLoader.setEnemyModel(someEnemy);
+    this.sceneObjects.meshLoader.setEnemyModel(someEnemy);
   };
 
   EnemySpawner.prototype.update = function() {

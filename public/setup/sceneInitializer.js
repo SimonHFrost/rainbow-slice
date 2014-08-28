@@ -10,9 +10,8 @@ window.SceneInitializer = (function(){
     this.initCameraAndLights();
     this.initSceneObjects();
 
-    SceneObjects.meshLoader = new MeshLoader();
     SceneObjects.network = new Network($('#connectionCount'));
-    SceneObjects.enemySpawner = new EnemySpawner(scene);
+    SceneObjects.enemySpawner = new EnemySpawner(scene, this.sceneObjects);
     SceneObjects.updatableObjects.push(SceneObjects.enemySpawner);
     SceneObjects.movement = new Movement();
     SceneObjects.updatableObjects.push(SceneObjects.movement);
