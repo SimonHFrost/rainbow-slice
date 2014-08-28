@@ -17,6 +17,8 @@ window.Main = (function () {
       renderer.shadowMapSoft = true;
       renderer.domElement.id = 'renderer';
 
+      this.clock = new THREE.Clock();
+
       var container = $('#webglDiv')[0];
       container.insertBefore(renderer.domElement, container.firstChild);
 
@@ -36,7 +38,7 @@ window.Main = (function () {
     if (this.sceneInitializer.sceneObjects.movement.isMoving) {
         for (var i = 0; i < SceneObjects.morphs.length; i++) {
           var morph = SceneObjects.morphs[i];
-          morph.updateAnimation(100000 * SceneObjects.clock.getDelta());
+          morph.updateAnimation(100000 * this.clock.getDelta());
         }
     }
   };

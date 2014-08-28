@@ -16,6 +16,7 @@ window.SceneObjects = (function() {
     SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
     SceneObjects.updatableObjects.push(new MovementCollisionDetector(this));
     SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene, this.story));
+    new Sound().playTheme();
   }
 
   SceneObjects.allBullets = [];
@@ -24,9 +25,7 @@ window.SceneObjects = (function() {
   SceneObjects.enemies = [];
   SceneObjects.morphs = [];
   SceneObjects.enemySpawner = '';
-  SceneObjects.movement = '';
   SceneObjects.updatableObjects = [];
-  SceneObjects.clock = '';
 
   SceneObjects.toggleFalling = function(threeObject) {
     var bullet = _.find(SceneObjects.allBullets, function(element) {

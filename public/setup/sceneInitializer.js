@@ -10,11 +10,6 @@ window.SceneInitializer = (function(){
     this.initSceneObjects();
 
     this.sceneObjects = new SceneObjects(scene);
-
-    SceneObjects.clock = new THREE.Clock();
-    SceneObjects.clock.start();
-
-    new Sound().playTheme();
   }
 
   SceneInitializer.prototype.initCameraAndLights = function() {

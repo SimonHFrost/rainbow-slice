@@ -8,6 +8,7 @@ window.EnemySpawner = (function(){
     this.spawnRate = 0.1;
     this.lastSpawned = 0;
 
+    this.clock = new THREE.Clock();
     this.setSpawnBox();
   }
 
@@ -47,7 +48,7 @@ window.EnemySpawner = (function(){
   };
 
   EnemySpawner.prototype.update = function() {
-    var time = SceneObjects.clock.getElapsedTime();
+    var time = this.clock.getElapsedTime();
     this.spawnRate = 10 - (2 * Math.log(time + 10));
 
     if(time >= this.lastSpawned + this.spawnRate) {

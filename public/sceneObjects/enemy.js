@@ -16,6 +16,8 @@ window.Enemy = (function() {
       AIMING: 4,
     };
 
+    this.clock = new THREE.Clock();
+
     this.lastFired = 0;
     this.currentAction = this.availableActions.IDLE;
 
@@ -45,8 +47,8 @@ window.Enemy = (function() {
   };
 
   Enemy.prototype.fireBullet = function() {
-    if(SceneObjects.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
-      this.lastFired = SceneObjects.clock.getElapsedTime() + this.FIRE_RATE;
+    if(this.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
+      this.lastFired = this.clock.getElapsedTime() + this.FIRE_RATE;
       if (Math.random() >= this.FIRE_FAILURE_RATE) {
         var bulletThing = new Bullet(this.scene, this.threeObject);
       }
