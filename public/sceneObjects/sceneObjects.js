@@ -7,9 +7,15 @@ window.SceneObjects = (function() {
     this.scene = scene;
     this.network = new Network();
     this.story = new Story(scene, this.network);
+    SceneObjects.updatableObjects.push(this.story);
     this.meshLoader = new MeshLoader();
     this.enemySpawner = new EnemySpawner(scene, this.meshLoader);
     SceneObjects.updatableObjects.push(this.enemySpawner);
+    this.movement = new Movement();
+    SceneObjects.updatableObjects.push(this.movement);
+    SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
+    SceneObjects.updatableObjects.push(new MovementCollisionDetector(this));
+    SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene, this.story));
   }
 
   SceneObjects.allBullets = [];

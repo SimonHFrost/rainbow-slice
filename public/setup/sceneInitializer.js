@@ -6,17 +6,11 @@ window.SceneInitializer = (function(){
 
     this.scene = scene;
 
-    this.initCameraAndLights(); // camera needs to be instantiated before player
-    this.initSceneObjects(); // this currently needs to be before SceneObjects() because it needs the island vectors
+    this.initCameraAndLights();
+    this.initSceneObjects();
 
     this.sceneObjects = new SceneObjects(scene);
 
-    SceneObjects.movement = new Movement();
-    SceneObjects.updatableObjects.push(SceneObjects.movement);
-    SceneObjects.updatableObjects.push(this.sceneObjects.story);
-    SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
-    SceneObjects.updatableObjects.push(new MovementCollisionDetector(this.sceneObjects));
-    SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene, this.sceneObjects.story));
     SceneObjects.clock = new THREE.Clock();
     SceneObjects.clock.start();
 
