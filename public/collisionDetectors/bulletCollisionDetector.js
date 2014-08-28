@@ -3,8 +3,8 @@ window.BulletCollisionDetector = (function () {
   function BulletCollisionDetector(scene) {
     this.scene = scene;
 
-    this.PLAYER_WIDTH_HALF = SceneInitializer.PLAYER_WIDTH/2;
-    this.ENEMY_WIDTH_HALF = SceneInitializer.ENEMY_WIDTH/2;
+    this.PLAYER_WIDTH_HALF = SceneObjects.PLAYER_WIDTH/2;
+    this.ENEMY_WIDTH_HALF = SceneObjects.ENEMY_WIDTH/2;
   }
 
   BulletCollisionDetector.prototype.update = function() {

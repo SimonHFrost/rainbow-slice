@@ -5,7 +5,7 @@ window.MovementCollisionDetector = (function () {
 
   MovementCollisionDetector.prototype.update = function() {
     var originPoint = SceneObjects.player.position.clone();
-    var playerSize = SceneInitializer.PLAYER_WIDTH / 2;
+    var playerSize = SceneObjects.PLAYER_WIDTH / 2;
 
     var horizontalVertices = [
     new THREE.Vector3(0, 0, playerSize),

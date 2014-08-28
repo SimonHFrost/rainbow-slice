@@ -3,6 +3,8 @@ window.SceneObjects = (function() {
   function SceneObjects() {
   }
 
+  SceneObjects.PLAYER_WIDTH = 400;
+  SceneObjects.ENEMY_WIDTH = 400;
   SceneObjects.scene = '';
   SceneObjects.allBullets = [];
   SceneObjects.player = '';

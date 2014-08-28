@@ -38,7 +38,7 @@ window.EnemySpawner = (function(){
   };
 
   EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-    var someEnemy = new Enemy(this.scene, SceneInitializer.ENEMY_WIDTH, x, z);
+    var someEnemy = new Enemy(this.scene, SceneObjects.ENEMY_WIDTH, x, z);
     someEnemy.gridX = x;
     someEnemy.gridZ = z;
 

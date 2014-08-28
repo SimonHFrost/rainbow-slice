@@ -7,10 +7,8 @@ window.Main = (function () {
   function Main() {
       // shouldn't have to instantiate this and then not use it...
       var materials = new Materials();
-      var sceneInitializer = new SceneInitializer();
-
-      var network = new Network($('#connectionCount'));
-      SceneObjects.network = network;
+      var scene = new THREE.Scene();
+      var sceneInitializer = new SceneInitializer(scene);
 
       var renderer = new THREE.WebGLRenderer();
       this.renderer = renderer;
@@ -25,12 +23,12 @@ window.Main = (function () {
       var container = $('#webglDiv')[0];
       container.insertBefore(renderer.domElement, container.firstChild);
 
-      this.controls = new THREE.OrbitControls(SceneInitializer.camera, renderer.domElement);
+      this.controls = new THREE.OrbitControls(SceneObjects.camera, renderer.domElement);
   }
 
   Main.prototype.render = function() {
     this.renderer.clear();
-    this.renderer.render(SceneInitializer.scene, SceneInitializer.camera);
+    this.renderer.render(SceneObjects.scene, SceneObjects.camera);
 
     for (var i = 0; i < SceneObjects.updatableObjects.length; i++){
       SceneObjects.updatableObjects[i].update();
