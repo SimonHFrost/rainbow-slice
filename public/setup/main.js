@@ -8,7 +8,7 @@ window.Main = (function () {
       // shouldn't have to instantiate this and then not use it...
       var materials = new Materials();
       this.scene = new THREE.Scene();
-      this.sceneInitializer = new SceneInitializer(this.scene);
+      this.sceneObjects = new SceneObjects(this.scene);
 
       var renderer = new THREE.WebGLRenderer();
       this.renderer = renderer;
@@ -29,16 +29,16 @@ window.Main = (function () {
     this.renderer.clear();
     this.renderer.render(this.scene, SceneObjects.camera);
 
-    for (var i = 0; i < SceneObjects.updatableObjects.length; i++){
-      SceneObjects.updatableObjects[i].update();
+    for (var i = 0; i < this.sceneObjects.updatableObjects.length; i++){
+      this.sceneObjects.updatableObjects[i].update();
     }
 
     this.controls.update();
 
-    if (this.sceneInitializer.sceneObjects.movement.isMoving) {
+    if (this.sceneObjects.movement.isMoving) {
         for (var i = 0; i < SceneObjects.morphs.length; i++) {
           var morph = SceneObjects.morphs[i];
-          morph.updateAnimation(100000 * this.clock.getDelta());
+          morph.updateAnimation(1000 * this.clock.getDelta());
         }
     }
   };

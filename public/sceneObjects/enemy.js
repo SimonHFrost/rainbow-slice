@@ -1,6 +1,6 @@
 window.Enemy = (function() {
   "use strict";
-  function Enemy(scene, size, positionX, positionZ) {
+  function Enemy(scene, size, positionX, positionZ, updatableObjects) {
     this.scene = scene;
     this.FIRE_RATE = 0.05;
     this.FIRE_FAILURE_RATE = 0.4;
@@ -31,7 +31,9 @@ window.Enemy = (function() {
     this.threeObject.position.z = positionZ;
 
     SceneObjects.enemies.push(this);
-    SceneObjects.updatableObjects.push(this);
+    this.updatableObjects = updatableObjects;
+    this.updatableObjects.push(this);
+
     this.scene.add(this.threeObject);
   }
 
@@ -50,7 +52,8 @@ window.Enemy = (function() {
     if(this.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
       this.lastFired = this.clock.getElapsedTime() + this.FIRE_RATE;
       if (Math.random() >= this.FIRE_FAILURE_RATE) {
-        var bulletThing = new Bullet(this.scene, this.threeObject);
+        var bullet = new Bullet(this.scene, this.threeObject);
+        this.updatableObjects.push(bullet);
       }
     }
   };

@@ -17,3 +17,4 @@ camera needs to be instantiated before player in SceneObjects.js
 initSceneObjects needs to be before SceneObjects() because it needs the island vectors
 if (this.sceneInitializer.sceneObjects.movement.isMoving) { in main.js
 just use one clock
+consistent way to access updatableObjects

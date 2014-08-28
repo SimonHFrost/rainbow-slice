@@ -21,7 +21,6 @@ window.Bullet = (function () {
     this.direction.multiplyScalar(this.SPEED);
 
     SceneObjects.allBullets.push(this);
-    SceneObjects.updatableObjects.push(this);
     this.scene.add(this.threeObject);
   }
 

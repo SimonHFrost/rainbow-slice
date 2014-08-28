@@ -1,8 +1,9 @@
 window.EnemySpawner = (function(){
   "use strict";
-  function EnemySpawner(scene, meshLoader) {
+  function EnemySpawner(scene, meshLoader, updatableObjects) {
     this.scene = scene;
     this.meshLoader = meshLoader;
+    this.updatableObjects = updatableObjects;
 
     this.MAX_ENEMIES = 15;
     this.spawnRate = 0.1;
@@ -40,7 +41,7 @@ window.EnemySpawner = (function(){
   };
 
   EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-    var someEnemy = new Enemy(this.scene, SceneObjects.ENEMY_WIDTH, x, z);
+    var someEnemy = new Enemy(this.scene, SceneObjects.ENEMY_WIDTH, x, z, this.updatableObjects);
     someEnemy.gridX = x;
     someEnemy.gridZ = z;
 

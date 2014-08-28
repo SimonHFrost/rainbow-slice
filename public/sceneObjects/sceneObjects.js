@@ -12,17 +12,19 @@ window.SceneObjects = (function() {
     this.initCameraAndLights();
     this.initSceneObjects();
 
+    this.updatableObjects = [];
+
     this.network = new Network();
     this.story = new Story(scene, this.network);
-    SceneObjects.updatableObjects.push(this.story);
+    this.updatableObjects.push(this.story);
     this.meshLoader = new MeshLoader();
-    this.enemySpawner = new EnemySpawner(scene, this.meshLoader);
-    SceneObjects.updatableObjects.push(this.enemySpawner);
+    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects);
+    this.updatableObjects.push(this.enemySpawner);
     this.movement = new Movement();
-    SceneObjects.updatableObjects.push(this.movement);
-    SceneObjects.updatableObjects.push(new BoundaryCollisionDetector(scene));
-    SceneObjects.updatableObjects.push(new MovementCollisionDetector(this));
-    SceneObjects.updatableObjects.push(new BulletCollisionDetector(scene, this.story));
+    this.updatableObjects.push(this.movement);
+    this.updatableObjects.push(new BoundaryCollisionDetector(scene));
+    this.updatableObjects.push(new MovementCollisionDetector(this));
+    this.updatableObjects.push(new BulletCollisionDetector(scene, this.story));
     new Sound().playTheme();
   }
 
@@ -98,8 +100,8 @@ window.SceneObjects = (function() {
     var index = SceneObjects.enemies.indexOf(enemy);
     SceneObjects.enemies.splice(index, 1);
 
-    var objectIndex = SceneObjects.updatableObjects.indexOf(enemy);
-    SceneObjects.updatableObjects.splice(objectIndex, 1);
+    var objectIndex = this.updatableObjects.indexOf(enemy);
+    this.updatableObjects.splice(objectIndex, 1);
   };
 
   return SceneObjects;
