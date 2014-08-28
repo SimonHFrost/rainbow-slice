@@ -8,6 +8,8 @@ window.SceneObjects = (function() {
     this.network = new Network();
     this.story = new Story(scene, this.network);
     this.meshLoader = new MeshLoader();
+    this.enemySpawner = new EnemySpawner(scene, this.meshLoader);
+    SceneObjects.updatableObjects.push(this.enemySpawner);
   }
 
   SceneObjects.allBullets = [];

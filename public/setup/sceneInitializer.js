@@ -5,13 +5,12 @@ window.SceneInitializer = (function(){
     this.ISLAND_FLOOR = this.FLOOR - 1000;
 
     this.scene = scene;
+
+    this.initCameraAndLights(); // camera needs to be instantiated before player
+    this.initSceneObjects(); // this currently needs to be before SceneObjects() because it needs the island vectors
+
     this.sceneObjects = new SceneObjects(scene);
 
-    this.initCameraAndLights();
-    this.initSceneObjects();
-
-    SceneObjects.enemySpawner = new EnemySpawner(scene, this.sceneObjects.meshLoader);
-    SceneObjects.updatableObjects.push(SceneObjects.enemySpawner);
     SceneObjects.movement = new Movement();
     SceneObjects.updatableObjects.push(SceneObjects.movement);
     SceneObjects.updatableObjects.push(this.sceneObjects.story);
