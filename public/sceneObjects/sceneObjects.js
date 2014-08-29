@@ -14,6 +14,7 @@ window.SceneObjects = (function() {
 
     this.updatableObjects = [];
     this.allBullets = [];
+    this.enemies = [];
 
     this.network = new Network();
     this.story = new Story(scene, this.network);
@@ -29,8 +30,6 @@ window.SceneObjects = (function() {
     this.updatableObjects.push(new BulletCollisionDetector(scene, this.story, this.player, this));
     new Sound().playTheme();
   }
-
-  SceneObjects.enemies = [];
 
   SceneObjects.prototype.initCameraAndLights = function() {
     var camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);
@@ -88,11 +87,11 @@ window.SceneObjects = (function() {
   SceneObjects.prototype.removeEnemy = function(threeObject) {
     this.scene.remove(threeObject);
 
-    var enemy = _.find(SceneObjects.enemies, function(element){
+    var enemy = _.find(this.enemies, function(element){
       return element.threeObject === threeObject;
     });
-    var index = SceneObjects.enemies.indexOf(enemy);
-    SceneObjects.enemies.splice(index, 1);
+    var index = this.enemies.indexOf(enemy);
+    this.enemies.splice(index, 1);
 
     var objectIndex = this.updatableObjects.indexOf(enemy);
     this.updatableObjects.splice(objectIndex, 1);

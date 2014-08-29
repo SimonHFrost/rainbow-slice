@@ -32,7 +32,7 @@ window.Enemy = (function() {
     this.threeObject.position.x = positionX;
     this.threeObject.position.z = positionZ;
 
-    SceneObjects.enemies.push(this);
+    this.sceneObjects.enemies.push(this);
     this.updatableObjects = updatableObjects;
     this.updatableObjects.push(this);
 

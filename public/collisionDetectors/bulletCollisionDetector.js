@@ -38,8 +38,8 @@ window.BulletCollisionDetector = (function () {
   };
 
   BulletCollisionDetector.prototype.detectBulletEnemyCollision = function(bullet) {
-    for(var i = 0; i < SceneObjects.enemies.length; i++) {
-      var enemy = SceneObjects.enemies[i].threeObject;
+    for(var i = 0; i < this.sceneObjects.enemies.length; i++) {
+      var enemy = this.sceneObjects.enemies[i].threeObject;
 
       if (enemy === bullet.enemyToFire) {
         continue;

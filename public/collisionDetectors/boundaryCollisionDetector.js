@@ -25,8 +25,8 @@ window.BoundaryCollisionDetector = (function () {
 
     this.checkObjectInBounds(this.player);
 
-    for (var i = 0; i < SceneObjects.enemies.length; i++) {
-      this.checkObjectInBounds(SceneObjects.enemies[i].threeObject, false);
+    for (var i = 0; i < this.sceneObjects.enemies.length; i++) {
+      this.checkObjectInBounds(this.sceneObjects.enemies[i].threeObject, false);
     }
   };
 

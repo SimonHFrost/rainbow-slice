@@ -55,7 +55,7 @@ window.EnemySpawner = (function(){
     this.spawnRate = 10 - (2 * Math.log(time + 10));
 
     if(time >= this.lastSpawned + this.spawnRate) {
-      if(SceneObjects.enemies.length > this.MAX_ENEMIES) {
+      if(this.sceneObjects.enemies.length > this.MAX_ENEMIES) {
         return;
       }
 
