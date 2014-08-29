@@ -1,13 +1,15 @@
 window.BoundaryCollisionDetector = (function () {
   "use strict";
   function BoundaryCollisionDetector(scene, player, sceneObjects) {
-    this.scene = scene;
-    this.player = player;
-    this.sceneObjects = sceneObjects;
     this.FLOOR_DIMENSIONS = 3000;
     this.RAY_OFFSET = -200;
     this.RAY_ORIGIN = new THREE.Vector3(-20000, this.RAY_OFFSET, -20000);
     this.DEBUG_RAYTRACING = false;
+
+    this.scene = scene;
+    this.player = player;
+    this.sceneObjects = sceneObjects;
+
     this.directionStatus = {
       TOP : 0,
       RIGHT : 1,

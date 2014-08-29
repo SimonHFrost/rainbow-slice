@@ -1,16 +1,12 @@
 window.Enemy = (function() {
   "use strict";
   function Enemy(scene, size, positionX, positionZ, updatableObjects, player, sceneObjects) {
-    this.scene = scene;
-    this.player = player;
-    this.sceneObjects = sceneObjects;
     this.FIRE_RATE = 0.05;
     this.FIRE_FAILURE_RATE = 0.4;
-
     this.CHANCE_OF_ACTION = 0.01;
     this.CHANCE_OF_AIMING = 0.01;
 
-    this.availableActions = {
+    this.AVAILABLE_ACTIONS = {
       IDLE: 0,
       STRAFING_RIGHT : 1,
       STRAFING_LEFT : 2,
@@ -18,22 +14,29 @@ window.Enemy = (function() {
       AIMING: 4,
     };
 
+    this.scene = scene;
+    this.size = size;
+    this.positionX = positionX;
+    this.positionZ = positionZ;
+    this.updatableObjects = updatableObjects;
+    this.player = player;
+    this.sceneObjects = sceneObjects;
+
     this.clock = new THREE.Clock();
 
     this.lastFired = 0;
-    this.currentAction = this.availableActions.IDLE;
+    this.currentAction = this.AVAILABLE_ACTIONS.IDLE;
 
-    var geometry = new THREE.CubeGeometry(size, size, size);
+    var geometry = new THREE.CubeGeometry(this.size, this.size, this.size);
     var material = Materials.ENEMY;
 
     this.threeObject = new THREE.Mesh(geometry, material);
     this.threeObject.dead = false;
     this.threeObject.castShadow = true;
-    this.threeObject.position.x = positionX;
-    this.threeObject.position.z = positionZ;
+    this.threeObject.position.x = this.positionX;
+    this.threeObject.position.z = this.positionZ;
 
     this.sceneObjects.enemies.push(this);
-    this.updatableObjects = updatableObjects;
     this.updatableObjects.push(this);
 
     this.scene.add(this.threeObject);
@@ -41,7 +44,7 @@ window.Enemy = (function() {
 
   Enemy.prototype.update = function() {
     if(!this.threeObject.dead) {
-      if(this.currentAction !== this.availableActions.IDLE) {
+      if(this.currentAction !== this.AVAILABLE_ACTIONS.IDLE) {
         this.fireBullet();
         this.updateMovement();
         this.threeObject.lookAt(this.player.position);
@@ -71,32 +74,32 @@ window.Enemy = (function() {
     strafingVector.crossVectors(facing, yAxis);
     strafingVector.multiplyScalar(2.5);
 
-    if (this.currentAction == this.availableActions.ADVANCING) {
+    if (this.currentAction == this.AVAILABLE_ACTIONS.ADVANCING) {
       this.threeObject.position.add(facing);
-    } else if (this.currentAction == this.availableActions.STRAFING_RIGHT) {
+    } else if (this.currentAction == this.AVAILABLE_ACTIONS.STRAFING_RIGHT) {
       this.threeObject.position.add(strafingVector);
-    } else if (this.currentAction == this.availableActions.STRAFING_LEFT) {
+    } else if (this.currentAction == this.AVAILABLE_ACTIONS.STRAFING_LEFT) {
       this.threeObject.position.sub(strafingVector);
     }
   };
 
   Enemy.prototype.decideIfChangingAction = function() {
-    if (this.currentAction == this.availableActions.AIMING) {
+    if (this.currentAction == this.AVAILABLE_ACTIONS.AIMING) {
       if (Math.random() <= this.CHANCE_OF_ACTION) {
-        this.currentAction = this.availableActions.ADVANCING;
+        this.currentAction = this.AVAILABLE_ACTIONS.ADVANCING;
       }
       else if (Math.random() <= this.CHANCE_OF_ACTION) {
-        this.currentAction = this.availableActions.STRAFING_RIGHT;
+        this.currentAction = this.AVAILABLE_ACTIONS.STRAFING_RIGHT;
       }
       else if (Math.random() <= this.CHANCE_OF_ACTION) {
-        this.currentAction = this.availableActions.STRAFING_LEFT;
+        this.currentAction = this.AVAILABLE_ACTIONS.STRAFING_LEFT;
       }
       else if (Math.random() <= 0.01) {
-        this.currentAction = this.availableActions.IDLE;
+        this.currentAction = this.AVAILABLE_ACTIONS.IDLE;
       }
     } else {
       if (Math.random() <= this.CHANCE_OF_AIMING) {
-        this.currentAction = this.availableActions.AIMING;
+        this.currentAction = this.AVAILABLE_ACTIONS.AIMING;
       }
     }
   };

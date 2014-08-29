@@ -1,15 +1,14 @@
 window.Movement = (function () {
   "use strict";
   function Movement(player, sceneObjects) {
+    this.player = player;
     this.sceneObjects = sceneObjects;
 
     this.TRANSLATION_SPEED = 40;
     this.TRANSLATION_ANGLED_SPEED = Math.sqrt(Math.pow(this.TRANSLATION_SPEED, 2) / 2);
-
     this.FULL_ROTATION = 2 * Math.PI;
+    
     this.isMoving = false;
-
-    this.player = player;
   }
 
   Movement.prototype.update = function() {

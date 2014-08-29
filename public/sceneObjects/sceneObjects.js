@@ -4,10 +4,10 @@ window.SceneObjects = (function() {
   SceneObjects.ENEMY_WIDTH = 400;
 
   function SceneObjects(scene) {
-    this.scene = scene;
-
     this.FLOOR = -100;
     this.ISLAND_FLOOR = this.FLOOR - 1000;
+
+    this.scene = scene;
 
     this.initCameraAndLights();
     this.initSceneObjects();

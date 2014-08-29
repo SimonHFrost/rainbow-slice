@@ -1,13 +1,13 @@
 window.MeshLoader = (function() {
   "use strict";
   function MeshLoader(player, sceneObjects) {
+    this.FLOOR = 0;
+    this.DEBUG_HITBOX = false;
+
     this.player = player;
     this.sceneObjects = sceneObjects;
-
-    this.FLOOR = 0;
     this.enemyTemplate = '';
 
-    this.DEBUG_HITBOX = false;
     this.load();
   }
 

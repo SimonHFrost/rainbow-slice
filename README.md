@@ -20,3 +20,4 @@ just use one clock
 consistent way to access updatableObjects
 consistent params assigned to local variables
 shouldn't have to pass sceneObjects into any classes instantiated in sceneObjects
+get rid of static elements on main and materials

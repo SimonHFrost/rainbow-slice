@@ -1,17 +1,18 @@
 window.EnemySpawner = (function(){
   "use strict";
   function EnemySpawner(scene, meshLoader, updatableObjects, player, sceneObjects) {
+    this.MAX_ENEMIES = 15;
+    this.SPAWN_RATE = 0.1;
+
     this.scene = scene;
-    this.player = player;
     this.meshLoader = meshLoader;
     this.updatableObjects = updatableObjects;
+    this.player = player;
     this.sceneObjects = sceneObjects;
 
-    this.MAX_ENEMIES = 15;
-    this.spawnRate = 0.1;
     this.lastSpawned = 0;
-
     this.clock = new THREE.Clock();
+    
     this.setSpawnBox();
   }
 
@@ -52,9 +53,9 @@ window.EnemySpawner = (function(){
 
   EnemySpawner.prototype.update = function() {
     var time = this.clock.getElapsedTime();
-    this.spawnRate = 10 - (2 * Math.log(time + 10));
+    this.SPAWN_RATE = 10 - (2 * Math.log(time + 10));
 
-    if(time >= this.lastSpawned + this.spawnRate) {
+    if(time >= this.lastSpawned + this.SPAWN_RATE) {
       if(this.sceneObjects.enemies.length > this.MAX_ENEMIES) {
         return;
       }
@@ -62,7 +63,7 @@ window.EnemySpawner = (function(){
       var xRange = this.rightBoundary - this.leftBoundary;
       var zRange = this.topBoundary - this.bottomBoundary;
 
-      this.lastSpawned = this.lastSpawned + this.spawnRate;
+      this.lastSpawned = this.lastSpawned + this.SPAWN_RATE;
       var x = this.leftBoundary + Math.floor(Math.random() * xRange);
       var z = this.bottomBoundary + Math.floor(Math.random() * zRange);
 
