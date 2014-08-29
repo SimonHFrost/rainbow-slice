@@ -1,18 +1,19 @@
 window.BulletCollisionDetector = (function () {
   "use strict";
-  function BulletCollisionDetector(scene, story, player) {
+  function BulletCollisionDetector(scene, story, player, sceneObjects) {
     this.scene = scene;
     this.story = story;
     this.player = player;
+    this.sceneObjects = sceneObjects;
 
     this.PLAYER_WIDTH_HALF = SceneObjects.PLAYER_WIDTH/2;
     this.ENEMY_WIDTH_HALF = SceneObjects.ENEMY_WIDTH/2;
   }
 
   BulletCollisionDetector.prototype.update = function() {
-    for(var i = 0; i < SceneObjects.allBullets.length; i++) {
-      this.detectBulletPlayerCollision(SceneObjects.allBullets[i].threeObject);
-      this.detectBulletEnemyCollision(SceneObjects.allBullets[i].threeObject);
+    for(var i = 0; i < this.sceneObjects.allBullets.length; i++) {
+      this.detectBulletPlayerCollision(this.sceneObjects.allBullets[i].threeObject);
+      this.detectBulletEnemyCollision(this.sceneObjects.allBullets[i].threeObject);
     }
   };
 

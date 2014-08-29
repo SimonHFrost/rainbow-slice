@@ -1,8 +1,10 @@
 window.Story = (function () {
   "use strict";
-  function Story(scene, network) {
+  function Story(scene, network, sceneObjects) {
     this.scene = scene;
     this.network = network;
+    this.sceneObjects = sceneObjects;
+
     this.health = 100;
     this.kills = 0;
     this.playedWin = false;
@@ -40,7 +42,7 @@ window.Story = (function () {
 
       _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 
-      _.each(SceneObjects.allBullets, function(bullet) {
+      _.each(this.sceneObjects.allBullets, function(bullet) {
         me.scene.remove(bullet);
       });
     }

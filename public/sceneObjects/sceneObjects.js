@@ -13,6 +13,7 @@ window.SceneObjects = (function() {
     this.initSceneObjects();
 
     this.updatableObjects = [];
+    this.allBullets = [];
 
     this.network = new Network();
     this.story = new Story(scene, this.network);
@@ -25,11 +26,10 @@ window.SceneObjects = (function() {
     this.updatableObjects.push(this.movement);
     this.updatableObjects.push(new BoundaryCollisionDetector(scene, this.player, this));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
-    this.updatableObjects.push(new BulletCollisionDetector(scene, this.story, this.player));
+    this.updatableObjects.push(new BulletCollisionDetector(scene, this.story, this.player, this));
     new Sound().playTheme();
   }
 
-  SceneObjects.allBullets = [];
   SceneObjects.enemies = [];
 
   SceneObjects.prototype.initCameraAndLights = function() {
@@ -71,7 +71,7 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.toggleFalling = function(threeObject) {
-    var bullet = _.find(SceneObjects.allBullets, function(element) {
+    var bullet = _.find(this.allBullets, function(element) {
       return element.threeObject === threeObject;
     });
 
@@ -79,9 +79,9 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.removeBullet = function(bullet) {
-    var index = SceneObjects.allBullets.indexOf(bullet);
+    var index = this.allBullets.indexOf(bullet);
     if (index != -1) {
-      SceneObjects.allBullets.splice(index, 1);
+      this.allBullets.splice(index, 1);
     }
   };
 

@@ -19,8 +19,8 @@ window.BoundaryCollisionDetector = (function () {
   }
 
   BoundaryCollisionDetector.prototype.update = function() {
-    for (var i = 0; i < SceneObjects.allBullets.length; i++) {
-      this.checkObjectInBounds(SceneObjects.allBullets[i].threeObject, true);
+    for (var i = 0; i < this.sceneObjects.allBullets.length; i++) {
+      this.checkObjectInBounds(this.sceneObjects.allBullets[i].threeObject, true);
     }
 
     this.checkObjectInBounds(this.player);

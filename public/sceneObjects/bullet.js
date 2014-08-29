@@ -22,7 +22,7 @@ window.Bullet = (function () {
     this.direction = dir;
     this.direction.multiplyScalar(this.SPEED);
 
-    SceneObjects.allBullets.push(this);
+    this.sceneObjects.allBullets.push(this);
     this.scene.add(this.threeObject);
   }
 
