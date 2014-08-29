@@ -1,11 +1,13 @@
 window.Movement = (function () {
   "use strict";
-  function Movement() {
+  function Movement(player) {
     this.TRANSLATION_SPEED = 40;
     this.TRANSLATION_ANGLED_SPEED = Math.sqrt(Math.pow(this.TRANSLATION_SPEED, 2) / 2);
 
     this.FULL_ROTATION = 2 * Math.PI;
     this.isMoving = false;
+
+    this.player = player;
   }
 
   Movement.prototype.update = function() {
@@ -16,25 +18,25 @@ window.Movement = (function () {
 
   Movement.prototype.movePlayer = function() {
     if (Key.isDown(Key.A) && Key.isDown(Key.W)) {
-      SceneObjects.player.position.x -= this.TRANSLATION_ANGLED_SPEED;
-      SceneObjects.player.position.z -= this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.x -= this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.z -= this.TRANSLATION_ANGLED_SPEED;
     } else if (Key.isDown(Key.A) && Key.isDown(Key.S)) {
-      SceneObjects.player.position.x -= this.TRANSLATION_ANGLED_SPEED;
-      SceneObjects.player.position.z += this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.x -= this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.z += this.TRANSLATION_ANGLED_SPEED;
     } else if (Key.isDown(Key.D) && Key.isDown(Key.S)) {
-      SceneObjects.player.position.x += this.TRANSLATION_ANGLED_SPEED;
-      SceneObjects.player.position.z += this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.x += this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.z += this.TRANSLATION_ANGLED_SPEED;
     } else if (Key.isDown(Key.D) && Key.isDown(Key.W)){
-      SceneObjects.player.position.x += this.TRANSLATION_ANGLED_SPEED;
-      SceneObjects.player.position.z -= this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.x += this.TRANSLATION_ANGLED_SPEED;
+      this.player.position.z -= this.TRANSLATION_ANGLED_SPEED;
     } else if (Key.isDown(Key.A)) {
-      SceneObjects.player.position.x -= this.TRANSLATION_SPEED;
+      this.player.position.x -= this.TRANSLATION_SPEED;
     } else if (Key.isDown(Key.D)) {
-      SceneObjects.player.position.x += this.TRANSLATION_SPEED;
+      this.player.position.x += this.TRANSLATION_SPEED;
     } else if (Key.isDown(Key.W)) {
-      SceneObjects.player.position.z -= this.TRANSLATION_SPEED;
+      this.player.position.z -= this.TRANSLATION_SPEED;
     } else if (Key.isDown(Key.S)) {
-      SceneObjects.player.position.z += this.TRANSLATION_SPEED;
+      this.player.position.z += this.TRANSLATION_SPEED;
     }
   };
 

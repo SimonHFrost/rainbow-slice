@@ -1,7 +1,8 @@
 window.BoundaryCollisionDetector = (function () {
   "use strict";
-  function BoundaryCollisionDetector(scene) {
+  function BoundaryCollisionDetector(scene, player) {
     this.scene = scene;
+    this.player = player;
     this.FLOOR_DIMENSIONS = 3000;
     this.RAY_OFFSET = -200;
     this.RAY_ORIGIN = new THREE.Vector3(-20000, this.RAY_OFFSET, -20000);
@@ -21,7 +22,7 @@ window.BoundaryCollisionDetector = (function () {
       this.checkObjectInBounds(SceneObjects.allBullets[i].threeObject, true);
     }
 
-    this.checkObjectInBounds(SceneObjects.player);
+    this.checkObjectInBounds(this.player);
 
     for (var i = 0; i < SceneObjects.enemies.length; i++) {
       this.checkObjectInBounds(SceneObjects.enemies[i].threeObject, false);

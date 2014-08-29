@@ -1,8 +1,9 @@
 window.BulletCollisionDetector = (function () {
   "use strict";
-  function BulletCollisionDetector(scene, story) {
+  function BulletCollisionDetector(scene, story, player) {
     this.scene = scene;
     this.story = story;
+    this.player = player;
 
     this.PLAYER_WIDTH_HALF = SceneObjects.PLAYER_WIDTH/2;
     this.ENEMY_WIDTH_HALF = SceneObjects.ENEMY_WIDTH/2;
@@ -16,10 +17,10 @@ window.BulletCollisionDetector = (function () {
   };
 
   BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet) {
-    var right = SceneObjects.player.position.x + this.PLAYER_WIDTH_HALF;
-    var left = SceneObjects.player.position.x - this.PLAYER_WIDTH_HALF;
-    var up = SceneObjects.player.position.z + this.PLAYER_WIDTH_HALF;
-    var down = SceneObjects.player.position.z - this.PLAYER_WIDTH_HALF;
+    var right = this.player.position.x + this.PLAYER_WIDTH_HALF;
+    var left = this.player.position.x - this.PLAYER_WIDTH_HALF;
+    var up = this.player.position.z + this.PLAYER_WIDTH_HALF;
+    var down = this.player.position.z - this.PLAYER_WIDTH_HALF;
 
     if (left < bullet.position.x && bullet.position.x < right) {
       if (down < bullet.position.z && bullet.position.z < up) {

@@ -17,23 +17,21 @@ window.SceneObjects = (function() {
     this.network = new Network();
     this.story = new Story(scene, this.network);
     this.updatableObjects.push(this.story);
-    this.meshLoader = new MeshLoader();
-    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects);
+    this.meshLoader = new MeshLoader(this.player);
+    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player);
     this.updatableObjects.push(this.enemySpawner);
-    this.movement = new Movement();
+    this.movement = new Movement(this.player);
     this.updatableObjects.push(this.movement);
-    this.updatableObjects.push(new BoundaryCollisionDetector(scene));
-    this.updatableObjects.push(new MovementCollisionDetector(this));
-    this.updatableObjects.push(new BulletCollisionDetector(scene, this.story));
+    this.updatableObjects.push(new BoundaryCollisionDetector(scene, this.player));
+    this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
+    this.updatableObjects.push(new BulletCollisionDetector(scene, this.story, this.player));
     new Sound().playTheme();
   }
 
   SceneObjects.allBullets = [];
-  SceneObjects.player = '';
   SceneObjects.playerModel = '';
   SceneObjects.enemies = [];
   SceneObjects.morphs = [];
-  SceneObjects.enemySpawner = '';
   SceneObjects.updatableObjects = [];
 
   SceneObjects.prototype.initCameraAndLights = function() {
@@ -41,7 +39,7 @@ window.SceneObjects = (function() {
     camera.position.y = 5000;
     camera.position.z = 8000;
     camera.lookAt(new THREE.Vector3(0,0,0));
-    SceneObjects.camera = camera;
+    this.camera = camera;
 
     var pointLight = new THREE.SpotLight(0xFFFFFF);
     pointLight.position.set(5000, 5000, 5000);
@@ -62,10 +60,10 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.makePlayer = function() {
-    var playerWidth = SceneObjects.PLAYER_WIDTH;
-    SceneObjects.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
-    SceneObjects.player.add(SceneObjects.camera);
-    this.scene.add(SceneObjects.player);
+    var playerWidth = this.player_WIDTH;
+    this.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
+    this.player.add(this.camera);
+    this.scene.add(this.player);
   };
 
   SceneObjects.prototype.makeSkyBox = function() {

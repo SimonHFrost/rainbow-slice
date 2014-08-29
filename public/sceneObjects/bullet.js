@@ -1,7 +1,8 @@
 window.Bullet = (function () {
   "use strict";
-  function Bullet(scene, enemyToFire) {
+  function Bullet(scene, enemyToFire, player) {
     this.scene = scene;
+    this.player = player;
     this.BULLET_SIZE = 50;
     this.SPEED = 20;
 
@@ -14,7 +15,7 @@ window.Bullet = (function () {
     this.threeObject.position.z = enemyToFire.position.z;
 
     var pLocal = new THREE.Vector3(0, 0, -1);
-    var pWorld = pLocal.applyMatrix4(SceneObjects.player.matrixWorld);
+    var pWorld = pLocal.applyMatrix4(this.player.matrixWorld);
     var dir = pWorld.sub(this.threeObject.position).normalize();
 
     this.direction = dir;

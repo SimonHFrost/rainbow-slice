@@ -1,11 +1,12 @@
 window.MovementCollisionDetector = (function () {
   "use strict";
-  function MovementCollisionDetector(sceneObjects) {
+  function MovementCollisionDetector(sceneObjects, player) {
     this.sceneObjects = sceneObjects;
+    this.player = player;
   }
 
   MovementCollisionDetector.prototype.update = function() {
-    var originPoint = SceneObjects.player.position.clone();
+    var originPoint = this.player.position.clone();
     var playerSize = SceneObjects.PLAYER_WIDTH / 2;
 
     var horizontalVertices = [
@@ -22,8 +23,8 @@ window.MovementCollisionDetector = (function () {
     for (var vertexIndex = 0; vertexIndex < horizontalVertices.length; vertexIndex++)
       {
         var localVertex = horizontalVertices[vertexIndex].clone();
-        var globalVertex = localVertex.applyMatrix4( SceneObjects.player.matrix );
-        var directionVector = globalVertex.sub( SceneObjects.player.position );
+        var globalVertex = localVertex.applyMatrix4(this.player.matrix);
+        var directionVector = globalVertex.sub(this.player.position);
         var normalized = directionVector.clone().normalize();
 
         var ray = new THREE.Raycaster(originPoint, normalized);

@@ -1,7 +1,8 @@
 window.Enemy = (function() {
   "use strict";
-  function Enemy(scene, size, positionX, positionZ, updatableObjects) {
+  function Enemy(scene, size, positionX, positionZ, updatableObjects, player) {
     this.scene = scene;
+    this.player = player;
     this.FIRE_RATE = 0.05;
     this.FIRE_FAILURE_RATE = 0.4;
 
@@ -42,7 +43,7 @@ window.Enemy = (function() {
       if(this.currentAction !== this.availableActions.IDLE) {
         this.fireBullet();
         this.updateMovement();
-        this.threeObject.lookAt(SceneObjects.player.position);
+        this.threeObject.lookAt(this.player.position);
       }
       this.decideIfChangingAction();
     }
@@ -52,7 +53,7 @@ window.Enemy = (function() {
     if(this.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
       this.lastFired = this.clock.getElapsedTime() + this.FIRE_RATE;
       if (Math.random() >= this.FIRE_FAILURE_RATE) {
-        var bullet = new Bullet(this.scene, this.threeObject);
+        var bullet = new Bullet(this.scene, this.threeObject, this.player);
         this.updatableObjects.push(bullet);
       }
     }
@@ -60,7 +61,7 @@ window.Enemy = (function() {
 
   Enemy.prototype.updateMovement = function() {
     var pLocal = new THREE.Vector3(0, 0, -1);
-    var pWorld = pLocal.applyMatrix4(SceneObjects.player.matrixWorld);
+    var pWorld = pLocal.applyMatrix4(this.player.matrixWorld);
     var facing = pWorld.sub(this.threeObject.position).normalize();
     facing.multiplyScalar(5);
 

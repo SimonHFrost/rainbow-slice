@@ -1,6 +1,8 @@
 window.MeshLoader = (function() {
   "use strict";
-  function MeshLoader() {
+  function MeshLoader(player) {
+    this.player = player;
+
     this.FLOOR = 0;
     this.enemyTemplate = '';
 
@@ -18,7 +20,7 @@ window.MeshLoader = (function() {
 
       // using player as a hitbox
       if (!me.DEBUG_HITBOX) {
-        SceneObjects.player.visible = false;
+        me.player.visible = false;
       }
     });
 
@@ -63,7 +65,7 @@ window.MeshLoader = (function() {
     meshAnim.scale.set(3, 3, 3);
 
     SceneObjects.playerModel = meshAnim;
-    SceneObjects.player.add(meshAnim);
+    this.player.add(meshAnim);
     SceneObjects.morphs.push(meshAnim);
   };
 
