@@ -17,10 +17,11 @@ window.SceneObjects = (function() {
     this.network = new Network();
     this.story = new Story(scene, this.network);
     this.updatableObjects.push(this.story);
-    this.meshLoader = new MeshLoader(this.player);
+    this.morphs = [];
+    this.meshLoader = new MeshLoader(this.player, this);
     this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player, this);
     this.updatableObjects.push(this.enemySpawner);
-    this.movement = new Movement(this.player);
+    this.movement = new Movement(this.player, this);
     this.updatableObjects.push(this.movement);
     this.updatableObjects.push(new BoundaryCollisionDetector(scene, this.player, this));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
@@ -29,10 +30,7 @@ window.SceneObjects = (function() {
   }
 
   SceneObjects.allBullets = [];
-  SceneObjects.playerModel = '';
   SceneObjects.enemies = [];
-  SceneObjects.morphs = [];
-  SceneObjects.updatableObjects = [];
 
   SceneObjects.prototype.initCameraAndLights = function() {
     var camera = new THREE.PerspectiveCamera(45, Main.VIEWER_WIDTH / Main.VIEWER_HEIGHT, 1, 200000);

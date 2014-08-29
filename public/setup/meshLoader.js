@@ -1,7 +1,8 @@
 window.MeshLoader = (function() {
   "use strict";
-  function MeshLoader(player) {
+  function MeshLoader(player, sceneObjects) {
     this.player = player;
+    this.sceneObjects = sceneObjects;
 
     this.FLOOR = 0;
     this.enemyTemplate = '';
@@ -64,9 +65,9 @@ window.MeshLoader = (function() {
     meshAnim.castShadow = true;
     meshAnim.scale.set(3, 3, 3);
 
-    SceneObjects.playerModel = meshAnim;
+    this.sceneObjects.playerModel = meshAnim;
     this.player.add(meshAnim);
-    SceneObjects.morphs.push(meshAnim);
+    this.sceneObjects.morphs.push(meshAnim);
   };
 
   return MeshLoader;

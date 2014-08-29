@@ -36,8 +36,8 @@ window.Main = (function () {
     this.controls.update();
 
     if (this.sceneObjects.movement.isMoving) {
-        for (var i = 0; i < SceneObjects.morphs.length; i++) {
-          var morph = SceneObjects.morphs[i];
+        for (var i = 0; i < this.sceneObjects.morphs.length; i++) {
+          var morph = this.sceneObjects.morphs[i];
           morph.updateAnimation(1000 * this.clock.getDelta());
         }
     }

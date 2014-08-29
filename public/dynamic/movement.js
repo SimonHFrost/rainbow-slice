@@ -1,6 +1,8 @@
 window.Movement = (function () {
   "use strict";
-  function Movement(player) {
+  function Movement(player, sceneObjects) {
+    this.sceneObjects = sceneObjects;
+
     this.TRANSLATION_SPEED = 40;
     this.TRANSLATION_ANGLED_SPEED = Math.sqrt(Math.pow(this.TRANSLATION_SPEED, 2) / 2);
 
@@ -75,7 +77,7 @@ window.Movement = (function () {
   };
 
   Movement.prototype.setRotation = function(amount) {
-    SceneObjects.playerModel.rotation.y = amount * this.FULL_ROTATION;
+    this.sceneObjects.playerModel.rotation.y = amount * this.FULL_ROTATION;
   };
 
   Movement.prototype.setMovementStatus = function() {
