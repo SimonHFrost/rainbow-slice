@@ -27,7 +27,7 @@ window.MeshLoader = (function() {
 
     loader.load('./resources/models/parrot.js', function(geometry) {
       me.morphColorsToFaceColors(geometry);
-      var enemyMaterial = new THREE.MeshLambertMaterial( { color: 0xffaa55, morphTargets: true, vertexColors: THREE.FaceColors } );
+      var enemyMaterial = new THREE.MeshLambertMaterial({color: 0xffaa55, morphTargets: true, vertexColors: THREE.FaceColors});
       var enemyModel = new THREE.SkinnedMesh(geometry, enemyMaterial, false);
       enemyModel.castShadow = true;
       enemyModel.scale.set(8, 8, 8);

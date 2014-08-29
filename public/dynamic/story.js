@@ -1,9 +1,9 @@
 window.Story = (function () {
   "use strict";
-  function Story(scene, network, sceneObjects) {
+  function Story(scene, network, allBullets) {
     this.scene = scene;
     this.network = network;
-    this.sceneObjects = sceneObjects;
+    this.allBullets = allBullets;
 
     this.health = 100;
     this.kills = 0;
@@ -37,12 +37,12 @@ window.Story = (function () {
     if(!this.playedWin) {
       this.playedWin = true;
       elem = document.getElementById('healthNumber');
-      elem.innerHTML = 'You won with ' + story.health + ' health left!';
+      elem.innerHTML = 'You won with ' + this.story.health + ' health left!';
       new Sound().playWin();
 
       _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 
-      _.each(this.sceneObjects.allBullets, function(bullet) {
+      _.each(this.allBullets, function(bullet) {
         me.scene.remove(bullet);
       });
     }

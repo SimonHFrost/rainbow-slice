@@ -57,7 +57,7 @@ window.Enemy = (function() {
     if(this.clock.getElapsedTime() >= this.lastFired + this.FIRE_RATE) {
       this.lastFired = this.clock.getElapsedTime() + this.FIRE_RATE;
       if (Math.random() >= this.FIRE_FAILURE_RATE) {
-        var bullet = new Bullet(this.scene, this.threeObject, this.player, this.sceneObjects);
+        var bullet = new Bullet(this.scene, this.threeObject, this.player, this.sceneObjects.allBullets);
         this.updatableObjects.push(bullet);
       }
     }

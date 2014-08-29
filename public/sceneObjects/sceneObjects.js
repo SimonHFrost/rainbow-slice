@@ -17,7 +17,7 @@ window.SceneObjects = (function() {
     this.enemies = [];
 
     this.network = new Network();
-    this.story = new Story(scene, this.network);
+    this.story = new Story(scene, this.network, this.allBullets);
     this.updatableObjects.push(this.story);
     this.morphs = [];
     this.meshLoader = new MeshLoader(this.player, this);
@@ -75,13 +75,6 @@ window.SceneObjects = (function() {
     });
 
     bullet.toggleFalling();
-  };
-
-  SceneObjects.prototype.removeBullet = function(bullet) {
-    var index = this.allBullets.indexOf(bullet);
-    if (index != -1) {
-      this.allBullets.splice(index, 1);
-    }
   };
 
   SceneObjects.prototype.removeEnemy = function(threeObject) {

@@ -1,13 +1,13 @@
 window.Bullet = (function () {
   "use strict";
-  function Bullet(scene, enemyToFire, player, sceneObjects) {
+  function Bullet(scene, enemyToFire, player, allBullets) {
     this.BULLET_SIZE = 50;
     this.SPEED = 20;
 
     this.scene = scene;
     this.enemyToFire = enemyToFire;
     this.player = player;
-    this.sceneObjects = sceneObjects;
+    this.allBullets = allBullets;
 
     var material = new THREE.MeshBasicMaterial({shading: THREE.FlatShading, color: 0xFFFFFF});
     material.color.setRGB(Math.random(), Math.random(), Math.random());
@@ -24,7 +24,7 @@ window.Bullet = (function () {
     this.direction = dir;
     this.direction.multiplyScalar(this.SPEED);
 
-    this.sceneObjects.allBullets.push(this);
+    this.allBullets.push(this);
     this.scene.add(this.threeObject);
   }
 
@@ -34,7 +34,7 @@ window.Bullet = (function () {
       this.threeObject.position.y -= 10;
 
       if(this.threeObject.position.y < -1000) {
-        this.sceneObjects.removeBullet(this);
+        this.removeBullet(this);
         this.scene.remove(this.threeObject);
       }
     }
@@ -42,6 +42,13 @@ window.Bullet = (function () {
 
   Bullet.prototype.toggleFalling = function() {
     this.falling = true;
+  };
+
+  SceneObjects.prototype.removeBullet = function(bullet) {
+    var index = this.allBullets.indexOf(bullet);
+    if (index != -1) {
+      this.allBullets.splice(index, 1);
+    }
   };
 
   return Bullet;
