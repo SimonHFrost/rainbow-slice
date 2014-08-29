@@ -18,3 +18,5 @@ initSceneObjects needs to be before SceneObjects() because it needs the island v
 if (this.sceneInitializer.sceneObjects.movement.isMoving) { in main.js
 just use one clock
 consistent way to access updatableObjects
+consistent params assigned to local variables
+shouldn't have to pass sceneObjects into any classes instantiated in sceneObjects

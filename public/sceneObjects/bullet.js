@@ -1,8 +1,9 @@
 window.Bullet = (function () {
   "use strict";
-  function Bullet(scene, enemyToFire, player) {
+  function Bullet(scene, enemyToFire, player, sceneObjects) {
     this.scene = scene;
     this.player = player;
+    this.sceneObjects = sceneObjects;
     this.BULLET_SIZE = 50;
     this.SPEED = 20;
 
@@ -31,7 +32,7 @@ window.Bullet = (function () {
       this.threeObject.position.y -= 10;
 
       if(this.threeObject.position.y < -1000) {
-        SceneObjects.removeBullet(this);
+        this.sceneObjects.removeBullet(this);
         this.scene.remove(this.threeObject);
       }
     }

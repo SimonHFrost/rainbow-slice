@@ -1,8 +1,9 @@
 window.BoundaryCollisionDetector = (function () {
   "use strict";
-  function BoundaryCollisionDetector(scene, player) {
+  function BoundaryCollisionDetector(scene, player, sceneObjects) {
     this.scene = scene;
     this.player = player;
+    this.sceneObjects = sceneObjects;
     this.FLOOR_DIMENSIONS = 3000;
     this.RAY_OFFSET = -200;
     this.RAY_ORIGIN = new THREE.Vector3(-20000, this.RAY_OFFSET, -20000);
@@ -85,7 +86,7 @@ window.BoundaryCollisionDetector = (function () {
   BoundaryCollisionDetector.prototype.modifyIfNecessary = function(objectToCheck, hitLocs, bullet) {
     if (hitLocs.length === 0) {
       if (bullet) {
-        SceneObjects.toggleFalling(objectToCheck);
+        this.sceneObjects.toggleFalling(objectToCheck);
       } else {
         this.setObjectLocation(objectToCheck, new THREE.Vector3(0, 0, 0));
       }
@@ -99,13 +100,13 @@ window.BoundaryCollisionDetector = (function () {
       var position = objectToCheck.position.clone();
       if(distToSecond < distToOrigin) {
         if (bullet) {
-          SceneObjects.toggleFalling(objectToCheck);
+          this.sceneObjects.toggleFalling(objectToCheck);
         } else {
           this.setObjectLocation(objectToCheck, hitLocs[1]);
         }
       } else if (distToFirst > distToOrigin) {
         if (bullet) {
-          SceneObjects.toggleFalling(objectToCheck);
+          this.sceneObjects.toggleFalling(objectToCheck);
         } else {
           this.setObjectLocation(objectToCheck, hitLocs[0]);
         }

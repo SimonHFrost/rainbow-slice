@@ -18,11 +18,11 @@ window.SceneObjects = (function() {
     this.story = new Story(scene, this.network);
     this.updatableObjects.push(this.story);
     this.meshLoader = new MeshLoader(this.player);
-    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player);
+    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player, this);
     this.updatableObjects.push(this.enemySpawner);
     this.movement = new Movement(this.player);
     this.updatableObjects.push(this.movement);
-    this.updatableObjects.push(new BoundaryCollisionDetector(scene, this.player));
+    this.updatableObjects.push(new BoundaryCollisionDetector(scene, this.player, this));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
     this.updatableObjects.push(new BulletCollisionDetector(scene, this.story, this.player));
     new Sound().playTheme();
@@ -72,9 +72,7 @@ window.SceneObjects = (function() {
     this.scene.add(skyBox);
   };
 
-  // Static methods follow
-
-  SceneObjects.toggleFalling = function(threeObject) {
+  SceneObjects.prototype.toggleFalling = function(threeObject) {
     var bullet = _.find(SceneObjects.allBullets, function(element) {
       return element.threeObject === threeObject;
     });
@@ -82,7 +80,7 @@ window.SceneObjects = (function() {
     bullet.toggleFalling();
   };
 
-  SceneObjects.removeBullet = function(bullet) {
+  SceneObjects.prototype.removeBullet = function(bullet) {
     var index = SceneObjects.allBullets.indexOf(bullet);
     if (index != -1) {
       SceneObjects.allBullets.splice(index, 1);
