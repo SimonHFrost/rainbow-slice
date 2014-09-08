@@ -11,7 +11,7 @@ window.Bullet = (function () {
 
     var material = new THREE.MeshBasicMaterial({shading: THREE.FlatShading, color: 0xFFFFFF});
     material.color.setRGB(Math.random(), Math.random(), Math.random());
-    this.threeObject = new THREE.Mesh(new THREE.CubeGeometry(this.BULLET_SIZE, this.BULLET_SIZE, this.BULLET_SIZE ), material);
+    this.threeObject = new THREE.Mesh(new THREE.CubeGeometry(this.BULLET_SIZE, this.BULLET_SIZE, this.BULLET_SIZE), material);
 
     this.threeObject.enemyToFire = this.enemyToFire;
     this.threeObject.position.x = this.enemyToFire.position.x;

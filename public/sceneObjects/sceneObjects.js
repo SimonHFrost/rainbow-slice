@@ -3,12 +3,13 @@ window.SceneObjects = (function() {
   SceneObjects.PLAYER_WIDTH = 400;
   SceneObjects.ENEMY_WIDTH = 400;
 
-  function SceneObjects(scene, camera) {
+  function SceneObjects(scene, camera, materials) {
     this.FLOOR = -100;
     this.ISLAND_FLOOR = this.FLOOR - 1000;
 
     this.scene = scene;
     this.camera = camera;
+    this.materials = materials;
 
     this.initLights();
     this.initSceneObjects();
@@ -22,7 +23,7 @@ window.SceneObjects = (function() {
     this.updatableObjects.push(this.story);
     this.morphs = [];
     this.meshLoader = new MeshLoader(this.player, this);
-    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player, this);
+    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player, this, this.materials);
     this.updatableObjects.push(this.enemySpawner);
     this.movement = new Movement(this.player, this);
     this.updatableObjects.push(this.movement);
@@ -46,21 +47,21 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.initSceneObjects = function() {
-    new IslandInitializer(this.scene).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
+    new IslandInitializer(this.scene, this.materials).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
     this.makePlayer();
     this.makeSkyBox();
   };
 
   SceneObjects.prototype.makePlayer = function() {
     var playerWidth = this.player_WIDTH;
-    this.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), Materials.BASIC);
+    this.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), this.materials.BASIC);
     this.player.add(this.camera);
     this.scene.add(this.player);
   };
 
   SceneObjects.prototype.makeSkyBox = function() {
     var skyGeometry = new THREE.CubeGeometry(50000, 50000, 50000);
-    var skyBox = new THREE.Mesh (skyGeometry, Materials.SKY);
+    var skyBox = new THREE.Mesh (skyGeometry, this.materials.SKY);
     this.scene.add(skyBox);
   };
 

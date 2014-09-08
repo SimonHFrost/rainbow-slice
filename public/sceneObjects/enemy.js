@@ -1,6 +1,6 @@
 window.Enemy = (function() {
   "use strict";
-  function Enemy(scene, size, positionX, positionZ, updatableObjects, player, sceneObjects) {
+  function Enemy(scene, size, positionX, positionZ, updatableObjects, player, sceneObjects, materials) {
     this.FIRE_RATE = 0.05;
     this.FIRE_FAILURE_RATE = 0.4;
     this.CHANCE_OF_ACTION = 0.01;
@@ -21,6 +21,7 @@ window.Enemy = (function() {
     this.updatableObjects = updatableObjects;
     this.player = player;
     this.sceneObjects = sceneObjects;
+    this.materials = materials;
 
     this.clock = new THREE.Clock();
 
@@ -28,7 +29,7 @@ window.Enemy = (function() {
     this.currentAction = this.AVAILABLE_ACTIONS.IDLE;
 
     var geometry = new THREE.CubeGeometry(this.size, this.size, this.size);
-    var material = Materials.ENEMY;
+    var material = this.materials.ENEMY;
 
     this.threeObject = new THREE.Mesh(geometry, material);
     this.threeObject.dead = false;

@@ -10,7 +10,7 @@ window.Main = (function () {
 
     this.scene = new THREE.Scene();
     var camera = new CameraCreator().create(this.VIEWER_WIDTH, this.VIEWER_HEIGHT);
-    this.sceneObjects = new SceneObjects(this.scene, camera);
+    this.sceneObjects = new SceneObjects(this.scene, camera, materials);
 
     this.clock = new THREE.Clock();
 

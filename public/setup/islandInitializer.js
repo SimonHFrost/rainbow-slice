@@ -1,7 +1,8 @@
 window.IslandInitializer = (function() {
   "use strict";
-  function IslandInitializer(scene) {
+  function IslandInitializer(scene, materials) {
     this.scene = scene;
+    this.materials = materials;
   }
 
   IslandInitializer.prototype.makeIsland = function(floor, islandFloor) {
@@ -11,7 +12,7 @@ window.IslandInitializer = (function() {
     geom.faces = this.createFaces(geom.vertices);
     this.setUv(geom);
 
-    var island = new THREE.Mesh(geom, Materials.GRASS);
+    var island = new THREE.Mesh(geom, this.materials.GRASS);
     // var island = new THREE.Mesh(geom, this.createWireframe());
 
     island.receiveShadow = true;
@@ -104,7 +105,7 @@ window.IslandInitializer = (function() {
   };
 
   IslandInitializer.prototype.createSea = function(islandFloor) {
-    var sea = new THREE.Mesh(new THREE.PlaneGeometry(50000, 50000), Materials.SEA);
+    var sea = new THREE.Mesh(new THREE.PlaneGeometry(50000, 50000), this.materials.SEA);
     sea.position.y = islandFloor;
     sea.rotation.x = -Math.PI / 2;
     this.scene.add(sea);
