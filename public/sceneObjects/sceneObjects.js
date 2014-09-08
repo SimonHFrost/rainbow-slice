@@ -37,7 +37,6 @@ window.SceneObjects = (function() {
     var pointLight = new THREE.SpotLight(0xFFFFFF);
     pointLight.position.set(5000, 5000, 5000);
     pointLight.castShadow = true;
-
     pointLight.shadowCameraNear = 50;
     pointLight.shadowCameraFar = 250000;
     this.scene.add(pointLight);
@@ -53,7 +52,7 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.makePlayer = function() {
-    var playerWidth = this.player_WIDTH;
+    var playerWidth = SceneObjects.PLAYER_WIDTH;
     this.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), this.materials.BASIC);
     this.player.add(this.camera);
     this.scene.add(this.player);
@@ -61,7 +60,7 @@ window.SceneObjects = (function() {
 
   SceneObjects.prototype.makeSkyBox = function() {
     var skyGeometry = new THREE.CubeGeometry(50000, 50000, 50000);
-    var skyBox = new THREE.Mesh (skyGeometry, this.materials.SKY);
+    var skyBox = new THREE.Mesh(skyGeometry, this.materials.SKY);
     this.scene.add(skyBox);
   };
 
