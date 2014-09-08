@@ -44,7 +44,7 @@ window.Bullet = (function () {
     this.falling = true;
   };
 
-  SceneObjects.prototype.removeBullet = function(bullet) {
+  Bullet.prototype.removeBullet = function(bullet) {
     var index = this.allBullets.indexOf(bullet);
     if (index != -1) {
       this.allBullets.splice(index, 1);
