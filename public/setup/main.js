@@ -1,29 +1,34 @@
 window.Main = (function () {
   "use strict";
-  Main.VIEWER_WIDTH = 1000;
-  Main.VIEWER_HEIGHT = 562.5;
   Main.DEBUG_MODE = true;
 
   function Main() {
-      // shouldn't have to instantiate this and then not use it...
-      var materials = new Materials();
-      this.scene = new THREE.Scene();
-      this.sceneObjects = new SceneObjects(this.scene);
+    this.VIEWER_WIDTH = 1000;
+    this.VIEWER_HEIGHT = 562.5;
 
-      var renderer = new THREE.WebGLRenderer();
-      this.renderer = renderer;
-      renderer.setSize(Main.VIEWER_WIDTH, Main.VIEWER_HEIGHT);
-      renderer.shadowMapEnabled = true;
-      renderer.shadowMapSoft = true;
-      renderer.domElement.id = 'renderer';
+    var materials = new Materials();
 
-      this.clock = new THREE.Clock();
+    this.scene = new THREE.Scene();
+    this.sceneObjects = new SceneObjects(this.scene, this.VIEWER_WIDTH, this.VIEWER_HEIGHT);
+    this.clock = new THREE.Clock();
 
-      var container = $('#webglDiv')[0];
-      container.insertBefore(renderer.domElement, container.firstChild);
+    this.renderer = this.createRenderer();
+    var container = $('#webglDiv')[0];
+    container.insertBefore(this.renderer.domElement, container.firstChild);
 
-      this.controls = new THREE.OrbitControls(this.sceneObjects.camera, renderer.domElement);
+    this.controls = new THREE.OrbitControls(this.sceneObjects.camera, renderer.domElement);
   }
+
+  Main.prototype.createRenderer = function() {
+    var renderer = new THREE.WebGLRenderer();
+
+    renderer.setSize(this.VIEWER_WIDTH, this.VIEWER_HEIGHT);
+    renderer.shadowMapEnabled = true;
+    renderer.shadowMapSoft = true;
+    renderer.domElement.id = 'renderer';
+
+    return renderer;
+  };
 
   Main.prototype.render = function() {
     this.renderer.clear();
@@ -36,10 +41,8 @@ window.Main = (function () {
     this.controls.update();
 
     if (this.sceneObjects.movement.isMoving) {
-        for (var i = 0; i < this.sceneObjects.morphs.length; i++) {
-          var morph = this.sceneObjects.morphs[i];
-          morph.updateAnimation(1000 * this.clock.getDelta());
-        }
+      var morph = this.sceneObjects.morphs[0];
+      morph.updateAnimation(1000 * this.clock.getDelta());
     }
   };
 
