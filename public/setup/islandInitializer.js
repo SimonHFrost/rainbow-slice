@@ -23,38 +23,38 @@ window.IslandInitializer = (function() {
 
   IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
     var islandVectors = [
-    new THREE.Vector3(-8000,floor,500),
-    new THREE.Vector3(-7000,floor,-3000),
-    new THREE.Vector3(-1500,floor,-5000),
-    new THREE.Vector3(-1000,floor,-8000),
-    new THREE.Vector3(1000,floor,-7000),
-    new THREE.Vector3(6000,floor,-1500),
-    new THREE.Vector3(5000,floor,3500),
-    new THREE.Vector3(-1000,floor,7000)
+      new THREE.Vector3(-8000,floor,500),
+      new THREE.Vector3(-7000,floor,-3000),
+      new THREE.Vector3(-1500,floor,-5000),
+      new THREE.Vector3(-1000,floor,-8000),
+      new THREE.Vector3(1000,floor,-7000),
+      new THREE.Vector3(6000,floor,-1500),
+      new THREE.Vector3(5000,floor,3500),
+      new THREE.Vector3(-1000,floor,7000),
     ];
 
     IslandInitializer.islandVectors = islandVectors;
 
     IslandInitializer.boundaries = [
-    new THREE.Line3(islandVectors[0], islandVectors[1]),
-    new THREE.Line3(islandVectors[1], islandVectors[2]),
-    new THREE.Line3(islandVectors[2], islandVectors[3]),
-    new THREE.Line3(islandVectors[3], islandVectors[4]),
-    new THREE.Line3(islandVectors[4], islandVectors[5]),
-    new THREE.Line3(islandVectors[5], islandVectors[6]),
-    new THREE.Line3(islandVectors[6], islandVectors[7]),
-    new THREE.Line3(islandVectors[7], islandVectors[0]),
+      new THREE.Line3(islandVectors[0], islandVectors[1]),
+      new THREE.Line3(islandVectors[1], islandVectors[2]),
+      new THREE.Line3(islandVectors[2], islandVectors[3]),
+      new THREE.Line3(islandVectors[3], islandVectors[4]),
+      new THREE.Line3(islandVectors[4], islandVectors[5]),
+      new THREE.Line3(islandVectors[5], islandVectors[6]),
+      new THREE.Line3(islandVectors[6], islandVectors[7]),
+      new THREE.Line3(islandVectors[7], islandVectors[0]),
     ];
 
     var bottomVectors = [
-    new THREE.Vector3(-8000,islandFloor,500),
-    new THREE.Vector3(-7000,islandFloor,-3000),
-    new THREE.Vector3(-1500,islandFloor,-5000),
-    new THREE.Vector3(-1000,islandFloor,-8000),
-    new THREE.Vector3(1000,islandFloor,-7000),
-    new THREE.Vector3(6000,islandFloor,-1500),
-    new THREE.Vector3(5000,islandFloor,3500),
-    new THREE.Vector3(-1000,islandFloor,7000)
+      new THREE.Vector3(-8000,islandFloor,500),
+      new THREE.Vector3(-7000,islandFloor,-3000),
+      new THREE.Vector3(-1500,islandFloor,-5000),
+      new THREE.Vector3(-1000,islandFloor,-8000),
+      new THREE.Vector3(1000,islandFloor,-7000),
+      new THREE.Vector3(6000,islandFloor,-1500),
+      new THREE.Vector3(5000,islandFloor,3500),
+      new THREE.Vector3(-1000,islandFloor,7000),
     ];
 
     return islandVectors.concat(bottomVectors);
