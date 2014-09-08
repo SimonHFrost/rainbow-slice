@@ -8,16 +8,16 @@ Hobby game I'm working on that can be seen [here](http://www.rainbowslice.com).
 TODO:
 -----
 
-syntax consistency - strings, function declarations
-requirejs
-lightweight testing suite
-fix bullet.used and enemy.isDead hacks
-consistent way of using my own classes with three.js classes (className.threeObject?)
-camera needs to be instantiated before player in SceneObjects.js
-initSceneObjects needs to be before SceneObjects() because it needs the island vectors
-if (this.sceneInitializer.sceneObjects.movement.isMoving) { in main.js
-just use one clock
-consistent way to access updatableObjects
-consistent params assigned to local variables
-shouldn't have to pass sceneObjects into any classes instantiated in sceneObjects
-get rid of static elements on main and materials
+* syntax consistency - strings, function declarations
+* requirejs
+* lightweight testing suite
+* fix bullet.used and enemy.isDead hacks
+* consistent way of using my own classes with three.js classes (className.threeObject?)
+* camera needs to be instantiated before player in SceneObjects.js
+* initSceneObjects needs to be before SceneObjects() because it needs the island vectors
+* if (this.sceneInitializer.sceneObjects.movement.isMoving) { in main.js
+* just use one clock
+* consistent way to access updatableObjects
+* consistent params assigned to local variables
+* shouldn't have to pass sceneObjects into any classes instantiated in sceneObjects
+* get rid of static elements on main and materials
