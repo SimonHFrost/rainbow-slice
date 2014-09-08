@@ -52,10 +52,12 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.initSceneObjects = function() {
-    new IslandInitializer(this.scene, this.materials).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
-    
-    this.makePlayer();
-    this.makeSkyBox();
+    var islandInitializer = new IslandInitializer(this.materials);
+    this.scene.add(islandInitializer.makeIsland(this.FLOOR, this.ISLAND_FLOOR));
+    this.scene.add(islandInitializer.makeSea(this.ISLAND_FLOOR));
+
+    this.scene.add(this.makePlayer());
+    this.scene.add(this.makeSkyBox());
 
     this.network = new Network();
 
@@ -67,13 +69,13 @@ window.SceneObjects = (function() {
     var playerWidth = SceneObjects.PLAYER_WIDTH;
     this.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), this.materials.BASIC);
     this.player.add(this.camera);
-    this.scene.add(this.player);
+    return this.player;
   };
 
   SceneObjects.prototype.makeSkyBox = function() {
     var skyGeometry = new THREE.CubeGeometry(50000, 50000, 50000);
     var skyBox = new THREE.Mesh(skyGeometry, this.materials.SKY);
-    this.scene.add(skyBox);
+    return skyBox;
   };
 
   SceneObjects.prototype.toggleFalling = function(threeObject) {

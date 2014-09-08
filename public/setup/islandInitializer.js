@@ -1,7 +1,6 @@
 window.IslandInitializer = (function() {
   "use strict";
-  function IslandInitializer(scene, materials) {
-    this.scene = scene;
+  function IslandInitializer(materials) {
     this.materials = materials;
   }
 
@@ -16,9 +15,7 @@ window.IslandInitializer = (function() {
     // var island = new THREE.Mesh(geom, this.createWireframe());
 
     island.receiveShadow = true;
-    this.scene.add(island);
-
-    this.createSea(islandFloor);
+    return island;
   };
 
   IslandInitializer.prototype.createVectors = function(floor, islandFloor) {
@@ -104,11 +101,11 @@ window.IslandInitializer = (function() {
     }
   };
 
-  IslandInitializer.prototype.createSea = function(islandFloor) {
+  IslandInitializer.prototype.makeSea = function(islandFloor) {
     var sea = new THREE.Mesh(new THREE.PlaneGeometry(50000, 50000), this.materials.SEA);
     sea.position.y = islandFloor;
     sea.rotation.x = -Math.PI / 2;
-    this.scene.add(sea);
+    return sea;
   };
 
   IslandInitializer.prototype.createWireframe = function() {

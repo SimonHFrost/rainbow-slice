@@ -19,3 +19,4 @@ TODO:
 	* maybe add scene objects
 	* add updatable objects
 	* have methods that expose camera/updatable objects/morphs
+* move remove enemy and toggle falling from sceneObjects
