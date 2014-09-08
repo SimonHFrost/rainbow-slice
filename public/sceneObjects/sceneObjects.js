@@ -22,14 +22,14 @@ window.SceneObjects = (function() {
     this.story = new Story(scene, this.network, this.allBullets);
     this.updatableObjects.push(this.story);
     this.morphs = [];
-    this.meshLoader = new MeshLoader(this.player, this);
-    this.enemySpawner = new EnemySpawner(scene, this.meshLoader, this.updatableObjects, this.player, this, this.materials);
+    this.meshLoader = new MeshLoader(this, this.player);
+    this.enemySpawner = new EnemySpawner(this, scene, this.meshLoader, this.updatableObjects, this.player, this.materials);
     this.updatableObjects.push(this.enemySpawner);
-    this.movement = new Movement(this.player, this);
+    this.movement = new Movement(this, this.player);
     this.updatableObjects.push(this.movement);
-    this.updatableObjects.push(new BoundaryCollisionDetector(scene, this.player, this));
+    this.updatableObjects.push(new BoundaryCollisionDetector(this, scene, this.player));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
-    this.updatableObjects.push(new BulletCollisionDetector(scene, this.story, this.player, this));
+    this.updatableObjects.push(new BulletCollisionDetector(this, scene, this.story, this.player));
     new Sound().playTheme();
   }
 

@@ -1,10 +1,10 @@
 window.BulletCollisionDetector = (function () {
   "use strict";
-  function BulletCollisionDetector(scene, story, player, sceneObjects) {
+  function BulletCollisionDetector(sceneObjects, scene, story, player) {
+    this.sceneObjects = sceneObjects;
     this.scene = scene;
     this.story = story;
     this.player = player;
-    this.sceneObjects = sceneObjects;
 
     this.PLAYER_WIDTH_HALF = SceneObjects.PLAYER_WIDTH/2;
     this.ENEMY_WIDTH_HALF = SceneObjects.ENEMY_WIDTH/2;
