@@ -1,4 +1,4 @@
-window.Main = (function () {
+window.Main = (function() {
   "use strict";
   Main.DEBUG_MODE = true;
 
@@ -36,7 +36,7 @@ window.Main = (function () {
     this.renderer.clear();
     this.renderer.render(this.scene, this.sceneObjects.camera);
 
-    for (var i = 0; i < this.sceneObjects.updatableObjects.length; i++){
+    for (var i = 0; i < this.sceneObjects.updatableObjects.length; i++) {
       this.sceneObjects.updatableObjects[i].update();
     }
 

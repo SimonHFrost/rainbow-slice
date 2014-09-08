@@ -14,23 +14,29 @@ window.SceneObjects = (function() {
     this.initLights();
     this.initSceneObjects();
 
+    this.createUpdatableObjects();
+  }
+
+  SceneObjects.prototype.createUpdatableObjects = function() {
     this.updatableObjects = [];
+    this.morphs = [];
+
     this.allBullets = [];
     this.enemies = [];
 
-    this.network = new Network();
-    this.story = new Story(scene, this.network, this.allBullets);
+    this.story = new Story(this.scene, this.network, this.allBullets, this.sound);
     this.updatableObjects.push(this.story);
-    this.morphs = [];
-    this.meshLoader = new MeshLoader(this, this.player);
-    this.enemySpawner = new EnemySpawner(this, scene, this.meshLoader, this.updatableObjects, this.player, this.materials);
+
+    this.meshLoader = new MeshLoader(this, this.player, this.morphs);
+    this.enemySpawner = new EnemySpawner(this, this.scene, this.meshLoader, this.updatableObjects, this.player, this.materials);
     this.updatableObjects.push(this.enemySpawner);
+
     this.movement = new Movement(this, this.player);
     this.updatableObjects.push(this.movement);
-    this.updatableObjects.push(new BoundaryCollisionDetector(this, scene, this.player));
+
+    this.updatableObjects.push(new BoundaryCollisionDetector(this, this.scene, this.player));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
-    this.updatableObjects.push(new BulletCollisionDetector(this, scene, this.story, this.player));
-    new Sound().playTheme();
+    this.updatableObjects.push(new BulletCollisionDetector(this, this.scene, this.story, this.player));
   }
 
   SceneObjects.prototype.initLights = function() {
@@ -47,8 +53,14 @@ window.SceneObjects = (function() {
 
   SceneObjects.prototype.initSceneObjects = function() {
     new IslandInitializer(this.scene, this.materials).makeIsland(this.FLOOR, this.ISLAND_FLOOR);
+    
     this.makePlayer();
     this.makeSkyBox();
+
+    this.network = new Network();
+
+    this.sound = new Sound();
+    this.sound.playTheme();
   };
 
   SceneObjects.prototype.makePlayer = function() {
@@ -75,7 +87,7 @@ window.SceneObjects = (function() {
   SceneObjects.prototype.removeEnemy = function(threeObject) {
     this.scene.remove(threeObject);
 
-    var enemy = _.find(this.enemies, function(element){
+    var enemy = _.find(this.enemies, function(element) {
       return element.threeObject === threeObject;
     });
     var index = this.enemies.indexOf(enemy);

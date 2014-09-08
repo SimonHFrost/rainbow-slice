@@ -1,9 +1,10 @@
 window.Story = (function () {
   "use strict";
-  function Story(scene, network, allBullets) {
+  function Story(scene, network, allBullets, sound) {
     this.scene = scene;
     this.network = network;
     this.allBullets = allBullets;
+    this.sound = sound;
 
     this.health = 100;
     this.kills = 0;
@@ -19,14 +20,14 @@ window.Story = (function () {
 
   Story.prototype.decreaseHealth = function() {
     if (this.health > 0) {
-      new Sound().playHit();
+      this.sound.playHit();
       this.health--;
       $('#healthNumber').html('Health: ' + this.health);
     }
   };
 
   Story.prototype.increaseKills = function() {
-    new Sound().playEnemyHit();
+    this.sound.playEnemyHit();
     this.kills++;
     $('#killNumber').html('Kills: ' + this.kills);
   };
@@ -38,7 +39,7 @@ window.Story = (function () {
       this.playedWin = true;
       elem = document.getElementById('healthNumber');
       elem.innerHTML = 'You won with ' + this.story.health + ' health left!';
-      new Sound().playWin();
+      this.sound.playWin();
 
       _gaq.push(['_trackEvent', 'GameEvents', 'Finished']);
 

@@ -8,9 +8,6 @@ Prototype WebGL game that is deployed [here](http://www.rainbowslice.com).
 TODO:
 -----
 
-* syntax consistency - strings, function declarations
-* requirejs (maybe)
-* lightweight testing suite
 * change bullet.used and enemy.isDead hacks
 * shouldn't have to pass sceneObjects into any classes instantiated in sceneObjects
 * reduce constructor params enemy.js
@@ -18,3 +15,7 @@ TODO:
 * reduce class sizes
 * reduce method sizes
 * all scene additions in sceneObjects apart from enemySpawner
+* stop main.js using properties of sceneObjects
+	* maybe add scene objects
+	* add updatable objects
+	* have methods that expose camera/updatable objects/morphs
