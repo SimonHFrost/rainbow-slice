@@ -111,7 +111,6 @@ window.IslandInitializer = (function() {
   };
 
   IslandInitializer.prototype.createWireframe = function() {
-    /* Useful for debugging UV */
     var wireFrameMaterial =
     new THREE.MeshBasicMaterial({
       color: 0x000000,

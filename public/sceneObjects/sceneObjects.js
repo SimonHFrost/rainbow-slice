@@ -3,13 +3,14 @@ window.SceneObjects = (function() {
   SceneObjects.PLAYER_WIDTH = 400;
   SceneObjects.ENEMY_WIDTH = 400;
 
-  function SceneObjects(scene, screenWidth, screenHeight) {
+  function SceneObjects(scene, camera) {
     this.FLOOR = -100;
     this.ISLAND_FLOOR = this.FLOOR - 1000;
 
     this.scene = scene;
+    this.camera = camera;
 
-    this.initCameraAndLights(screenWidth, screenHeight);
+    this.initLights();
     this.initSceneObjects();
 
     this.updatableObjects = [];
@@ -31,13 +32,7 @@ window.SceneObjects = (function() {
     new Sound().playTheme();
   }
 
-  SceneObjects.prototype.initCameraAndLights = function(screenWidth, screenHeight) {
-    var camera = new THREE.PerspectiveCamera(45, screenWidth / screenHeight, 1, 200000);
-    camera.position.y = 5000;
-    camera.position.z = 8000;
-    camera.lookAt(new THREE.Vector3(0,0,0));
-    this.camera = camera;
-
+  SceneObjects.prototype.initLights = function() {
     var pointLight = new THREE.SpotLight(0xFFFFFF);
     pointLight.position.set(5000, 5000, 5000);
     pointLight.castShadow = true;
