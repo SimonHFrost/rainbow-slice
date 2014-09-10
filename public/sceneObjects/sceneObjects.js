@@ -7,6 +7,9 @@ window.SceneObjects = (function() {
     this.FLOOR = -100;
     this.ISLAND_FLOOR = this.FLOOR - 1000;
 
+    this.PLAYER_WIDTH = 400;
+    this.ENEMY_WIDTH = 400;
+
     this.scene = scene;
     this.camera = camera;
     this.materials = materials;
@@ -28,7 +31,7 @@ window.SceneObjects = (function() {
     this.updatableObjects.push(this.story);
 
     this.meshLoader = new MeshLoader(this, this.player, this.morphs);
-    this.enemySpawner = new EnemySpawner(this, this.scene, this.meshLoader, this.updatableObjects, this.player, this.materials);
+    this.enemySpawner = new EnemySpawner(this, this.scene, this.meshLoader, this.updatableObjects, this.player, this.materials, this.ENEMY_WIDTH);
     this.updatableObjects.push(this.enemySpawner);
 
     this.movement = new Movement(this, this.player);
@@ -36,7 +39,7 @@ window.SceneObjects = (function() {
 
     this.updatableObjects.push(new BoundaryCollisionDetector(this, this.scene, this.player));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
-    this.updatableObjects.push(new BulletCollisionDetector(this, this.scene, this.story, this.player));
+    this.updatableObjects.push(new BulletCollisionDetector(this, this.scene, this.story, this.player, this.PLAYER_WIDTH, this.ENEMY_WIDTH));
   }
 
   SceneObjects.prototype.initLights = function() {

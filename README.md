@@ -24,3 +24,5 @@ TODO:
 * move remove enemy and toggle falling from sceneObjects
 * improve code climate score
 * multiple sounds can play at once
+* standardize a way the parent object from a threejs is found
+* use enemy width and player width from the threeObjects themselves and not from a const

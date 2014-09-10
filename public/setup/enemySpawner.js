@@ -1,6 +1,6 @@
 window.EnemySpawner = (function(){
   "use strict";
-  function EnemySpawner(sceneObjects, scene, meshLoader, updatableObjects, player, materials) {
+  function EnemySpawner(sceneObjects, scene, meshLoader, updatableObjects, player, materials, enemyWidth) {
     this.MAX_ENEMIES = 15;
     this.SPAWN_RATE = 0.1;
 
@@ -10,6 +10,7 @@ window.EnemySpawner = (function(){
     this.updatableObjects = updatableObjects;
     this.player = player;
     this.materials = materials;
+    this.enemyWidth = enemyWidth;
 
     this.lastSpawned = 0;
     this.clock = new THREE.Clock();
@@ -45,7 +46,7 @@ window.EnemySpawner = (function(){
   };
 
   EnemySpawner.prototype.instantiateEnemy = function(x, z) {
-    var someEnemy = new Enemy(this.sceneObjects, this.scene, SceneObjects.ENEMY_WIDTH, x, z, this.updatableObjects, this.player, this.materials);
+    var someEnemy = new Enemy(this.sceneObjects, this.scene, this.enemyWidth, x, z, this.updatableObjects, this.player, this.materials);
     someEnemy.gridX = x;
     someEnemy.gridZ = z;
 

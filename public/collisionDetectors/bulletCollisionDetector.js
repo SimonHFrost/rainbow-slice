@@ -1,13 +1,12 @@
 window.BulletCollisionDetector = (function () {
   "use strict";
-  function BulletCollisionDetector(sceneObjects, scene, story, player) {
+  function BulletCollisionDetector(sceneObjects, scene, story, player, playerWidth, enemyWidth) {
     this.sceneObjects = sceneObjects;
     this.scene = scene;
     this.story = story;
     this.player = player;
-
-    this.PLAYER_WIDTH_HALF = SceneObjects.PLAYER_WIDTH/2;
-    this.ENEMY_WIDTH_HALF = SceneObjects.ENEMY_WIDTH/2;
+    this.playerWidthHalf = playerWidth / 2;
+    this.enemyWidthHalf = enemyWidth / 2;
   }
 
   BulletCollisionDetector.prototype.update = function() {
@@ -18,10 +17,10 @@ window.BulletCollisionDetector = (function () {
   };
 
   BulletCollisionDetector.prototype.detectBulletPlayerCollision = function(bullet) {
-    var right = this.player.position.x + this.PLAYER_WIDTH_HALF;
-    var left = this.player.position.x - this.PLAYER_WIDTH_HALF;
-    var up = this.player.position.z + this.PLAYER_WIDTH_HALF;
-    var down = this.player.position.z - this.PLAYER_WIDTH_HALF;
+    var right = this.player.position.x + this.playerWidthHalf;
+    var left = this.player.position.x - this.playerWidthHalf;
+    var up = this.player.position.z + this.playerWidthHalf;
+    var down = this.player.position.z - this.playerWidthHalf;
 
     if (left < bullet.position.x && bullet.position.x < right) {
       if (down < bullet.position.z && bullet.position.z < up) {
@@ -45,10 +44,10 @@ window.BulletCollisionDetector = (function () {
         continue;
       }
 
-      var right = enemy.position.x + this.ENEMY_WIDTH_HALF;
-      var left = enemy.position.x - this.ENEMY_WIDTH_HALF;
-      var up = enemy.position.z + this.ENEMY_WIDTH_HALF;
-      var down = enemy.position.z - this.ENEMY_WIDTH_HALF;
+      var right = enemy.position.x + this.enemyWidthHalf;
+      var left = enemy.position.x - this.enemyWidthHalf;
+      var up = enemy.position.z + this.enemyWidthHalf;
+      var down = enemy.position.z - this.enemyWidthHalf;
 
       if (left < bullet.position.x && bullet.position.x < right) {
         if(down < bullet.position.z && bullet.position.z < up) {
