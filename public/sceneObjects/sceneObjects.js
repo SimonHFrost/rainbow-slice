@@ -1,7 +1,5 @@
 window.SceneObjects = (function() {
   "use strict";
-  SceneObjects.PLAYER_WIDTH = 400;
-  SceneObjects.ENEMY_WIDTH = 400;
 
   function SceneObjects(scene, camera, materials) {
     this.FLOOR = -100;

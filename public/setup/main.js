@@ -1,6 +1,6 @@
 window.Main = (function() {
   "use strict";
-  Main.DEBUG_MODE = false;
+  Main.DEBUG_MODE = true;
 
   function Main() {
     this.VIEWER_WIDTH = 1000;
