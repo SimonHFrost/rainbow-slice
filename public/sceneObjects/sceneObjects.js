@@ -67,8 +67,7 @@ window.SceneObjects = (function() {
   };
 
   SceneObjects.prototype.makePlayer = function() {
-    var playerWidth = SceneObjects.PLAYER_WIDTH;
-    this.player = new THREE.Mesh(new THREE.CubeGeometry(playerWidth, playerWidth, playerWidth), this.materials.BASIC);
+    this.player = new THREE.Mesh(new THREE.CubeGeometry(this.PLAYER_WIDTH, this.PLAYER_WIDTH, this.PLAYER_WIDTH), this.materials.BASIC);
     this.player.add(this.camera);
     return this.player;
   };
