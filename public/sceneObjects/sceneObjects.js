@@ -38,7 +38,7 @@ window.SceneObjects = (function() {
     this.updatableObjects.push(new BoundaryCollisionDetector(this, this.scene, this.player));
     this.updatableObjects.push(new MovementCollisionDetector(this, this.player));
     this.updatableObjects.push(new BulletCollisionDetector(this, this.scene, this.story, this.player, this.PLAYER_WIDTH, this.ENEMY_WIDTH));
-  }
+  };
 
   SceneObjects.prototype.initLights = function() {
     var pointLight = new THREE.SpotLight(0xFFFFFF);

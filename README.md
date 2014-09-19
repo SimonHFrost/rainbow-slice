@@ -34,3 +34,5 @@ TODO:
 * standardize a way the parent object from a threejs is found
 * use enemy width and player width from the threeObjects themselves and not from a const
 * tidy app.js
+* configure grunt to automatically run tests on file save
+* configure grunt with travis-ci
