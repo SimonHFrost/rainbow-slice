@@ -7,6 +7,13 @@ Prototype WebGL game that is deployed [here](http://www.rainbowslice.com).
 
 ![Image of RainbowSlice](rainbowslice.png)
 
+Testing
+=============
+
+Testing framework requires npm installation of mocha, chai, should, and the mocha-phantomjs runner
+
+Open TestRunner.html to see test execution
+
 TODO:
 -----
 
@@ -23,7 +30,7 @@ TODO:
 	* have methods that expose camera/updatable objects/morphs
 * move remove enemy and toggle falling from sceneObjects
 * improve code climate score
-* multiple sounds can play at once
+* make it so multiple sounds can play at once
 * standardize a way the parent object from a threejs is found
 * use enemy width and player width from the threeObjects themselves and not from a const
 * tidy app.js
