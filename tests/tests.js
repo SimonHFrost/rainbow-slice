@@ -1,12 +1,33 @@
-var assert = require("assert");
-require("../public/setup/islandInitializer.js");
-require("../public/resources/lib/three.js");
+describe("DOM Tests", function () {
+    // Phantom stuff
+	console.log('Loading a web page');
+	var page = require('webpage').create();
+	var url = 'http://localhost:8080';
 
-describe('island initializer', function(){
-  describe('floor and island get initalized', function(){
-    it('making an island should return something', function(){
-      assert.notEqual(null, new IslandInitializer().makeIsland(0, 0));
-      assert.notEqual(null, new IslandInitializer().makeSea(0));
+	page.open(url, function (status) {
+		it('exists...', function() {
+			expect(status).to.not.equal(null);
+	  		console.log(status);
+		});
+	});
+	phantom.exit();
+
+	/* 
+    var myEl = document.getElementById('myDiv');
+    it("is in the DOM", function () {
+        expect(myEl).to.not.equal(null);
     });
-  });
+ 
+    it("is a child of the body", function () {
+        expect(myEl.parentElement).to.equal(document.body);
+    });
+ 
+    it("has the right text", function () {
+        expect(myEl.innerHTML).to.equal("Hi there!");
+    });
+ 
+    it("has the right background", function () {
+        expect(myEl.style.background).to.equal("rgb(204, 204, 204)");
+    });
+	*/
 });
