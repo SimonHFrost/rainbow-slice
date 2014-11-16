@@ -3,14 +3,15 @@ var static = require('node-static');
 var socketIO = require('socket.io');
 
 var config = require('./config');
-
-var port = config.DEBUG_MODE ? 8080 : 32491;
-var publicFolder = config.DEBUG_MODE ? './public' : '../public';
+var port = config.PORT;
+var publicFolder = config.PUBLIC_FOLDER_LOCATION;
 
 var folder = new(static.Server)(publicFolder);
 httpServer = http.createServer(function (request, response) {
   folder.serve(request, response);
 }).listen(port);
+
+console.log('Started server on port ' + port);
 
 io = socketIO.listen(httpServer);
 io.set('transports', ['xhr-polling']);

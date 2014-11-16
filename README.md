@@ -9,8 +9,9 @@ To Run:
 -------
 
 * Run 'npm install -g'
-* Link all modules with 'npm link [module-name]'
-* Run 'node app' will expose localhost:8080
+* Link all modules with 'npm link'
+* Duplicate the config file configExample.js to config.js and edit any settings
+* Run 'node app'
 
 To Deploy:
 ----------
