@@ -1,38 +1,17 @@
 Rainbow_Slice
 =============
 
-Prototype WebGL game that is deployed [here](http://www.rainbowslice.com).
-
 [![Code Climate](https://codeclimate.com/github/SimonHFrost/Rainbow_Slice.png)](https://codeclimate.com/github/SimonHFrost/Rainbow_Slice)
 
 ![Image of RainbowSlice](rainbowslice.png)
 
-Testing
-=============
+To Run:
+-------
 
-Testing framework requires npm installation of mocha, chai, should, and the mocha-phantomjs runner
+Run 'node app' in root directory.
 
-Open TestRunner.html to see test execution
+To Deploy:
+----------
 
-TODO:
------
-
-* change bullet.used and enemy.isDead hacks
-* shouldn't have to pass sceneObjects into any classes instantiated in sceneObjects
-* reduce constructor params enemy.js
-* reduce constructor params enemySpawner.js
-* reduce class sizes
-* reduce method sizes
-* all scene additions in sceneObjects apart from enemySpawner
-* stop main.js using properties of sceneObjects
-	* maybe add scene objects
-	* add updatable objects
-	* have methods that expose camera/updatable objects/morphs
-* move remove enemy and toggle falling from sceneObjects
-* improve code climate score
-* make it so multiple sounds can play at once
-* standardize a way the parent object from a threejs is found
-* use enemy width and player width from the threeObjects themselves and not from a const
-* tidy app.js
-* configure grunt to automatically run tests on file save
-* configure grunt with travis-ci
+SSH to directory on deployment and 'git pull'
+If there are any server changes, run 'bash stop' and 'bash start' scripts to reset the server
