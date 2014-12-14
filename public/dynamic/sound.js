@@ -10,14 +10,14 @@ window.Sound = (function () {
 
     this.dynamicSoundsAudio = document.createElement('audio');
     this.dynamicSoundsAudio.appendChild(this.dynamicSoundsSource);
-  }
+  };
 
   Sound.prototype.initializeThemeSource = function() {
     this.themeSource = document.createElement('source');
 
     this.themeAudio = document.createElement('audio');
     this.themeAudio.appendChild(this.themeSource);
-  }
+  };
 
   Sound.prototype.playHit = function() {
     this.playDynamicSound('resources/sound/playerHit.wav');
@@ -38,7 +38,9 @@ window.Sound = (function () {
     this.dynamicSoundsSource.src = location;
     this.dynamicSoundsAudio.pause();
     this.dynamicSoundsAudio.load();
-    this.dynamicSoundsAudio.play();
+    if (!Main.DEBUG_MODE) {
+      this.dynamicSoundsAudio.play();
+    }
   };
 
   Sound.prototype.playTheme = function() {
