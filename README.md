@@ -3,7 +3,7 @@ Rainbow_Slice
 
 [![Code Climate](https://codeclimate.com/github/SimonHFrost/Rainbow_Slice.png)](https://codeclimate.com/github/SimonHFrost/Rainbow_Slice)
 
-![Image of RainbowSlice](preview.gif)
+![Image of RainbowSlice](rainbowslice.png)
 
 To Run:
 -------
